@@ -1,2 +1,2 @@
 # FYPTest
-Test projec for FYP System
+Test project for FYP System
