@@ -1,3 +1,7 @@
+FYPTest/build
+FYPTest/dist
+FYPTest/nbproject/private
+
 *.class
 
 # Mobile Tools for Java (J2ME)
