@@ -8,7 +8,6 @@ FYPTest/nbproject/private
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.ear
 
