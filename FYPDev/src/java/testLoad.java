@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns = {"/TestLoad"})
+@WebServlet(urlPatterns = {"/testLoad"})
 public class testLoad extends HttpServlet{
  
   private static final int BYTES_DOWNLOAD = 1024;
