@@ -7,10 +7,12 @@
 
 <%
    File file ;
+   
    int maxFileSize = 5000 * 1024;
    int maxMemSize = 5000 * 1024;
    ServletContext context = pageContext.getServletContext();
-   String filePath = "D:/Test Dump/";
+   
+   String filePath = "C:/Test Dump/";
 
    // Verify the content type
    String contentType = request.getContentType();
@@ -44,21 +46,47 @@
             if ( !fi.isFormField () )	
             {
             // Get the uploaded file parameters
-            String fieldName = fi.getFieldName();
-            String fileName = fi.getName();
-            boolean isInMemory = fi.isInMemory();
-            long sizeInBytes = fi.getSize();
-            // Write the file
-            if( fileName.lastIndexOf("\\") >= 0 ){
-            file = new File( filePath + 
-            fileName.substring( fileName.lastIndexOf("\\"))) ;
-            }else{
-            file = new File( filePath + 
-            fileName.substring(fileName.lastIndexOf("\\")+1)) ;
+
+                String fileName;
+                int version = 1;
+                String curFilePath;
+                do{
+                    fileName = fi.getName();
+         
+                // Write the file
+                if( fileName.lastIndexOf("\\") >= 0 ){
+                    curFilePath= filePath + 
+                    fileName.substring( fileName.lastIndexOf("\\")) ;
+                }else{
+                    curFilePath= filePath + 
+                    fileName.substring(fileName.lastIndexOf("\\")+1) ;
+                }
+                
+                if (version>1){
+                    curFilePath = curFilePath.substring(0, curFilePath.lastIndexOf(".")) 
+                            + " v" + version 
+                            + curFilePath.substring(curFilePath.lastIndexOf("."));
+                }
+                file = new File(curFilePath);
+                version++;
+                }while (file.exists());
+                
+                fi.write( file ) ;
+                out.println("Uploaded Filename: " + curFilePath + "<br>");
             }
-            fi.write( file ) ;
-            out.println("Uploaded Filename: " + filePath + 
-            fileName + "<br>");
+            else {
+            String fieldName = fi.getFieldName();
+            if (fieldName.equals("folder")){
+                String folderPathName = fi.getString();
+
+                filePath+=folderPathName+"/";
+
+                File folder = new File(filePath);
+                if (!folder.exists()){
+                    folder.mkdirs();
+                }
+            }
+            
             }
          }
          out.println("</body>");
