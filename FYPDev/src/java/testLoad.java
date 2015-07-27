@@ -23,7 +23,7 @@ public class testLoad extends HttpServlet{
   public void doGet(HttpServletRequest request,HttpServletResponse response) throws IOException{
 	response.setContentType("text/plain");
 	response.setHeader("Content-Disposition",
-                     "attachment;");
+                     "attachment;filename=downloadname.txt");
 	ServletContext ctx = getServletContext();
 	InputStream is = ctx.getResourceAsStream("/Test Dump/Alvin/FYPSys.txt");
  
@@ -35,5 +35,9 @@ public class testLoad extends HttpServlet{
           }
           os.flush();
       }	
+        catch(Exception ex){
+         PrintWriter out = response.getWriter();
+         out.println(ex);
+        }
    }
 }
