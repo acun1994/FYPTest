@@ -27,20 +27,49 @@
                     <th>No.</th>
                     <th>Filetype</th>
                     <th>Filename</th>
+                    
+                    <%--
+                    This field will be available after a file has been uploaded
+                    <th>Uploaded at</th>
+                    --%>
+                    
                     <th>Status</th>
                     <th>View</th>
                 </tr>
                 <tr>
-                    <%-- File list is taken from database --%>
+                    <%-- 
+                    File list is taken from database 
+                    If file list is empty, 
+                    print a message stating that no file has been uploaded
+                    --%>
+                    
                     <td>1.</td>
                     <td>L1(example)</td>
+                    
+                    <%-- 
+                    Filename field should be defaulted to upload if pensyarah is viewing
+                    If a file has been uploaded,
+                        Pensyarah view should include an edit button next to the filename
+                        Penyelaras & Pentadbir should be only allowed to view the filename
+                    --%>
                     <td>ExampleFilename.pdf</td>
+                    
+                    <%--
+                    Example of timestamp
+                    <td>27-07-2015<td>
+                    --%>
+                    
                     <%-- 
                     Default value of the approval status should InReview. 
                     Penyelaras & Pentadbir both can change the approval status.
-                    Changes are to be done in the online view.
+                    Changes to approval status are to be done in the online view.
+                    Approval status should be clickable to go to file review window
                     --%>
                     <td>(InReview/Approved/Denied)</td>
+                    
+                    <%--
+                    The magnifying glass icon should be clickable to go to online view of the file
+                    --%>
                     <td>Magnifiying glass icon</td>
                 </tr>
             </table>
