@@ -5,6 +5,13 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*" %> 
+<%@ page import="java.util.*" %>
+<%@ page import="java.io.*" %> 
+<%@ page import="javax.sql.*" %> 
+
+
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -19,9 +26,21 @@
         <script src="resources/js/validator/gen_validatorv4.js"></script>
         
     </head>
-    <body>
+        <%Connection connection = null; %>
+        <%@ include file="dbCon.jsp"%>
         <h1>Overall Course View</h1>
-        
+        <% ResultSet rs = null; 
+
+           String query = "select * from subject_list";
+           try {
+               Statement statement = connection.createStatement();
+               rs = statement.executeQuery(query);
+           }catch(Exception e){
+               e.printStackTrace();
+           }
+           int i = 0;
+        %>
+
         <div align="center"> 
             <%-- Select for Year selection --%>
             <select><%-- options are from database --%>
@@ -61,13 +80,15 @@
                     <th class="text-center">Status</th>
                     <th class="text-center">View</th>
                 </tr>
-                <tr>
-                    <td>1.</td>
-                    <td>Example Subject Name</td>
-                    <td>ExID</td>
+                    <% while(rs.next()) { %>
+                    <tr>
+                    <td><%= ++i %></td>
+                    <td><%= rs.getString("subjectName") %></td>
+                    <td><%= rs.getString("subjectID") %></td>
                     <td>(Approved/Unapproved)</td>
                     <td>Magnifying glass icon</td>
                 </tr>
+                <% } %>
             </table>
         </div>    
             
@@ -75,5 +96,5 @@
             <%-- total subject count from database --%>
             Total Subject: 
         </div>
-    </body>
+    
 </html>
