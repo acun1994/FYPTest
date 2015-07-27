@@ -10,8 +10,6 @@
 <%@ page import="java.io.*" %> 
 <%@ page import="javax.sql.*" %> 
 
-
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -28,7 +26,7 @@
     </head>
         <%Connection connection = null; %>
         <%@ include file="dbCon.jsp"%>
-        <h1>Overall Course View</h1>
+        <h1 class="text-center">Overall Course View</h1>
         <% ResultSet rs = null; 
 
            String query = "select * from subject_list";
@@ -55,7 +53,7 @@
                 <option value="#">Course</option>
                 <option>1 SCSJ</option>
                 <option>2 SCSJ</option>
-                <option>3 SCJS</option>
+                <option>3 SCSJ</option>
             </select>
         
             <%-- Dropdown for Semester selection --%>
@@ -66,13 +64,13 @@
                 <option>3</option>
             </select>
         </div>
-        
+        <br/><br/>
         <div> <%-- List of all subject for particular course at that semester & year --%>
             <%-- 
             The list will be generated from the database. 
             Based the format below.    
             --%>
-            <table class="the-table table-striped" align="center">
+            <table class="table-bordered table-responsive" align="center">
                 <tr>
                     <th class="text-center">No.</th>
                     <th class="text-center">Subject</th>
@@ -82,11 +80,11 @@
                 </tr>
                     <% while(rs.next()) { %>
                     <tr>
-                    <td><%= ++i %></td>
-                    <td><%= rs.getString("subjectName") %></td>
-                    <td><%= rs.getString("subjectID") %></td>
-                    <td>(Approved/Unapproved)</td>
-                    <td>Magnifying glass icon</td>
+                    <td class="text-center" style="padding:10px"><%= ++i %></td>
+                    <td class="text-center" style="padding:10px"><%= rs.getString("subjectName") %></td>
+                    <td class="text-center" style="padding:10px"><%= rs.getString("subjectID") %></td>
+                    <td class="text-center" style="padding:10px">(Approved/Unapproved)</td>
+                    <td class="text-center" style="padding:10px">Magnifying glass icon</td>
                 </tr>
                 <% } %>
             </table>
