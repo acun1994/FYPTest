@@ -10,6 +10,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Form02 : Lecturer Selection</title>
+        <link rel="stylesheet" href="../resources/css/bootstrap.min.css">
+        <script src="../resources/jquery.min.js"></script>
+        <script src="../resources/js/bootstrap.min.js"></script>
     </head>
     <style>
             td {

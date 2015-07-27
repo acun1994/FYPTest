@@ -9,9 +9,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="..css/bootstrap.min.css">
-        <script src="..jquery.min.js"></script>
-        <script src="../js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="../resources/css/bootstrap.min.css">
+        <script src="../resources/jquery.min.js"></script>
+        <script src="../resources/js/bootstrap.min.js"></script>
         <style>
             td {
                 border: 1px solid black;
