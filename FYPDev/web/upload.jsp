@@ -12,7 +12,7 @@
    int maxMemSize = 5000 * 1024;
    ServletContext context = pageContext.getServletContext();
    
-   String filePath = "C:/Test Dump/";
+   String filePath = context.getContextPath()+ "/Test Dump/";
 
    // Verify the content type
    String contentType = request.getContentType();
