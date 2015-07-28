@@ -8,10 +8,10 @@
 <%@ page import="java.io.*" %> 
 
 
+
 <% 
 try {
     String connectionURL = "jdbc:mysql://localhost/cfms_db";
-
     Class.forName("com.mysql.jdbc.Driver").newInstance(); 
     connection = DriverManager.getConnection(connectionURL, "root", "");
 

@@ -17,7 +17,7 @@
                 border: 1px solid black;
             }</style>   
         <title>Page 01 : Insert Subject</title>
-    </head>
+    </head>   
     <body>
         <div class="container">
             <form role="form" class="form-horizontal" name="form" method="post">
@@ -27,8 +27,8 @@
                     <div>
                         <label class="col-sm-2">Semester</label>
                         <ul>
-                            <li><input type="radio" name="semester">1</li>
-                            <li><input type="radio" name="semester">2</li>
+                            <li><input type="radio" name="semester" value="1">1</li>
+                            <li><input type="radio" name="semester" value="2">2</li>
                         </ul>
                     </div>
                     <table>
@@ -37,7 +37,7 @@
                             <th>
                                 <div class="form-horizontal" >
                                     <input type="text" name="course" placeholder="Eg:SCSJ">
-                                    <input type="text" name="courstyear" placeholder="Eg:20142015">
+                                    <input type="text" name="courseyear" placeholder="Eg:20142015">
                                 </div>
                             </th>
                         </tr>
@@ -52,10 +52,10 @@
                             <td>
                                 <select>
                                     <option>Section</option>
-                                    <option>01</option>
-                                    <option>02</option>
-                                    <option>03</option>
-                                    <option>04</option>
+                                    <option value="1">01</option>
+                                    <option value="2">02</option>
+                                    <option value="3">03</option>
+                                    <option value="4">04</option>
                                 </select>
                             </td>
                         </tr>
@@ -64,5 +64,17 @@
                 <button type="submit" class="btn btn-submit">Submit</button>
             </form>
         </div>
+        <%Connection connection = null; %>
+        <%@ include file="dbCon.jsp"%>   
+        <% ResultSet rs = null; 
+
+           String query = "select * from subject_list";
+           try {
+               Statement statement = connection.createStatement();
+               rs = statement.executeQuery(query);
+           }catch(Exception e){
+               e.printStackTrace();
+           }
+        %>
     </body>
 </html>

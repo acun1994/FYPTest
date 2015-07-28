@@ -5,11 +5,6 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ page import="java.sql.*" %> 
-<%@ page import="java.util.*" %>
-<%@ page import="java.io.*" %> 
-<%@ page import="javax.sql.*" %> 
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -84,7 +79,7 @@
                     <td class="text-center" style="padding:10px"><%= rs.getString("subjectName") %></td>
                     <td class="text-center" style="padding:10px"><%= rs.getString("subjectID") %></td>
                     <td class="text-center" style="padding:10px">(Approved/Unapproved)</td>
-                    <td class="text-center" style="padding:10px">Magnifying glass icon</td>
+                    <td class="text-center" style="padding:10px"><span class="glyphicon glyphicon-search"></span></i></td>
                 </tr>
                 <% } %>
             </table>
@@ -92,7 +87,7 @@
             
         <div align="left">
             <%-- total subject count from database --%>
-            Total Subject: 
+            Total Subject: <%= i %>
         </div>
     
 </html>
