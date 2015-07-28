@@ -10,9 +10,13 @@
    
    int maxFileSize = 5000 * 1024;
    int maxMemSize = 5000 * 1024;
-   ServletContext context = pageContext.getServletContext();
    
-   String filePath = context.getContextPath()+ "/Test Dump/";
+   String filePath = request.getSession().getServletContext().getRealPath(request.getServletPath());
+   
+    int position=filePath.lastIndexOf("build");
+    filePath = filePath.substring(0, position);
+
+    String dir = filePath + "downloadFiles\\";
 
    // Verify the content type
    String contentType = request.getContentType();
@@ -55,10 +59,10 @@
          
                 // Write the file
                 if( fileName.lastIndexOf("\\") >= 0 ){
-                    curFilePath= filePath + 
+                    curFilePath= dir + 
                     fileName.substring( fileName.lastIndexOf("\\")) ;
                 }else{
-                    curFilePath= filePath + 
+                    curFilePath= dir + 
                     fileName.substring(fileName.lastIndexOf("\\")+1) ;
                 }
                 
@@ -77,15 +81,17 @@
             else {
             String fieldName = fi.getFieldName();
             if (fieldName.equals("folder")){
+                
                 String folderPathName = fi.getString();
-
-                filePath+=folderPathName+"/";
-
-                File folder = new File(filePath);
+                dir+=folderPathName+"\\";
+                
+                
+                File folder = new File(dir);
                 if (!folder.exists()){
                     folder.mkdirs();
                 }
             }
+            
             
             }
          }
