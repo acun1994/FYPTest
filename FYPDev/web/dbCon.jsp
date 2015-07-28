@@ -10,6 +10,7 @@
 
 
 <% 
+
 try {
     String connectionURL = "jdbc:mysql://localhost/cfms_db";
     Class.forName("com.mysql.jdbc.Driver").newInstance(); 

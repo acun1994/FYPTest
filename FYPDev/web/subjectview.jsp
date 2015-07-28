@@ -19,7 +19,7 @@
         <script src="resources/js/validator/gen_validatorv4.js"></script>
         
     </head>
-        <%Connection connection = null; %>
+        <%Connection connection = null;%>
         <%@ include file="dbCon.jsp"%>
         <h1 class="text-center">Overall Course View</h1>
         <% ResultSet rs = null; 
