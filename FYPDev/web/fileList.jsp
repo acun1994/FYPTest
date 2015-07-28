@@ -16,7 +16,7 @@
     </head>
     <body>
         <form action="#" method="post">
-            <label>User: </label><input type="text" name="userName">
+            <label>User: </label><input type="text" name="userName" >
             <input class="btn btn-default" type="submit">
         </form>
         
@@ -27,7 +27,7 @@
             
             filePath=filePath.substring(0,filePos);
             
-            %><%=filePath%><%
+        %> Current folder : <%=request.getParameter("userName")%><%
             
             String folder = "\\downloadFiles\\"+request.getParameter("userName");
    
