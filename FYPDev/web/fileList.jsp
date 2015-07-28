@@ -23,13 +23,13 @@
         <% if ((request.getParameter("userName")!=null) && (!request.getParameter("userName").equals(""))){ 
             String filePath = request.getSession().getServletContext().getRealPath(request.getServletPath());
             
-            int filePos = filePath.lastIndexOf("build");
+            int filePos = filePath.lastIndexOf("\\");
             
             filePath=filePath.substring(0,filePos);
             
         %> Current folder : <%=request.getParameter("userName")%><%
             
-            String folder = "\\downloadFiles\\"+request.getParameter("userName");
+            String folder = "/downloadFiles/"+request.getParameter("userName");
    
             File dir = new File(filePath+folder);
             
@@ -53,7 +53,7 @@
                     <td><%= fileCount %></td>
                     <td><%= curFile.getName() %> </td>
                     <td><form action="./testLoad" method="post">
-                        <input  hidden name="filePath" value="<%= "/"+folder+"/"+curFile.getName()%>">
+                        <input name="filePath" value="<%=folder+"/"+curFile.getName()%>">
                         <input class="btn btn-default" type="submit" value="Download">
                     </form></td>
                 </tr>

@@ -19,6 +19,10 @@ public class testLoad extends HttpServlet{
  
   private static final int BYTES_DOWNLOAD = 1024;
   
+  public void doGet(HttpServletRequest request,HttpServletResponse response) throws IOException{
+      response.getWriter().print(getServletContext().getContextPath());
+  }
+  
   @Override
   public void doPost(HttpServletRequest request,HttpServletResponse response) throws IOException{
         int filenamePos = request.getParameter("filePath").lastIndexOf("/");
@@ -29,7 +33,7 @@ public class testLoad extends HttpServlet{
                      "attachment;filename="+filename+";");
 	ServletContext ctx = getServletContext();
         
-	InputStream is = ctx.getResourceAsStream("/"+request.getParameter("filePath"));
+	InputStream is = ctx.getResourceAsStream(request.getParameter("filePath"));
  
 	int read;
 	byte[] bytes = new byte[BYTES_DOWNLOAD];
