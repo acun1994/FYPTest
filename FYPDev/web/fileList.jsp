@@ -53,7 +53,7 @@
                     <td><%= fileCount %></td>
                     <td><%= curFile.getName() %> </td>
                     <td><form action="./testLoad" method="post">
-                        <input name="filePath" value="<%=folder+"/"+curFile.getName()%>">
+                        <input hidden name="filePath" value="<%=folder+"/"+curFile.getName()%>">
                         <input class="btn btn-default" type="submit" value="Download">
                     </form></td>
                 </tr>
