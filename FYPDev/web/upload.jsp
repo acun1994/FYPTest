@@ -12,11 +12,11 @@
    int maxMemSize = 5000 * 1024;
    
    String filePath = request.getSession().getServletContext().getRealPath(request.getServletPath());
-   
+
     int position=filePath.lastIndexOf("build");
     filePath = filePath.substring(0, position);
 
-    String dir = filePath + "downloadFiles\\";
+    String dir = filePath;
 
    // Verify the content type
    String contentType = request.getContentType();
@@ -81,17 +81,15 @@
             else {
             String fieldName = fi.getFieldName();
             if (fieldName.equals("folder")){
-                
                 String folderPathName = fi.getString();
-                dir+=folderPathName+"\\";
-                
-                
+
+                dir+="downloadFiles\\"+folderPathName+"\\";
+
                 File folder = new File(dir);
                 if (!folder.exists()){
                     folder.mkdirs();
                 }
             }
-            
             
             }
          }
