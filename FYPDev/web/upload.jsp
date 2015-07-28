@@ -13,9 +13,8 @@
    
    String filePath = request.getSession().getServletContext().getRealPath(request.getServletPath());
 
-    int position=filePath.lastIndexOf("build");
-    filePath = filePath.substring(0, position);
-
+   filePath=filePath.substring(0, filePath.lastIndexOf("\\")+1);
+   
     String dir = filePath;
 
    // Verify the content type
