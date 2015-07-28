@@ -9,36 +9,34 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         <title>Form02 : Lecturer Selection</title>
-        <link rel="stylesheet" href="../resources/css/bootstrap.min.css">
-        <script src="../resources/jquery.min.js"></script>
-        <script src="../resources/js/bootstrap.min.js"></script>
     </head>
-    <style>
-            td {
-                border: 1px solid black;
-            }</style>   
-        
     <body>
+        <%@include file="home02.html" %>
         <div class="container" align="center">
-            <form role="form" class="form-group" type="post" name="Lecturer_Selection">
-                <input name="Subject_ID" type="text" class="col-sm-5 form-horizontal" placeholder="Subject ID">
-                <input name="Subject_Name" type="text" class="col-sm-10 form-horizontal" placeholder="Subject Name">
-                <table>
+            <form role="form" class="form-group" type="post" method="get" name="Lecturer_Selection" autocomplete="on">
+                <input name="Subject_ID" type="text" class="form-horizontal" placeholder="Subject ID">
+                <input name="Subject_Name" type="text" class="form-horizontal" placeholder="Subject Name">
+                <table class="table table-borderline">
                     <tr>
-                        <td>Penyelaras : </td>
-                        <td><div class="container" align="left"><input name="Penyelaras_Name" type="text" class="col-sm-10 form-horizontal" placeholder="Enter Lect. Name Here"></div></td>
+                        <td><label>Penyelaras : </label></td>
+                        <td><input name="Penyelaras_Name" type="text" class="col-sm-10 form-horizontal" placeholder="Enter Lect. Name Here"></div></td>
                     </tr>
                     <tr>
-                        <td>Lecturer : </td>
-                        <td><table>
+                        <td><label>Lecturer: </label></td>
+                        <td><table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th><div align="center">Name</div></th>
+                                        <th><div align="center">ID</div></th>
+                                    </tr>
+                                </thead>
                                 <tr>
-                                    <td><div align="center" class="col-sm-10">Name</div></td>
-                                    <td><div align="center" class="col-sm-10">ID</div></td>
-                                </tr>
-                                <tr>
-                                    <td><div align="center" class="col-sm-10"></div></td>
-                                    <td><div align="center" class="col-sm-10"></div></td>
+                                    <td><div align="center" class="col-sm-10"><input type="text" class="col-sm-10" name="lecturer_name"></div></td>
+                                    <td><div align="center" class="col-sm-10"><input type="text" class="col-sm-10" name="lecturer_id"></div></td>
                                 </tr>
                             </table>
                         </td>

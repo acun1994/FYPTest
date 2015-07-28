@@ -15,29 +15,7 @@
         <title>Form03 : Review</title>
     </head>
     <body>
-        <div>
-            <nav class="navbar navbar-inverse">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>                        
-                    </button>
-                    <a class="navbar-brand" href="home02.html">WebSiteName</a>
-                </div>
-            <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="home02.html">Home</a></li>
-                    <li><a href="Form01.jsp">Course Creation</a></li>
-                    <li><a href="Form02.jsp">Lecturer Selection</a></li>
-                    <li><a href="Form03.jsp">Review</a></li>
-                    <li><a href="Form04.jsp">Course File Uploads</a></li>
-                </ul>
-            </div>
-            </div>
-        </nav>
-        </div>
+        <%@include file="home02.html" %>
         <div class="container">
             <div class="container" align="center">
                 <select>
