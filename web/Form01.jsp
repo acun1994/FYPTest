@@ -9,16 +9,40 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="..css/bootstrap.min.css">
-        <script src="..jquery.min.js"></script>
-        <script src="../js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         <style>
             td {
                 border: 1px solid black;
-            }</style>   
-        <title>Page 01 : Insert Subject</title>
+            }
+            </style>   
+        <title>Form 01 : Year Course Creation</title>
     </head>
     <body>
+        <div>
+            <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>                        
+                    </button>
+                    <a class="navbar-brand" href="home02.html">WebSiteName</a>
+                </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="home02.html">Home</a></li>
+                    <li><a href="Form01.jsp">Course Creation</a></li>
+                    <li><a href="Form02.jsp">Lecturer Selection</a></li>
+                    <li><a href="Form03.jsp">Review</a></li>
+                    <li><a href="Form04.jsp">Course File Uploads</a></li>
+                </ul>
+            </div>
+            </div>
+        </nav>
+        </div>
         <div class="container">
             <form role="form" class="form-horizontal" name="form" method="post">
                 <div class="form-group">
@@ -26,12 +50,10 @@
                     <input type="integer" name="CourseYear" placeholder="Enter year">
                     <div>
                         <label class="col-sm-2">Semester</label>
-                        <ul>
-                            <li><input type="radio" name="semester">1</li>
-                            <li><input type="radio" name="semester">2</li>
-                        </ul>
+                        <input type="radio" name="semester"> 01   
+                        <input type="radio" name="semester"> 02
                     </div>
-                    <table>
+                    <table class="table table-bordered">
                         <tr>
                             <th><label>Course & Year: </label></th>
                             <th>
@@ -61,7 +83,7 @@
                         </tr>
                     </table>
                 </div>
-                <button type="submit" class="btn btn-submit">Submit</button>
+                <button type="submit" class="btn btn-submit" align="center">Submit</button>
             </form>
         </div>
     </body>
