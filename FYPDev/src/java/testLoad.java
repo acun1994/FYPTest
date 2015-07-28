@@ -19,13 +19,21 @@ public class testLoad extends HttpServlet{
  
   private static final int BYTES_DOWNLOAD = 1024;
   
-    @Override
   public void doGet(HttpServletRequest request,HttpServletResponse response) throws IOException{
+      response.getWriter().print(getServletContext().getContextPath());
+  }
+  
+  @Override
+  public void doPost(HttpServletRequest request,HttpServletResponse response) throws IOException{
+        int filenamePos = request.getParameter("filePath").lastIndexOf("/");
+        String filename = request.getParameter("filePath").substring(filenamePos+1);
+        
 	response.setContentType("text/plain");
 	response.setHeader("Content-Disposition",
-                     "attachment;filename=downloadname.txt");
+                     "attachment;filename="+filename+";");
 	ServletContext ctx = getServletContext();
-	InputStream is = ctx.getResourceAsStream("/Test Dump/Alvin/FYPSys.txt");
+        
+	InputStream is = ctx.getResourceAsStream(request.getParameter("filePath"));
  
 	int read;
 	byte[] bytes = new byte[BYTES_DOWNLOAD];
@@ -34,6 +42,7 @@ public class testLoad extends HttpServlet{
               os.write(bytes, 0, read);
           }
           os.flush();
+          os.close();
       }	
         catch(Exception ex){
          PrintWriter out = response.getWriter();

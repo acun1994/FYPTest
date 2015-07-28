@@ -9,16 +9,21 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="../resources/css/bootstrap.min.css">
-        <script src="../resources/jquery.min.js"></script>
-        <script src="../resources/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         <style>
             td {
                 border: 1px solid black;
+            }
+            </style>   
+        <title>Form 01 : Year Course Creation</title>
+    </head>
             }</style>   
         <title>Page 01 : Insert Subject</title>
     </head>   
     <body>
+        <%@include file="home02.html" %>
         <div class="container">
             <form role="form" class="form-horizontal" name="form" method="post">
                 <div class="form-group">
@@ -31,7 +36,7 @@
                             <li><input type="radio" name="semester" value="2">2</li>
                         </ul>
                     </div>
-                    <table>
+                    <table class="table table-bordered">
                         <tr>
                             <th><label>Course & Year: </label></th>
                             <th>
@@ -61,7 +66,7 @@
                         </tr>
                     </table>
                 </div>
-                <button type="submit" class="btn btn-submit">Submit</button>
+                <button type="submit" class="btn btn-submit" align="center">Submit</button>
             </form>
         </div>
         <%Connection connection = null; %>
