@@ -16,19 +16,40 @@
             td {
                 border: 1px solid black;
             }
-            </style>   
+        </style> 
+        <SCRIPT language="javascript">
+            var i = 0;
+
+            function addKid()
+            {
+                    i++;	
+                    var div = document.createElement('div');
+                    div.setAttribute('class', 'myclass');
+                                       //Details for subject information
+                                       //Input from admin to be inserted into the database
+                    div.innerHTML = '<input type="text" name="subjectname" placeholder="Enter subject name">\n\
+                                     <input type="text" name="subjectID" placeholder="Enter subject ID">\n\
+                                     <input type="text" name="section" placeholder="Enter number of section">\n\
+                                     <input type="button" value="-" onclick="removeKid(this)">\n\
+                                     <br>';
+                    document.getElementById('kids').appendChild(div);
+             }
+            function removeKid(div)
+            {	
+             document.getElementById('kids').removeChild( div.parentNode );
+            i--;
+            }
+        </SCRIPT>
         <title>Form 01 : Year Course Creation</title>
     </head>
-            }</style>   
-        <title>Page 01 : Insert Subject</title>
-    </head>   
     <body>
         <%@include file="home02.html" %>
         <div class="container">
-            <form role="form" class="form-horizontal" name="form" method="post">
+            <form role="form" class="form-horizontal" name="form" method="post"
+                  action="CourseCreationDB.jsp">
                 <div class="form-group">
                     <label class="col-sm-2">Year : </label>
-                    <input type="integer" name="CourseYear" placeholder="Enter year">
+                    <input type="text" name="CourseYear" size="100" placeholder="This value will not be added to database yet,wait Alvin create year column somewhere">
                     <div>
                         <label class="col-sm-2">Semester</label>
                         <ul>
@@ -42,44 +63,29 @@
                             <th>
                                 <div class="form-horizontal" >
                                     <input type="text" name="course" placeholder="Eg:SCSJ">
-                                    <input type="text" name="courseyear" placeholder="Eg:20142015">
+                                    <input type="text" name="courseyear" placeholder="Eg:14/15">
                                 </div>
                             </th>
                         </tr>
                         <tr>
-                            <td><label>Subject : </label></td>
-                            <td>
-                                <select name="subject">
-                                    <option>Subject Name & ID</option>
-                                    <option></option>
-                                </select>
-                            </td>
-                            <td>
-                                <select>
-                                    <option>Section</option>
-                                    <option value="1">01</option>
-                                    <option value="2">02</option>
-                                    <option value="3">03</option>
-                                    <option value="4">04</option>
-                                </select>
+                            <th><label>Subject : </label></th>
+                            <td id="kids">
+                                    <input type="text" name="subjectname" placeholder="Enter subject name">
+                                    <input type="text" name="subjectID" placeholder="Enter subject ID">
+                                    <input type="text" name="section" placeholder="Enter number of section">
+                                    <input type="button" value="-" onclick="removeKid(this)">
+                                    <br>
+                                <%-- See java script for detail --%>
                             </td>
                         </tr>
+                        <tr>
+                            <td></td>
+                        <td><input type="button" onClick="addKid()" value="Add Subject" /></td>
+            
                     </table>
                 </div>
-                <button type="submit" class="btn btn-submit" align="center">Submit</button>
+                <span style="align:center"><button type="submit" class="btn btn-submit">Submit</button></span>
             </form>
         </div>
-        <%Connection connection = null; %>
-        <%@ include file="dbCon.jsp"%>   
-        <% ResultSet rs = null; 
-
-           String query = "select * from subject_list";
-           try {
-               Statement statement = connection.createStatement();
-               rs = statement.executeQuery(query);
-           }catch(Exception e){
-               e.printStackTrace();
-           }
-        %>
     </body>
 </html>
