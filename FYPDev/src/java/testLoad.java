@@ -19,6 +19,7 @@ public class testLoad extends HttpServlet{
  
   private static final int BYTES_DOWNLOAD = 1024;
   
+  @Override
   public void doGet(HttpServletRequest request,HttpServletResponse response) throws IOException{
       response.getWriter().print(getServletContext().getContextPath());
   }
