@@ -75,7 +75,7 @@
                 }while (file.exists());
                 
                 fi.write( file ) ;
-                out.println("Uploaded Filename: " + fileName + "<br>");
+                out.println("Uploaded Filename: " + curFilePath.substring(curFilePath.lastIndexOf("\\")+1) + "<br>");
             }
             else {
             String fieldName = fi.getFieldName();

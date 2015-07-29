@@ -42,7 +42,7 @@
                 
                 %>
                 
-                <table class="text-center"><thead><th>Num</th><th>Filename</th><th>Action</th></thead>
+                <table class="text-center"><thead><th>Num</th><th>Filename</th><th colspan="2">Action</th></thead>
                 
                 <%
                 
@@ -55,6 +55,10 @@
                     <td><form action="./testLoad" method="post">
                         <input hidden name="filePath" value="<%=folder+"/"+curFile.getName()%>">
                         <input class="btn btn-default" type="submit" value="Download">
+                    </form></td>
+                    <td><form action="./testDelete" method="post">
+                        <input hidden name="filePath" value="<%=folder+"/"+curFile.getName()%>">
+                        <input class="btn btn-default" type="submit" value="Delete">
                     </form></td>
                 </tr>
                 <% } %>
