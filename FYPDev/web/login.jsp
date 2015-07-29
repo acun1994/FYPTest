@@ -29,7 +29,7 @@ and open the template in the editor.
     <body>
         <%@include file="home01.html"%>
         <div id="center" align="center">
-            <form class="form-group" type="post">
+            <form class="form-group" method="post" action="">
                 <label align="center"><h3>User Log in</h3></label>
                 <table>
                     <tr>
