@@ -18,13 +18,14 @@
         <% 
             
            try {
-               String sN[]=null;
+               String sN[]= null;
                String sID[] = null;
                String Section[] = null;
 
-                    sN = request.getParameterValues("subjectname[]");
-                    sID = request.getParameterValues("subjectID[]");
-                    Section= request.getParameterValues("section[]");
+                sN = request.getParameterValues("subjectname");
+                sID = request.getParameterValues("subjectID");
+                Section = request.getParameterValues("section");
+
                
                 String sM = request.getParameter("semester");
                 String cID = request.getParameter("COURSEID");
@@ -35,27 +36,24 @@
                 Statement st = connection.createStatement();
                 
                 String query = null;
-                for(String listSN : sN){
+                for(String listSN : Section){
                    
-                    out.println(listSN);
+                    out.println(listSN + "</br>");
                     
-                    query = "insert into subject_list(subjectID, subjectName) values('"+sID[i]+"','"+listSN+"')";
+                    query = "insert into subject_list(subjectID, subjectName) values('"+sID[i]+"','"+sN[i]+"')";
                     st.executeUpdate(query);  
                     
-                    query = "insert into course_sub(courseID,sectionCount,semYear) values('"+cID+"','"+semesterYear+"','"+Section[i]+"')";
+                    query = "insert into course_sub(courseID,semYear,sectionCount,subjectID) values('"+cID+"','"+semesterYear+"','"+Section[i]+"','"+sID[i]+"')";
                     st.executeUpdate(query);  
                     i++;
                 }
-                
-                   
-
-                
-                
                 out.println("Successful insertion");
              }
                
           catch(Exception e){
-              out.println("Unsuccessful insertion" + "<br/>" + e.getMessage());   
+              out.println("Unsuccessful insertion" + "<br/>" + e.toString());
+              
+              
            } %>
     </body>
 </html>

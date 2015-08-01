@@ -17,7 +17,7 @@
     <body>
         <%@include file="home02.html" %>
         <div class="container" align="center">
-            <form role="form" class="form-group" type="post" method="get" name="Lecturer_Selection" autocomplete="on">
+            <form role="form" autocomplete="off" class="form-group" method="post" action = "Form02_DB.jsp" name="Lecturer_Selection" autocomplete="on">
                 <input name="Subject_ID" type="text" class="form-horizontal" placeholder="Subject ID">
                 <input name="Subject_Name" type="text" class="form-horizontal" placeholder="Subject Name">
                 <table class="table table-borderline">
@@ -46,8 +46,20 @@
                 <br>
                 <label>Total Section : </label>
                 <br>
-                <button type="submit" class="btn btn-submit">Submit</button>
+                <button type="button" value="Submit" id="btnSubmit" onClick="submitForm()" class="btn btn-submit">Submit</button>
             </form>
         </div>
+        <script>
+            
+            function submitForm() {
+            // Get the first form with the name
+            // Hopefully there is only one, but there are more, select the correct index
+            var frm = document.getElementsByName('Lecturer_Selection')[0];
+            frm.submit(); // Submit
+            frm.reset();  // Reset
+            return false; // Prevent page refresh
+}
+            
+        </script>
     </body>
 </html>

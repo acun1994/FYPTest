@@ -12,8 +12,7 @@ and open the template in the editor.
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    </head>
-    <style>
+        <style>
         #center {
             position:absolute;
             top: 50%;
@@ -26,11 +25,12 @@ and open the template in the editor.
             background-color: #f3f3f3;
         }
     </style>
+    </head>
     <body>
         <%@include file="home01.html"%>
         <div id="center" align="center">
-            <form class="form-group" method="post" action="">
-                <label align="center"><h3>User Log in</h3></label>
+            <form class="form-group" method="post" autocomplete="off" name="Login_Info" action="loginAuth.jsp">
+                <label>User Log in</label>
                 <table>
                     <tr>
                         <td><label>User name : </label></td>
@@ -44,5 +44,17 @@ and open the template in the editor.
                 <button type="submit" class="btn btn-submit">Log In</button>
             </form>
         </div>
+        <script>
+            
+            function submitForm() {
+            // Get the first form with the name
+            // Hopefully there is only one, but there are more, select the correct index
+            var frm = document.getElementsByName('Login_Info')[0];
+            frm.submit(); // Submit
+            frm.reset();  // Reset
+            return false; // Prevent page refresh
+}
+            
+        </script>
     </body>
 </html>
