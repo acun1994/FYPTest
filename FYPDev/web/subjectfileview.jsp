@@ -12,6 +12,7 @@
         <title>Section View</title>
     </head>
     <body>
+        <% out.println(session.getAttribute("userType").toString()); %>
         <h1>Section View for</h1>
         
         <%-- diplay year sem course and subject name chosen from subjectview.jsp --%>
