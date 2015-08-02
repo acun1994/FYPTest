@@ -37,15 +37,16 @@ and open the template in the editor.
                         <td><input class="form-horizontal" type="text" name="login_username"></td>
                     </tr>
                     <tr>
-                        <td><label>User password : </label></td>
-                        <td><input class="form-horizontal" type="text" name="login_password">
+                        <td><label>Password : </label></td>
+                        <td><input class="form-horizontal" type="password" name="login_password">
                     </tr>
                 </table>
                 <button type="submit" class="btn btn-submit">Log In</button>
             </form>
         </div>
+        <%--    
         <script>
-            
+           
             function submitForm() {
             // Get the first form with the name
             // Hopefully there is only one, but there are more, select the correct index
@@ -53,8 +54,8 @@ and open the template in the editor.
             frm.submit(); // Submit
             frm.reset();  // Reset
             return false; // Prevent page refresh
-}
-            
+        }
         </script>
-    </body>
+        --%>
+</body>
 </html>
