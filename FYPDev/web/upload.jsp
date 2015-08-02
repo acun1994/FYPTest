@@ -15,7 +15,9 @@
 
    filePath=filePath.substring(0, filePath.lastIndexOf("\\")+1);
    
-    String dir = filePath;
+    String dir = "";
+    String folderPathName ="";
+    String fileType = "";
 
    // Verify the content type
    String contentType = request.getContentType();
@@ -53,6 +55,7 @@
                 String fileName;
                 int version = 1;
                 String curFilePath;
+                
                 do{
                     fileName = fi.getName();
          
@@ -80,9 +83,13 @@
             else {
             String fieldName = fi.getFieldName();
             if (fieldName.equals("folder")){
-                String folderPathName = fi.getString();
-
-                dir+="downloadFiles\\"+folderPathName+"\\";
+                folderPathName = fi.getString();
+            }
+            else if (fieldName.equals("filetype")){
+                fileType = fi.getString();
+                
+                //Create folder if it doesn't exist
+                dir=filePath+"downloadFiles\\"+folderPathName+"\\"+fileType+"\\";
 
                 File folder = new File(dir);
                 if (!folder.exists()){

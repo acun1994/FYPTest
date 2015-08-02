@@ -13,10 +13,13 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>File Listing</title>
+        <link rel="stylesheet" href="resources/css/bootstrap.css" type="text/css"/>
+        <script src="resources/js/jquery.js" type="text/javascript"></script>
+        <script src="resources/js/bootstrap.js" type="text/javascript"></script>
     </head>
     <body>
         <form action="#" method="post">
-            <label>User: </label><input type="text" name="userName" >
+            <label>User:&nbsp;</label><input type="text" name="userName" >
             <input class="btn btn-default" type="submit">
         </form>
         
@@ -38,19 +41,21 @@
             }
             else{
                 File[] list = dir.listFiles();
-                int fileCount=0;
+                
+                if (list.length==0){
+                    %> <br/>No files found in <%= request.getParameter("userName") %><%}
+                else{    
                 
                 %>
-                
-                <table class="text-center"><thead><th>Num</th><th>Filename</th><th colspan="2">Action</th></thead>
+                <table class="text-center table-bordered"><thead><th>File Type</th><th>Filename</th><th colspan="2">Action</th></thead>
                 
                 <%
                 
                 for(File curFile:list){ 
-                    fileCount++;
+                    if (curFile.isFile()){
                 %>
                 <tr>
-                    <td><%= fileCount %></td>
+                    <td> None </td>
                     <td><%= curFile.getName() %> </td>
                     <td><form action="./testLoad" method="post">
                         <input hidden name="filePath" value="<%=folder+"/"+curFile.getName()%>">
@@ -61,10 +66,31 @@
                         <input class="btn btn-default" type="submit" value="Delete">
                     </form></td>
                 </tr>
-                <% } %>
+                <% }
+                    else if(curFile.isDirectory()){
+                        File nestedFolder=new File(filePath+folder+"/"+curFile.getName());
+                        
+                        File[] nestedList = nestedFolder.listFiles();
+                        
+                        for(File curNestFile:nestedList){ 
+                    if (curNestFile.isFile()){
+                %>
+                <tr>
+                    <td><%= curFile.getName() %></td>
+                    <td><%= curNestFile.getName() %> </td>
+                    <td><form action="./testLoad" method="post">
+                        <input hidden name="filePath" value="<%=folder+"/"+curFile.getName()+"/"+curNestFile.getName()%>">
+                        <input class="btn btn-default" type="submit" value="Download">
+                    </form></td>
+                    <td><form action="./testDelete" method="post">
+                        <input hidden name="filePath" value="<%=folder+"/"+curFile.getName()+"/"+curNestFile.getName()%>">
+                        <input class="btn btn-default" type="submit" value="Delete">
+                    </form></td>
+                </tr>
+                <% }}}} %>
                 </table>
 
-            <% }} 
+            <% }} }
            %>
     </body>
 </html>

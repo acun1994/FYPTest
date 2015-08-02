@@ -22,32 +22,37 @@ and open the template in the editor.
         	var div = document.createElement('div');
 
         	div.innerHTML = '<table class="text-center table-bordered"><tr><td style="padding:10px"><select name="filetype">\n\
-                                 <option value ="Type1"> Type 1 </option>\n\
-                                 <option value ="Type2"> Type 2 </option>\n\
-                                 <option value ="Type3"> Type 3 </option></select></td>\n\
+                                 <option value ="Appointment Letter"> Appointment Letter </option>\n\
+                                 <option value ="Course Outline"> Course Outline </option>\n\
+                                 <option value ="Student List"> Student List </option>\n\
+                                 <option value ="Notes"> Notes/Slides </option>\n\
+                                 <option value ="Std Work"> Assignment/Tutorial/Lab </option>\n\
+                                 <option value ="Quiz MidTerm"> Quiz/Mid Term </option>\n\
+                                 <option value ="Final Exam"> Final Exam </option>\n\
+                                 <option value ="Course Work Grade"> Course Work Grades </option>\n\
+                                 <option value ="Grade Sheet"> Grade Sheet & Report </option>\n\
+                                 <option value ="Attendance"> Attendance List </option>\n\
+                                 <option value ="E-Learning"> E-Learning Snapshot </option>\n\
+                                 <option value ="Survey"> Course Survey </option>\n\
+                                 <option value ="Other Material"> Other Teaching Materials </option>\n\
+                                 <option value ="Coordinator Report"> Course Coordinator Report </option>\n\
+                                 <option value ="Review Report"> Course Review Report </option>\n\
+                                 </select></td>\n\
                                  <td style="padding:10px"><input type="file" name="file"/></td>\n\
-                                 <td style="padding:10px"><input type="button" value="-" onclick="removeKid(this)"></td></tr></table>';
+                                 </tr></table>';
                 document.getElementById('kids').appendChild(div);
          }
 
-        function removeKid(div)
-        {	
-         document.getElementById('kids').removeChild(div.parentNode );
-	i--;
-        }
         </SCRIPT>
     
 <h3>File Upload:</h3>
 Select a file to upload: <br />
 <form action="upload.jsp" method="post"
                         enctype="multipart/form-data">
-    <label> Folder Name : </label><input type="text" name="folder"/><br/>
+    <label> Folder Name : &nbsp;</label><input type="text" name="folder"/>&nbsp;<input type="button" onClick="addKid()" value="Add File" /><br/>
     <table class="table-bordered text-center">
     <tr>
         <td id="kids"></td>
-    </tr>
-    <tr>
-        <td><input type="button" onClick="addKid()" value="Add Subject" /></td>
     </tr>
     </table>
     
