@@ -7,17 +7,51 @@ and open the template in the editor.
 <html>
 <head>
 <title>File Uploading Form</title>
+ <link rel="stylesheet" href="resources/css/bootstrap.css" type="text/css"/>
+        <script src="resources/js/jquery.js" type="text/javascript"></script>
+        <script src="resources/js/bootstrap.js" type="text/javascript"></script>
 </head>
 <body>
+    
+    <SCRIPT language="javascript">
+        var i = 0;
+        
+        function addKid()
+        {
+		i++;	
+        	var div = document.createElement('div');
+
+        	div.innerHTML = '<table class="text-center table-bordered"><tr><td style="padding:10px"><select name="filetype">\n\
+                                 <option value ="Type1"> Type 1 </option>\n\
+                                 <option value ="Type2"> Type 2 </option>\n\
+                                 <option value ="Type3"> Type 3 </option></select></td>\n\
+                                 <td style="padding:10px"><input type="file" name="file"/></td>\n\
+                                 <td style="padding:10px"><input type="button" value="-" onclick="removeKid(this)"></td></tr></table>';
+                document.getElementById('kids').appendChild(div);
+         }
+
+        function removeKid(div)
+        {	
+         document.getElementById('kids').removeChild(div.parentNode );
+	i--;
+        }
+        </SCRIPT>
+    
 <h3>File Upload:</h3>
 Select a file to upload: <br />
 <form action="upload.jsp" method="post"
                         enctype="multipart/form-data">
     <label> Folder Name : </label><input type="text" name="folder"/><br/>
-    <input type="file" name="file"/><br/>
-<input type="file" name="file"/>
-<br />
-<input type="submit" value="Upload File" />
+    <table class="table-bordered text-center">
+    <tr>
+        <td id="kids"></td>
+    </tr>
+    <tr>
+        <td><input type="button" onClick="addKid()" value="Add Subject" /></td>
+    </tr>
+    </table>
+    
+    <input type="submit" value="Upload File(s)" />
 </form>
 </body>
 </html> 
