@@ -29,9 +29,11 @@
                 {
                     redirect = "./subjectview.jsp";
                     out.println("Redirecting </br>");
+                    session = request.getSession();
                     session.setAttribute("userid",theResult.getString("userID"));
                     session.setAttribute("username",theResult.getString("userName"));
                     session.setAttribute("usertype",theResult.getString("userType"));
+                    out.println(session.getAttribute("usertype"));
                     response.sendRedirect(redirect);
                 }   
                 else
