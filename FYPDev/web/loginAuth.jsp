@@ -14,8 +14,6 @@
             try{
                 String username = request.getParameter("login_username");
                 String password = request.getParameter("login_password");
-                String userType = request.getParameter("userType");
-                
                 
                 PreparedStatement theStatement = null;
                 theStatement = connection.prepareStatement("SELECT * from user_login where userName=? AND password=?");
