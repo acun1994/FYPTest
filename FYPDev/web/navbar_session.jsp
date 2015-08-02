@@ -9,18 +9,7 @@
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
---> 
-    
-<%
-    //Getting usertype from session
-    session = request.getSession();
-    int type = 0;
-    if(session != null)
-    { 
-    type = Integer.parseInt(session.getAttribute("usertype").toString());
-    }
-%>
-    
+-->     
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -33,23 +22,41 @@ and open the template in the editor.
             </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">      
-             <% 
-                switch(type)
-               {
-                case 0:
-                %>
-                    <li><a href="login.jsp">Log In</a></li>
-            <%      break;
-                case 1:
+            <%
+              //Getting usertype from session
+ 
+                session = request.getSession(false);
+                 if(session != null)
+                {
+                    session = request.getSession();
+                    int type = 0; 
+                    if(session.getAttribute("usertype") != null )
+                    {  
+                     type = Integer.parseInt(session.getAttribute("usertype").toString());
+                    }
+                     switch(type)
+                     {
+                        case 0:
             %>
-                    <li><a href="CourseCreation.jsp">Create Course</a></li>
-                    <li><a href="subjectview.jsp">Edit Course</a></li>
+                        <li><a href="login.jsp">Log In</a></li>
+            
+            <%
+                        break;
+                        case 1:
+            %>
+                        <li><a href="CourseCreation.jsp">Create Course</a></li>
+                        <li><a href="subjectview.jsp">Edit Course</a></li>
+           <%          case 2:%>
+           <%          case 3:%>
+           <%          case 4:%>
+                        <li><a href="logout.jsp">Log Out</a></li>
+                    
            <%
-                case 2:
-                case 3:
-                case 4:
-             }
-           %>    
+                      break;
+                      }
+                  }
+            %>    
+              
             </ul>
         </div>
         </div>
