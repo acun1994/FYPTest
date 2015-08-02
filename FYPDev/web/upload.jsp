@@ -5,6 +5,23 @@
 <%@ page import="org.apache.commons.fileupload.servlet.*" %>
 <%@ page import="org.apache.commons.io.output.*" %>
 
+<%Connection connection = null;%>
+<%@ include file="dbCon.jsp"%>
+
+<%
+    //Prep statement defaults
+        PreparedStatement theStatement = null;
+                
+        theStatement = connection.prepareStatement("INSERT INTO file_changelog(subjectID, section, semYear, "
+                       + "filetype, filename, action, timestamp) VALUES(?,?,?,?,?,?,?)");
+                
+        theStatement.setString(1, "SCCC202");
+        theStatement.setInt(2, 0);
+        theStatement.setString(3, "testYr");
+        theStatement.setTimestamp(7, new Timestamp(new java.util.Date().getTime()));
+      
+%>
+
 <%
    File file ;
    
@@ -79,6 +96,19 @@
                 
                 fi.write( file ) ;
                 out.println("Uploaded Filename: " + curFilePath.substring(curFilePath.lastIndexOf("\\")+1) + "<br>");
+                
+                //Update file changelog
+                
+                try{
+                    theStatement.setString(4, fileType);
+                    theStatement.setString(5, fileName);
+                    theStatement.setString(6, "ADD");
+                    theStatement.execute();
+                }
+                catch (Exception ex){
+                    out.println("File failed to upload");
+                    out.println(ex);
+                }
             }
             else {
             String fieldName = fi.getFieldName();
