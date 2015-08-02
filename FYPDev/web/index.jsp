@@ -14,6 +14,7 @@ and open the template in the editor.
         <script src="resources/js/bootstrap.js" type="text/javascript"></script>
     </head>
     <body>
+        <%@include file="navbar_session.jsp" %>
         <div class="text-center">
             <table class="text-center">
                 <tr><td style="padding:10px"><a class="btn btn-default" href="./upload.html">Upload File Test</a><br/></td>

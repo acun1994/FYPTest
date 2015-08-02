@@ -11,9 +11,12 @@
         <%Connection connection = null;%>
         <%@ include file="dbCon.jsp"%>
         <%
+            String redirect = null;
+        
             try{
                 String username = request.getParameter("login_username");
                 String password = request.getParameter("login_password");
+                
                 
                 PreparedStatement theStatement = null;
                 theStatement = connection.prepareStatement("SELECT * from user_login where userName=? AND password=?");
@@ -24,18 +27,28 @@
                 
                 if(theResult.next())
                 {
+                    redirect = "./subjectview.jsp";
                     out.println("Redirecting </br>");
+                    session = request.getSession();
                     session.setAttribute("userid",theResult.getString("userID"));
                     session.setAttribute("username",theResult.getString("userName"));
                     session.setAttribute("usertype",theResult.getString("userType"));
+                    out.println(session.getAttribute("usertype"));
+                    response.sendRedirect(redirect);
                 }   
+                else
+                {
+                    redirect = "./login.jsp";
+                    response.sendRedirect(redirect);
+                }
                }
             catch(Exception e)
             {
+                    
                 
                     out.println("Failed");
                     out.println("Exception occured! "+e.getMessage()+" "+e.getStackTrace());
-                      
+                    
              }
         %>
     </body>

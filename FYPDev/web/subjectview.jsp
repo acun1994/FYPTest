@@ -7,18 +7,18 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+    <%@include file="navbar_session.jsp" %>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Overall Course View</title>
         
         <link rel="stylesheet" type="text/css" href="resources/css/bootstrap.css"/>
-        <!-- Custom css -->
-        <link href="./resources/sidebar sources/css/simple-sidebar.css" rel="stylesheet">
         <script src="./resources/js/jquery.min.js"></script>
         <script src="./resources/js/bootstrap.min.js"></script>
         <script src="./resources/js/validator/gen_validatorv4.js"></script>
         
     </head>
+        <body>
         <%Connection connection = null;%>
         <%@ include file="dbCon.jsp"%>
         <h1 class="text-center">Overall Course View</h1>
@@ -89,5 +89,5 @@
             <%-- total subject count from database --%>
             Total Subject: <%= i %>
         </div>
-    
+    </body>
 </html>

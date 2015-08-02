@@ -27,7 +27,7 @@ and open the template in the editor.
     </style>
     </head>
     <body>
-        <%@include file="home01.html"%>
+        <%@include file="navbar.html"%>
         <div id="center" align="center">
             <form class="form-group" method="post" autocomplete="off" name="Login_Info" action="loginAuth.jsp">
                 <label>User Log in</label>
