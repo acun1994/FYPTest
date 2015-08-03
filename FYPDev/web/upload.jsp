@@ -10,7 +10,7 @@
 
 <%
     //Prep statement defaults
-        PreparedStatement theStatement = null;
+    /*    PreparedStatement theStatement = null;
                 
         theStatement = connection.prepareStatement("INSERT INTO file_changelog(subjectID, section, semYear, "
                        + "filetype, filename, action, timestamp) VALUES(?,?,?,?,?,?,?)");
@@ -18,7 +18,7 @@
         theStatement.setString(1, "SCCC202");
         theStatement.setInt(2, 0);
         theStatement.setString(3, "testYr");
-        theStatement.setTimestamp(7, new Timestamp(new java.util.Date().getTime()));
+        theStatement.setTimestamp(7, new Timestamp(new java.util.Date().getTime()));*/
       
 %>
 
@@ -100,10 +100,10 @@
                 //Update file changelog
                 
                 try{
-                    theStatement.setString(4, fileType);
+                    /*theStatement.setString(4, fileType);
                     theStatement.setString(5, fileName);
                     theStatement.setString(6, "ADD");
-                    theStatement.execute();
+                    theStatement.execute();*/
                 }
                 catch (Exception ex){
                     out.println("File failed to upload");

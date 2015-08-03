@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `cfms_db` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `cfms_db`;
 -- MySQL dump 10.13  Distrib 5.6.24, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: cfms_db
@@ -46,33 +44,60 @@ LOCK TABLES `course_sub` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `file_upload`
+-- Table structure for table `file_changelog`
 --
 
-DROP TABLE IF EXISTS `file_upload`;
+DROP TABLE IF EXISTS `file_changelog`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `file_upload` (
+CREATE TABLE `file_changelog` (
   `entryID` int(11) NOT NULL AUTO_INCREMENT,
-  `subjectID` varchar(7) NOT NULL,
-  `section` int(11) NOT NULL,
-  `semYear` varchar(7) NOT NULL,
-  `filetype` varchar(255) NOT NULL,
-  `filename` varchar(255) NOT NULL,
-  `timestamp` datetime NOT NULL,
+  `fileID` int(11) NOT NULL,
+  `action` varchar(45) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`entryID`),
-  KEY `subjectID` (`subjectID`),
-  CONSTRAINT `file_upload_ibfk_1` FOREIGN KEY (`subjectID`) REFERENCES `subject_list` (`subjectID`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `fileID_idx` (`fileID`),
+  CONSTRAINT `fileID` FOREIGN KEY (`fileID`) REFERENCES `file_list` (`fileID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `file_upload`
+-- Dumping data for table `file_changelog`
 --
 
-LOCK TABLES `file_upload` WRITE;
-/*!40000 ALTER TABLE `file_upload` DISABLE KEYS */;
-/*!40000 ALTER TABLE `file_upload` ENABLE KEYS */;
+LOCK TABLES `file_changelog` WRITE;
+/*!40000 ALTER TABLE `file_changelog` DISABLE KEYS */;
+/*!40000 ALTER TABLE `file_changelog` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `file_list`
+--
+
+DROP TABLE IF EXISTS `file_list`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `file_list` (
+  `fileID` int(11) NOT NULL AUTO_INCREMENT,
+  `fileType` varchar(45) NOT NULL,
+  `fileName` varchar(45) NOT NULL,
+  `section` int(11) NOT NULL,
+  `semYear` varchar(7) NOT NULL,
+  `subjectID` varchar(8) NOT NULL,
+  `status` varchar(45) NOT NULL DEFAULT 'PENDING',
+  PRIMARY KEY (`fileID`),
+  KEY `subjectID_idx` (`subjectID`),
+  CONSTRAINT `subjectID` FOREIGN KEY (`subjectID`) REFERENCES `subject_list` (`subjectID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `file_list`
+--
+
+LOCK TABLES `file_list` WRITE;
+/*!40000 ALTER TABLE `file_list` DISABLE KEYS */;
+/*!40000 ALTER TABLE `file_list` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -143,6 +168,7 @@ CREATE TABLE `user_login` (
   `userID` varchar(9) NOT NULL,
   `password` varchar(255) NOT NULL,
   `userName` varchar(255) NOT NULL,
+  `userType` int(11) NOT NULL,
   PRIMARY KEY (`userID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -153,7 +179,7 @@ CREATE TABLE `user_login` (
 
 LOCK TABLES `user_login` WRITE;
 /*!40000 ALTER TABLE `user_login` DISABLE KEYS */;
-INSERT INTO `user_login` VALUES ('ID01','admin','admin');
+INSERT INTO `user_login` VALUES ('ID01','admin','admin',1);
 /*!40000 ALTER TABLE `user_login` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -192,4 +218,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-07-27 12:34:20
+-- Dump completed on 2015-08-03 10:13:40
