@@ -10,16 +10,26 @@
 
 <%
     //Prep statement defaults
-    /*    PreparedStatement theStatement = null;
+        PreparedStatement addtoList = connection.prepareStatement("INSERT INTO file_list(fileType, fileName, section, "
+                       + "semYear, subjectID) VALUES(?,?,?,?,?)");
                 
-        theStatement = connection.prepareStatement("INSERT INTO file_changelog(subjectID, section, semYear, "
-                       + "filetype, filename, action, timestamp) VALUES(?,?,?,?,?,?,?)");
-                
-        theStatement.setString(1, "SCCC202");
-        theStatement.setInt(2, 0);
-        theStatement.setString(3, "testYr");
-        theStatement.setTimestamp(7, new Timestamp(new java.util.Date().getTime()));*/
-      
+        addtoList.setInt(3, 0);
+        addtoList.setString(4, "testYr");
+        addtoList.setString(5, "SCCC202");
+        
+        PreparedStatement getID = connection.prepareStatement("SELECT fileID FROM file_list WHERE fileType=? AND fileName = ? AND "
+                       + "section = ? AND semYear = ? AND subjectID = ?");
+        
+        getID.setInt(3, 0);
+        getID.setString(4, "testYr");
+        getID.setString(5, "SCCC202");
+        
+        
+        PreparedStatement addtoLog = connection.prepareStatement("INSERT INTO file_changelog(fileID, userID, action, timestamp) VALUES(?, ?, ?, ?)");
+        
+        addtoLog.setString(2, "userID");
+        addtoLog.setString(3, "ADD");
+        addtoLog.setTimestamp(4, new Timestamp(new java.util.Date().getTime()));
 %>
 
 <%
@@ -100,10 +110,20 @@
                 //Update file changelog
                 
                 try{
-                    /*theStatement.setString(4, fileType);
-                    theStatement.setString(5, fileName);
-                    theStatement.setString(6, "ADD");
-                    theStatement.execute();*/
+                    addtoList.setString(1, fileType);
+                    addtoList.setString(2, fileName);
+                    addtoList.execute();
+                    
+                    getID.setString(1, fileType);
+                    getID.setString(2, fileName);
+                    
+                    ResultSet rs = getID.executeQuery();
+                    rs.next();
+                    
+                    int fileID = rs.getInt("fileID");
+                    
+                    addtoLog.setInt(1, fileID);
+                    addtoLog.execute();
                 }
                 catch (Exception ex){
                     out.println("File failed to upload");

@@ -35,15 +35,6 @@ CREATE TABLE `course_sub` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `course_sub`
---
-
-LOCK TABLES `course_sub` WRITE;
-/*!40000 ALTER TABLE `course_sub` DISABLE KEYS */;
-/*!40000 ALTER TABLE `course_sub` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `file_changelog`
 --
 
@@ -53,22 +44,14 @@ DROP TABLE IF EXISTS `file_changelog`;
 CREATE TABLE `file_changelog` (
   `entryID` int(11) NOT NULL AUTO_INCREMENT,
   `fileID` int(11) NOT NULL,
+  `userID` varchar(45) NOT NULL,
   `action` varchar(45) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`entryID`),
   KEY `fileID_idx` (`fileID`),
   CONSTRAINT `fileID` FOREIGN KEY (`fileID`) REFERENCES `file_list` (`fileID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `file_changelog`
---
-
-LOCK TABLES `file_changelog` WRITE;
-/*!40000 ALTER TABLE `file_changelog` DISABLE KEYS */;
-/*!40000 ALTER TABLE `file_changelog` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `file_list`
@@ -88,17 +71,8 @@ CREATE TABLE `file_list` (
   PRIMARY KEY (`fileID`),
   KEY `subjectID_idx` (`subjectID`),
   CONSTRAINT `subjectID` FOREIGN KEY (`subjectID`) REFERENCES `subject_list` (`subjectID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `file_list`
---
-
-LOCK TABLES `file_list` WRITE;
-/*!40000 ALTER TABLE `file_list` DISABLE KEYS */;
-/*!40000 ALTER TABLE `file_list` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `subject_lect`
@@ -122,15 +96,6 @@ CREATE TABLE `subject_lect` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `subject_lect`
---
-
-LOCK TABLES `subject_lect` WRITE;
-/*!40000 ALTER TABLE `subject_lect` DISABLE KEYS */;
-/*!40000 ALTER TABLE `subject_lect` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `subject_list`
 --
 
@@ -146,16 +111,6 @@ CREATE TABLE `subject_list` (
   CONSTRAINT `subject_list_ibfk_1` FOREIGN KEY (`penyelarasID`) REFERENCES `user_login` (`userID`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `subject_list`
---
-
-LOCK TABLES `subject_list` WRITE;
-/*!40000 ALTER TABLE `subject_list` DISABLE KEYS */;
-INSERT INTO `subject_list` VALUES ('SCCC202','JSP','ID01'),('SCSJ102','Programming','ID01');
-/*!40000 ALTER TABLE `subject_list` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `user_login`
@@ -174,16 +129,6 @@ CREATE TABLE `user_login` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `user_login`
---
-
-LOCK TABLES `user_login` WRITE;
-/*!40000 ALTER TABLE `user_login` DISABLE KEYS */;
-INSERT INTO `user_login` VALUES ('ID01','admin','admin',1);
-/*!40000 ALTER TABLE `user_login` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `user_permission`
 --
 
@@ -199,15 +144,6 @@ CREATE TABLE `user_permission` (
   CONSTRAINT `user_permission_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `user_login` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `user_permission`
---
-
-LOCK TABLES `user_permission` WRITE;
-/*!40000 ALTER TABLE `user_permission` DISABLE KEYS */;
-/*!40000 ALTER TABLE `user_permission` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -218,4 +154,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-08-03 10:13:40
+-- Dump completed on 2015-08-03 10:58:39
