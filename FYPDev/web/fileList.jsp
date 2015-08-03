@@ -47,11 +47,12 @@
                 else{    
                 
                 %>
-                <table class="text-center table-bordered"><thead><th>File Type</th><th>Filename</th><th colspan="2">Action</th></thead>
+                <table class="text-center table-bordered"><thead><th>File Type</th><th>Filename</th><th colspan="3">Action</th></thead>
                 
                 <%
-                
+                int fileCount = 0;
                 for(File curFile:list){ 
+                    
                     if (curFile.isFile()){
                 %>
                 <tr>
@@ -61,7 +62,7 @@
                         <input hidden name="filePath" value="<%=folder+"/"+curFile.getName()%>">
                         <input class="btn btn-default" type="submit" value="Download">
                     </form></td>
-                    <td><form action="./testDelete" method="post">
+                    <td><form action="./delete.jsp" method="post">
                         <input hidden name="filePath" value="<%=folder+"/"+curFile.getName()%>">
                         <input class="btn btn-default" type="submit" value="Delete">
                     </form></td>
@@ -73,7 +74,7 @@
                         File[] nestedList = nestedFolder.listFiles();
                         
                         for(File curNestFile:nestedList){ 
-                    if (curNestFile.isFile()){
+                    if (curNestFile.isFile()){ fileCount++;
                 %>
                 <tr>
                     <td><%= curFile.getName() %></td>
@@ -82,12 +83,16 @@
                         <input hidden name="filePath" value="<%=folder+"/"+curFile.getName()+"/"+curNestFile.getName()%>">
                         <input class="btn btn-default" type="submit" value="Download">
                     </form></td>
-                    <td><form action="./testDelete" method="post">
+                    <td><form action="./delete.jsp" method="post">
                         <input hidden name="filePath" value="<%=folder+"/"+curFile.getName()+"/"+curNestFile.getName()%>">
                         <input class="btn btn-default" type="submit" value="Delete">
                     </form></td>
                 </tr>
-                <% }}}} %>
+                <% }}
+                        
+    }} if (fileCount == 0){
+                            %><tr><td colspan="3"> No Files Found</td></tr><%
+                        }%>
                 </table>
 
             <% }} }
