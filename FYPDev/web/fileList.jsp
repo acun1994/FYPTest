@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.io.*" %> 
 <%@page import="java.util.*" %> 
+<%@ include file="checkLogin.jsp"%>
 
 <!DOCTYPE html>
 <html>

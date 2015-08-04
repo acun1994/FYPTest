@@ -10,8 +10,10 @@
 
 <% Connection connection = null;%>
 <%@ include file="dbCon.jsp"%>
+<%@ include file="checkLogin.jsp"%>
 
 <%
+    
     //SQL Statements
     PreparedStatement getID = connection.prepareStatement("SELECT fileID FROM subjectfile WHERE fileType=? AND fileName = ? AND "
                        + "sectionNo = ?  AND subjectID = ? AND courseEntryID = ? AND status <> 'Deleted'");
@@ -22,16 +24,14 @@
     
     PreparedStatement addtoLog = connection.prepareStatement("INSERT INTO filechangelog(fileID, userID, action, timestamp) VALUES(?, ?, ?, ?)");
         
-        addtoLog.setString(2, "userID");
+        addtoLog.setString(2, session.getAttribute("userid").toString());
         addtoLog.setString(3, "DELETE");
         addtoLog.setTimestamp(4, new Timestamp(new java.util.Date().getTime()));
     
     PreparedStatement updateFile = connection.prepareStatement("UPDATE subjectfile SET status='Deleted' WHERE fileID = ?")    ;
         
-%>
-
-<%
         try{
+            
         String split[] = request.getParameter("filePath").split("[\\\\/]");
         String fileType = split[3].toString();
         String fileName = split[4].toString();
@@ -41,6 +41,7 @@
         
         ResultSet rs = getID.executeQuery();
         rs.next();
+        
         
         int fileID = rs.getInt("fileID");
         
@@ -66,14 +67,11 @@
             out.println("Deleted " + fileName);        
         else
             out.println("Failed to delete "+ fileName);
-        
         }
         catch(Exception ex){
             out.println(ex + "<br/>");
             out.println("File could not be deleted. Please try again.");
         }
-        
-        
-        
+
 %>
 </html>
