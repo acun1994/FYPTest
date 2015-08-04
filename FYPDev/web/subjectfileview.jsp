@@ -10,16 +10,17 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Section View</title>
+        <link rel="stylesheet" href="./resources/css/bootstrap.css" type="text/css"/>
+        <script src="./resources/js/jquery.js" type="text/javascript"></script>
+        <script src="./resources/js/bootstrap.js" type="text/javascript"></script>
     </head>
     <body>
-        <% out.println(session.getAttribute("userType").toString()); %>
         <h1>Section View for</h1>
         
         <%-- diplay year sem course and subject name chosen from subjectview.jsp --%>
         <div align="center" name="Prev Info">
-            Subject Name/ID:(from form03.jsp)
-            Sectiond :(from form03.jsp)
-            Lecturer Name/ID:(from form03.jsp)
+            Subject Name/ID:(from subjectview.jsp)
+            Section :(from subjectview.jsp)
         </div>
        
         <div name="File List">

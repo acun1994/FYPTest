@@ -21,10 +21,15 @@
         <body>
         <% Connection connection = null; %>
         <%@ include file="dbCon.jsp"%>
+       
+        <%
+            
+        %>
+        
         <h1 class="text-center">Overall Course View</h1>
         
         <div align="center"> 
-            <form action="subjectview.jsp" method="get">
+            <form action="subjectview2.jsp" method="get">
                 <%-- Select for Year selection --%>
                 <select name="year"><%-- options are from database --%>
                     <option value="#">Year</option>
@@ -50,27 +55,7 @@
                 </select>
             <button type="submit" class="btn btn-submit">Search</button>
             </form>
-        <% 
-           
-           ResultSet subLect_result = null; 
-           ResultSet subList_result = null; 
-
-           PreparedStatement subLect_query = connection.prepareStatement("select * from course_sub where courseID=? AND semYear=?");
-           
-           PreparedStatement subList_query = connection.prepareStatement("select subjectName from subject_list where subjectID=?");
-           
-           try {
-               Statement statement = connection.createStatement();
-               subLect_result = subLect_query.executeQuery();
-               }
-           catch(Exception e){
-               e.printStackTrace();
-           }
-           int i = 0;
-        %>
-                
-                
-        </div>
+            </div>
         <br/><br/>
         
         <div> <%-- List of all subject for particular course at that semester & year --%>
@@ -86,34 +71,17 @@
                     <th class="text-center">Status</th>
                     <th class="text-center">View</th>
                 </tr>
-                    <% while(subLect_result.next()) { 
-                    
-                    subList_query.setString(1,subLect_result.getString("subjectID"));
-                    subList_result = subList_query.executeQuery();
-                    subList_result.next();
-                    
-                    %>
                     <tr>
-                    <td class="text-center" style="padding:10px"><%= ++i %></td>
-                    <td class="text-center" style="padding:10px"><%= subList_result.getString("subjectName") %></td>
-                    <td class="text-center" style="padding:10px"><%= subLect_result.getString("subjectID") %></td>
-                    <td class="text-center" style="padding:10px">
-                        <% 
-                        if(subLect_result.getInt("status")== 0)
-                            {out.println("UnApproved");}
-                          else
-                           {out.println("Approved");}
-                        %>
-                    </td>
+                    <td class="text-center" style="padding:10px"></td>
+                    <td class="text-center" style="padding:10px"></td>
+                    <td class="text-center" style="padding:10px"></td>
+                    <td class="text-center" style="padding:10px"></td>
                     <td class="text-center" style="padding:10px"><span class="glyphicon glyphicon-search"></span></i></td>
                 </tr>
-                <% } %>
             </table>
         </div>    
             
         <div align="center">
-            <%-- total subject count from database --%>
-            Total Subject: <%= i %>
         </div>
     </body>
 </html>

@@ -18,7 +18,7 @@ and open the template in the editor.
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>                        
                 </button>   
-                <a class="navbar-brand" href="navbar.html">WebSiteName</a>
+                <a class="navbar-brand" href="index.jsp">CFMS</a>
             </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">      
@@ -38,8 +38,7 @@ and open the template in the editor.
                      {
                         case 0:
             %>
-                        <li><a href="login.jsp">Log In</a></li>
-            
+                        <li align="left"><a href="login.jsp">Log In</a></li>
             <%
                         break;
                         case 1:
