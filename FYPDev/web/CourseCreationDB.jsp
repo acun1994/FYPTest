@@ -40,10 +40,13 @@
                    
                     out.println(listSN + "</br>");
                     
-                    query = "insert into subject_list(subjectID, subjectName) values('"+sID[i]+"','"+sN[i]+"')";
+                    query = "insert into subject(subjectID, subjectName) values('"+sID[i]+"','"+sN[i]+"')";
                     st.executeUpdate(query);  
                     
-                    query = "insert into course_sub(courseID,semYear,sectionCount,subjectID) values('"+cID+"','"+semesterYear+"','"+Section[i]+"','"+sID[i]+"')";
+                    query = "insert into coordinatorlist(subjectID,sectionCount) values('"+sID[i]+"','"+sN[i]+"')";
+                    st.executeUpdate(query);
+                    
+                    query = "insert into courseentry(courseID,semYear) values('"+cID+"','"+semesterYear+"')";
                     st.executeUpdate(query);  
                     i++;
                 }
