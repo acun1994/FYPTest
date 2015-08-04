@@ -17,7 +17,7 @@
     <body>
         <%@include file="navbar_session.jsp" %>
         <div class="container" align="center">
-            <form role="form" autocomplete="off" class="form-group" method="post" action = "Form02_DB.jsp" name="Lecturer_Selection" autocomplete="on">
+            <form role="form" autocomplete="off" class="form-group" method="post" action = "LecturerSelectionDB.jsp" name="Lecturer_Selection" autocomplete="on">
                 <input name="Subject_ID" type="text" class="form-horizontal" placeholder="Subject ID">
                 <input name="Subject_Name" type="text" class="form-horizontal" placeholder="Subject Name">
                 <table class="table table-borderline">
