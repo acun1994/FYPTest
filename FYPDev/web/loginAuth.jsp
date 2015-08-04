@@ -27,7 +27,7 @@
                 
                 if(theResult.next())
                 {
-                    redirect = "./subjectview.jsp";
+                    redirect = "./index.jsp";
                     out.println("Redirecting </br>");
                     session.setAttribute("userid",theResult.getString("userID"));
                     session.setAttribute("username",theResult.getString("userName"));
@@ -36,7 +36,7 @@
                 }   
                 else
                 {
-                    redirect = "./login.jsp";
+                    redirect = "./login.jsp?login=failed";
                     response.sendRedirect(redirect);
                 }
                }

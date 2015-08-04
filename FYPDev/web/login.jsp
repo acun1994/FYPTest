@@ -9,9 +9,9 @@ and open the template in the editor.
         <title>User Log In</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="resources/css/bootstrap.css" type="text/css"/>
+        <script src="resources/js/jquery.js" type="text/javascript"></script>
+        <script src="resources/js/bootstrap.js" type="text/javascript"></script>
         <style>
         #center {
             position:absolute;
@@ -28,7 +28,20 @@ and open the template in the editor.
     </head>
     <body>
         <%@include file="navbar_session.jsp"%>
+        
+        <% if (session.getAttribute("username")!=null && session.getAttribute("username")!=""){
+            response.sendRedirect("index.jsp");
+        }%>
+        
+        <% if (request.getParameter("login")!=null){
+            if (request.getParameter("login").equals("false"))
+                {%><div class="text-center alert-danger alert">You are not logged in.</div><%}
+            else if (request.getParameter("login").equals("failed"))
+                {%><div class="text-center alert-danger alert">Incorrect login information.</div><%}
+            }
+        %>
         <div id="center" align="center">
+            
             <form class="form-group" method="post" autocomplete="off" name="Login_Info" action="loginAuth.jsp">
                 <label>User Log in</label>
                 <table>

@@ -15,9 +15,10 @@ and open the template in the editor.
     </head>
     <body>
         <%@include file="navbar_session.jsp" %>
+        <%@include file="checkLogin.jsp" %>
         <div class="text-center">
             <table class="text-center">
-                <tr><td style="padding:10px"><a class="btn btn-default" href="./upload.html">Upload File Test</a><br/></td>
+                <tr><td style="padding:10px"><a class="btn btn-default" href="./uploadForm.jsp">Upload File Test</a><br/></td>
                     <td style="padding:10px"><a class="btn btn-default" href="./fileList.jsp">File List </a><br/></tr>
                 <tr><td style="padding:10px"><a class="btn btn-default" href="./subjectview.jsp">Subject View(Pentadbir only)</a><br/></td>
                     <td style="padding:10px"><a class="btn btn-default" href="./subjectfileview.jsp">Subject File View</a><br/></tr>

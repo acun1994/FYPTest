@@ -8,6 +8,7 @@
 <%Connection connection = null;%>
 <%@ include file="dbCon.jsp"%>
 
+
 <%
     //Prep statement defaults
         PreparedStatement addtoList = connection.prepareStatement("INSERT INTO file_list(fileType, fileName, section, "
