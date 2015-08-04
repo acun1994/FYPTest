@@ -14,10 +14,8 @@
         <link rel="stylesheet" href="./resources/css/bootstrap.min.css">
         <script src="./resources/js/jquery.min.js"></script>
         <script src="./resources/js/bootstrap.min.js"></script>
-        
-        <SCRIPT language="javascript">
+        <script language="javascript">
         var i = 0;
-        
         function addKid()
         {
 		i++;	
@@ -38,37 +36,40 @@
          document.getElementById('kids').removeChild( div.parentNode );
 	i--;
         }
-        </SCRIPT>
+        </script>
         
     </head>
     
     <body>
-        <h1> Course Creation </h1>
-        
+        <%@include file="navbar_session.jsp" %>
         <div class="container">
-            
             <%-- Form for course creation --%>
-            <form role="form" class="form-horizontal" name="form" method="post" action="CourseCreationDB.jsp">
-                
+            <form role="form" name="form" method="post" action="CourseCreationDB.jsp">
                 <div class="form-group">
-                    
-                    <label class="col-sm-2">Year : </label>
-                    <input type="text" name="CourseYear" placeholder="Example 13/14">
-                   
-                   
-                        <%-- Value not added yet --%>
-                        <label class="col-sm-2">Semester</label>
-                        <input type="radio" name="semester" value="1">1
-                        <input type="radio" name="semester" value="2">2
-                        <input type="radio" name="semester" value="3">3
-                   
-                
                     <table>
                         <tr>
-                            <th><label>Course</label></th>
-                            <th>
+                            <td class="col-md-2">
+                                <label>Year : </label>
+                            </td>
+                            <td>
+                                <input type="text" name="CourseYear" placeholder="Example 13/14">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>Semester</label>
+                            </td>
+                            <td>
+                                <%-- Value not added yet --%>
+                                <label><input type="radio" name="semester" value="1">1 </label>
+                                <label><input type="radio" name="semester" value="2">2 </label>
+                                <label><input type="radio" name="semester" value="3">3 </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>Course</label></td>
+                            <td>
                                 <div class="form-horizontal" >
-                                    
                                     <select name="COURSEID">
                                       <%-- 
                                       Course list should be taken from database 
@@ -78,27 +79,27 @@
                                         <option value="SCSJ1">SCSJ1</option>
                                         <option value="SCSJ2">SCSJ2</option>
                                     </select>
-                                   
                                 </div>
-                            </th>
+                            </td>
                         </tr>
                         <tr>
-                            <th><label>Subject : </label></th>
+                            <td><label>Subject : </label></td>
                             <td id="kids">
                                 <%-- See java script for detail --%>
+                                <input type="text" name="subjectname" placeholder="Enter subject name">
+                                <input type="text" name="subjectID" placeholder="Enter subject ID">
+                                <input type="text" name="section" placeholder="Enter number of section">
+                                <input type="button" value="-" onclick="removeKid(this)">
                             </td>
                         </tr>
                         <tr>
                             <td></td>
                         <td><input type="button" onClick="addKid()" value="Add Subject" /></td>
-                        
                         </tr>
                     </table>
                 </div>
-                <button type="submit" class="btn btn-submit">Submit</button>
+                <button type="submit" class="btn btn-default">Submit</button>
             </form>
         </div>
-        <h1 class="text-center">Overall Course View</h1>
-        <script>alert_showmsg("Value succsesfully added"); </script>
     </body>
 </html>

@@ -20,7 +20,7 @@ and open the template in the editor.
             <table class="text-center">
                 <tr><td style="padding:10px"><a class="btn btn-default" href="./uploadForm.jsp">Upload File Test</a><br/></td>
                     <td style="padding:10px"><a class="btn btn-default" href="./fileList.jsp">File List </a><br/></tr>
-                <tr><td style="padding:10px"><a class="btn btn-default" href="./subjectview.jsp">Subject View(Pentadbir only)</a><br/></td>
+                <tr><td style="padding:10px"><a class="btn btn-default" href="./subjectview2.jsp">Subject View(Pentadbir only)</a><br/></td>
                     <td style="padding:10px"><a class="btn btn-default" href="./subjectfileview.jsp">Subject File View</a><br/></tr>
                 <tr><td style="padding:10px"><a class="btn btn-default" href="./CourseCreation.jsp">Course Creation</a><br/></td>
                     <td style="padding:10px"><a class="btn btn-default" href="./Lecturer Selection.jsp">Lecturer Selection</a><br/></tr>

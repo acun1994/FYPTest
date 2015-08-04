@@ -105,7 +105,7 @@
                            {out.println("Approved");}
                         %>
                     </td>
-                    <td class="text-center" style="padding:10px"><span class="glyphicon glyphicon-search"></span></i></td>
+                    <td class="text-center" style="padding:10px"><span class="glyphicon glyphicon-search"></span></td>
                 </tr>
                 <% } %>
             </table>
