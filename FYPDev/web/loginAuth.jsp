@@ -19,7 +19,7 @@
                 
                 
                 PreparedStatement theStatement = null;
-                theStatement = connection.prepareStatement("SELECT * from user_login where userName=? AND password=?");
+                theStatement = connection.prepareStatement("SELECT * from userinfo where userName=? AND password=?");
                 theStatement.setString(1,username);
                 theStatement.setString(2,password);
                 

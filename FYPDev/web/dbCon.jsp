@@ -12,7 +12,7 @@
 <% 
 
 try {
-    String connectionURL = "jdbc:mysql://localhost/cfms_db";
+    String connectionURL = "jdbc:mysql://localhost/cfms_newschema";
     Class.forName("com.mysql.jdbc.Driver").newInstance(); 
     connection = DriverManager.getConnection(connectionURL, "root", "");
 

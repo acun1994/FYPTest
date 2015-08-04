@@ -7,28 +7,29 @@
 
 <%Connection connection = null;%>
 <%@ include file="dbCon.jsp"%>
+<%@ include file="checkLogin.jsp"%>
 
 
 <%
     //Prep statement defaults
-        PreparedStatement addtoList = connection.prepareStatement("INSERT INTO file_list(fileType, fileName, section, "
-                       + "semYear, subjectID) VALUES(?,?,?,?,?)");
+        PreparedStatement addtoList = connection.prepareStatement("INSERT INTO subjectfile(fileType, fileName, sectionNo, "
+                       + " subjectID, courseEntryID) VALUES(?,?,?,?,?)");
                 
         addtoList.setInt(3, 0);
-        addtoList.setString(4, "testYr");
-        addtoList.setString(5, "SCCC202");
+        addtoList.setString(4, "SCCC202");
+        addtoList.setInt(5, 1);
         
-        PreparedStatement getID = connection.prepareStatement("SELECT fileID FROM file_list WHERE fileType=? AND fileName = ? AND "
-                       + "section = ? AND semYear = ? AND subjectID = ?");
+        PreparedStatement getID = connection.prepareStatement("SELECT fileID FROM subjectfile WHERE fileType=? AND fileName = ? AND "
+                       + "sectionNo = ? AND subjectID = ? AND courseEntryID = ?");
         
         getID.setInt(3, 0);
-        getID.setString(4, "testYr");
-        getID.setString(5, "SCCC202");
+        getID.setString(4, "SCCC202");
+        getID.setInt(5, 1);
         
         
-        PreparedStatement addtoLog = connection.prepareStatement("INSERT INTO file_changelog(fileID, userID, action, timestamp) VALUES(?, ?, ?, ?)");
+        PreparedStatement addtoLog = connection.prepareStatement("INSERT INTO filechangelog(fileID, userID, action, timestamp) VALUES(?, ?, ?, ?)");
         
-        addtoLog.setString(2, "userID");
+        addtoLog.setString(2, session.getAttribute("userid").toString());
         addtoLog.setString(3, "ADD");
         addtoLog.setTimestamp(4, new Timestamp(new java.util.Date().getTime()));
 %>
@@ -114,6 +115,8 @@
                     addtoList.setString(1, fileType);
                     addtoList.setString(2, fileName);
                     addtoList.execute();
+                    
+                    out.println("Add to list");
                     
                     getID.setString(1, fileType);
                     getID.setString(2, fileName);
