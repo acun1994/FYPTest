@@ -15,7 +15,7 @@
         <title>Form02 : Lecturer Selection</title>
     </head>
     <body>
-        <%@include file="home02.html" %>
+        <%@include file="navbar_session.jsp" %>
         <div class="container" align="center">
             <form role="form" autocomplete="off" class="form-group" method="post" action = "Form02_DB.jsp" name="Lecturer_Selection" autocomplete="on">
                 <input name="Subject_ID" type="text" class="form-horizontal" placeholder="Subject ID">
