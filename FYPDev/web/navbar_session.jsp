@@ -44,7 +44,7 @@ and open the template in the editor.
                         case 1:
             %>
                         <li><a href="CourseCreation.jsp">Create Course</a></li>
-                        <li><a href="subjectview.jsp">Edit Course</a></li>
+                        <li><a href="subjectview2.jsp">Edit Course</a></li>
            <%          case 2:%>
            <%          case 3:%>
            <%          case 4:%>
