@@ -116,7 +116,7 @@ CREATE TABLE `filechangelog` (
   KEY `fileLog_userID_idx` (`userID`),
   CONSTRAINT `fileLog_fileID` FOREIGN KEY (`fileID`) REFERENCES `subjectfile` (`fileID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fileLog_userID` FOREIGN KEY (`userID`) REFERENCES `userinfo` (`userID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -125,6 +125,7 @@ CREATE TABLE `filechangelog` (
 
 LOCK TABLES `filechangelog` WRITE;
 /*!40000 ALTER TABLE `filechangelog` DISABLE KEYS */;
+INSERT INTO `filechangelog` VALUES (2,4,'ADD','2015-08-04 04:06:33','ID01');
 /*!40000 ALTER TABLE `filechangelog` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -197,10 +198,11 @@ CREATE TABLE `subjectfile` (
   `sectionNo` varchar(45) NOT NULL,
   `fileType` varchar(45) NOT NULL,
   `fileName` varchar(45) NOT NULL,
+  `status` varchar(45) NOT NULL DEFAULT 'Pending',
   PRIMARY KEY (`fileID`),
   KEY `courseEntryID_idx` (`courseEntryID`),
   CONSTRAINT `subFile_entryID` FOREIGN KEY (`courseEntryID`) REFERENCES `courseentry` (`courseEntryID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -209,6 +211,7 @@ CREATE TABLE `subjectfile` (
 
 LOCK TABLES `subjectfile` WRITE;
 /*!40000 ALTER TABLE `subjectfile` DISABLE KEYS */;
+INSERT INTO `subjectfile` VALUES (4,1,'SCCC202','0','Appointment Letter','FYPSys.txt','Pending');
 /*!40000 ALTER TABLE `subjectfile` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -247,4 +250,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-08-04 12:04:02
+-- Dump completed on 2015-08-04 12:08:00
