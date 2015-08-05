@@ -12,13 +12,15 @@
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="auto-complete.js"></script>
         <title>Form02 : Lecturer Selection</title>
     </head>
     <body>
         <%@include file="navbar_session.jsp" %>
         <div class="container" align="center">
             <form role="form" autocomplete="off" class="form-group" method="post" action = "LecturerSelectionDB.jsp" name="Lecturer_Selection" autocomplete="on">
-                <input name="Subject_ID" type="text" class="form-horizontal" placeholder="Subject ID">
+                <input name="Subject_ID" type="text" class="form-horizontal" placeholder="Subject ID" id="keyword">
                 <input name="Subject_Name" type="text" class="form-horizontal" placeholder="Subject Name">
                 <table class="table table-borderline">
                     <tr>

@@ -60,7 +60,7 @@ and open the template in the editor.
                     <tr>
                         <td>
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
-                            <input class="mdl-textfield__input" type="text" id="login_password" name="login_password">
+                            <input class="mdl-textfield__input" type="password" id="login_password" name="login_password">
                             <label class="mdl-textfield__label" for="login_password">Password</label>
                             <div class="mdl-tooltip mdl-tooltip--large" for="login_password">Insert user password</div>
                             </div>

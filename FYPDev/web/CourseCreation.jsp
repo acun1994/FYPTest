@@ -63,7 +63,6 @@
                                 <%-- Value not added yet --%>
                                 <label><input type="radio" name="semester" value="1">1 </label>
                                 <label><input type="radio" name="semester" value="2">2 </label>
-                                <label><input type="radio" name="semester" value="3">3 </label>
                             </td>
                         </tr>
                         <tr>
@@ -76,8 +75,8 @@
                                       Value not yet added to the option
                                       --%>
                                         <option value="Not Selected">Course</option>
-                                        <option value="SCSJ1">SCSJ1</option>
-                                        <option value="SCSJ2">SCSJ2</option>
+                                        <option value="1SCSJ">SCSJ1</option>
+                                        <option value="2SCSJ">SCSJ2</option>
                                     </select>
                                 </div>
                             </td>

@@ -37,17 +37,13 @@
                 
                 String query = null;
                 for(String listSN : Section){
-                   
-                    out.println(listSN + "</br>");
-                    
+                    query = "insert into courseentry(courseID,semYear) values('"+cID+"','"+semesterYear+"')";
+                    st.executeUpdate(query); 
                     query = "insert into subject(subjectID, subjectName) values('"+sID[i]+"','"+sN[i]+"')";
                     st.executeUpdate(query);  
-                    
                     query = "insert into coordinatorlist(subjectID,sectionCount) values('"+sID[i]+"','"+sN[i]+"')";
                     st.executeUpdate(query);
                     
-                    query = "insert into courseentry(courseID,semYear) values('"+cID+"','"+semesterYear+"')";
-                    st.executeUpdate(query);  
                     i++;
                 }
                 out.println("Successful insertion");
