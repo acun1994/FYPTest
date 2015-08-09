@@ -9,10 +9,17 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="./resources/css/bootstrap.css" type="text/css"/>
+        <script src="./resources/js/jquery.js" type="text/javascript"></script>
+        <script src="./resources/js/bootstrap.js" type="text/javascript"></script>
+        <script src="./resources/jquery-1.11.3.min.js"></script>
+        <!--Material Design-->
+        <script src="./resources/mdl/material.min.js"></script>
+        <link rel="stylesheet" href="./resources/mdl/material.light_blue-indigo.min.css">
+        <!--Materialize-->
+        <script src="./resources/materialize/materialize.min.js"></script>
+        <link rel="stylesheet" href="./resources/materialize/materialize.min.css">
+        
         <script src="auto-complete.js"></script>
         <title>Form02 : Lecturer Selection</title>
     </head>

@@ -9,9 +9,9 @@ and open the template in the editor.
         <title>User Log In</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="resources/css/bootstrap.css" type="text/css"/>
-        <script src="resources/js/jquery.js" type="text/javascript"></script>
-        <script src="resources/js/bootstrap.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="./resources/css/bootstrap.css" type="text/css"/>
+        <script src="./resources/js/jquery.js" type="text/javascript"></script>
+        <script src="./resources/js/bootstrap.js" type="text/javascript"></script>
         <!--Material Design-->
         <script src="./resources/mdl/material.min.js"></script>
         <link rel="stylesheet" href="./resources/mdl/material.light_blue-indigo.min.css">
