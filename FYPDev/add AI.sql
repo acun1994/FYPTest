@@ -1,0 +1,1 @@
+ALTER table `coordinatorlist` change listID listID int(11) auto_increment;
