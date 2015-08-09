@@ -75,8 +75,8 @@
                                       Value not yet added to the option
                                       --%>
                                         <option value="Not Selected">Course</option>
-                                        <option value="1SCSJ">SCSJ1</option>
-                                        <option value="2SCSJ">SCSJ2</option>
+                                        <option value="1SCSJ">1SCSJ</option>
+                                        <option value="2SCSJ">2SCSJ</option>
                                     </select>
                                 </div>
                             </td>
