@@ -35,17 +35,19 @@
             
             while(list.next())
             {
-                year.add(list.getString("semYear").substring(2));
+                if(year.contains(list.getString("semYear").substring(2)) == false)
+                    year.add(list.getString("semYear").substring(2));
                 if(sem.contains(list.getString("semYear").substring(0,1)) == false)
                     {sem.add(list.getString("semYear").substring(0,1));}
-                course.add(list.getString("courseID"));
+                if(course.contains(list.getString("courseID")) == false)
+                    course.add(list.getString("courseID"));
             }
         %>
         
         <h1 class="text-center">Overall Course View</h1>
         
         <div align="center"> 
-            <form action="subjectview2.jsp" method="get">
+            <form action="courseview.jsp" method="get">
                 <%-- Select for Year selection --%>
                 <select name="year"><%-- options are from database --%>
                     <option value="#">Year</option>
@@ -136,16 +138,12 @@
                            <td class="text-center" style="padding:10px"> <%= i %> </td>
                            <td class="text-center" style="padding:10px"> <% if(subjectName.next()){out.println(subjectName.getString("subjectName"));} %> </td>
                            <td class="text-center" style="padding:10px"> <%= subjectID.getString("subjectID") %> </td>
-                           <td class="text-center" style="padding:10px"> <% 
-                                                                            switch(subjectID.getInt("status"))
-                                                                            {
-                                                                                case 1: out.println("Not Approved");
-                                                                                        break;
-                                                                                case 2: out.println("Approved");
-                                                                                        break;
-                                                                            }
-                                                                         %> </td>
-                           <td class="text-center" style="padding:10px"><span class="glyphicon glyphicon-search"></span></td>         
+                           <td class="text-center" style="padding:10px"> <%= subjectID.getString("status")%> </td>
+                           <td class="text-center" style="padding:10px">
+                                        <form action="subjectview.jsp" method="get">
+                                            <button name="subjectID" class="glyphicon glyphicon-search btn btn-submit"  type="submit" value="<% out.println(subjectID.getString("subjectID")); %>">
+                                            </button>
+                                        </form></td>         
                 <%
                          i++;
                          }//endWhile 
