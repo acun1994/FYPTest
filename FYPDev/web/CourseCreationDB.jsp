@@ -40,16 +40,14 @@
                 ResultSet  rs = st.executeQuery("SELECT courseEntryID FROM courseentry WHERE courseID = '"+cID+"' AND semYear = '"+semesterYear+"'");
                 rs.next();
                 int courseEntryID = rs.getInt("courseEntryID");
-
+                    
                     query = "INSERT INTO coordinatorlist(courseEntryID,subjectID,sectionCount) VALUES('"+courseEntryID+"','"+sID[i]+"','"+Section[i]+"')";
                     st.execute(query); 
                     query = "INSERT INTO courseentry(courseID,semYear) VALUES('"+cID+"','"+semesterYear+"')";
                     st.executeUpdate(query);
                     query = "INSERT INTO subject(subjectID, subjectName) VALUES('"+sID[i]+"','"+sN[i]+"')";
                     st.executeUpdate(query);
-                    query = "INSERT INTO coordinatorlist(courseEntryID,subjectID,sectionCount) VALUES('"+courseEntryID+"','"+sID[i]+"','"+Section[i]+"')";
-                    st.execute(query); 
-
+                   
 
                 i++;
                 }
