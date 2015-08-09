@@ -23,9 +23,9 @@
 		
                                    //Details for subject information
                                    //Input from admin to be inserted into the database
-        	div.innerHTML = '<input type="text" name="subjectname" placeholder="Enter subject name">\n\
-                                 <input type="text" name="subjectID" placeholder="Enter subject ID">\n\
-                                 <input type="text" name="section" placeholder="Enter number of section">\n\
+        	div.innerHTML = '<input autocomplete="off" type="text" name="subjectname" placeholder="Enter subject name">\n\
+                                 <input autocomplete="off" type="text" name="subjectID" placeholder="Enter subject ID">\n\
+                                 <input autocomplete="off" type="text" name="section" placeholder="Enter number of section">\n\
                                  <input type="button" value="-" onclick="removeKid(this)">\n\
                                  <br>';
                 document.getElementById('kids').appendChild(div);
@@ -42,11 +42,13 @@
     
     <body>
         <%@include file="navbar_session.jsp" %>
+        <%Connection connection = null;%>
+        <%@ include file="dbCon.jsp"%>
         <div class="container">
             <%-- Form for course creation --%>
             <form role="form" name="form" method="post" action="CourseCreationDB.jsp">
                 <div class="form-group">
-                    <table>
+                    <table style="float:center">
                         <tr>
                             <td class="col-md-2">
                                 <label>Year : </label>
@@ -63,6 +65,7 @@
                                 <%-- Value not added yet --%>
                                 <label><input type="radio" name="semester" value="1">1 </label>
                                 <label><input type="radio" name="semester" value="2">2 </label>
+                                <label><input type="radio" name="semester" value="3">3 </label>
                             </td>
                         </tr>
                         <tr>
@@ -85,9 +88,9 @@
                             <td><label>Subject : </label></td>
                             <td id="kids">
                                 <%-- See java script for detail --%>
-                                <input type="text" name="subjectname" placeholder="Enter subject name">
-                                <input type="text" name="subjectID" placeholder="Enter subject ID">
-                                <input type="text" name="section" placeholder="Enter number of section">
+                                <input autocomplete="off" type="text" name="subjectname" placeholder="Enter subject name">
+                                <input autocomplete="off" type="text" name="subjectID" placeholder="Enter subject ID">
+                                <input autocomplete="off" type="text" name="section" placeholder="Enter number of section">
                                 <input type="button" value="-" onclick="removeKid(this)">
                             </td>
                         </tr>
@@ -100,5 +103,6 @@
                 <button type="submit" class="btn btn-default">Submit</button>
             </form>
         </div>
+         
     </body>
 </html>
