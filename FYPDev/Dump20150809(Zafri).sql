@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `coordinatorlist`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `coordinatorlist` (
-  `listID` varchar(45) NOT NULL,
+  `listID` int(11) NOT NULL AUTO_INCREMENT,
   `courseEntryID` int(11) NOT NULL,
   `subjectID` varchar(45) NOT NULL,
   `sectionCount` varchar(45) NOT NULL,
@@ -36,7 +36,7 @@ CREATE TABLE `coordinatorlist` (
   CONSTRAINT `coorList_coorID` FOREIGN KEY (`coordinatorID`) REFERENCES `userinfo` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `coorList_entryID` FOREIGN KEY (`courseEntryID`) REFERENCES `courseentry` (`courseEntryID`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `coorList_subID` FOREIGN KEY (`subjectID`) REFERENCES `subject` (`subjectID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -45,7 +45,7 @@ CREATE TABLE `coordinatorlist` (
 
 LOCK TABLES `coordinatorlist` WRITE;
 /*!40000 ALTER TABLE `coordinatorlist` DISABLE KEYS */;
-INSERT INTO `coordinatorlist` VALUES ('1',1,'SCSJ2133','Application Development',NULL,'Incomplete');
+INSERT INTO `coordinatorlist` VALUES (1,1,'SCSJ2133','Application Development',NULL,'Incomplete'),(3,12,'SJJJ1234','4',NULL,'Incomplete'),(4,14,'SJKJ1234','4',NULL,'Incomplete'),(5,15,'HIST1244','4',NULL,'Incomplete'),(6,16,'SCSJ8888','4',NULL,'Incomplete');
 /*!40000 ALTER TABLE `coordinatorlist` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -81,14 +81,14 @@ DROP TABLE IF EXISTS `courseentry`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `courseentry` (
-  `courseEntryID` int(11) NOT NULL,
+  `courseEntryID` int(11) NOT NULL AUTO_INCREMENT,
   `courseID` varchar(5) NOT NULL,
   `semYear` varchar(45) NOT NULL,
   PRIMARY KEY (`courseEntryID`),
   UNIQUE KEY `courseentry` (`courseID`,`semYear`),
   KEY `courseEntry_courseID_idx` (`courseID`),
   CONSTRAINT `courseEntry_courseID` FOREIGN KEY (`courseID`) REFERENCES `course` (`courseID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -97,7 +97,7 @@ CREATE TABLE `courseentry` (
 
 LOCK TABLES `courseentry` WRITE;
 /*!40000 ALTER TABLE `courseentry` DISABLE KEYS */;
-INSERT INTO `courseentry` VALUES (1,'1SCSJ','3-14/15'),(2,'1SCSJ','3-15/16');
+INSERT INTO `courseentry` VALUES (16,'1SCSJ','2-13/14'),(1,'1SCSJ','3-14/15'),(2,'1SCSJ','3-15/16');
 /*!40000 ALTER TABLE `courseentry` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -185,7 +185,7 @@ CREATE TABLE `subject` (
 
 LOCK TABLES `subject` WRITE;
 /*!40000 ALTER TABLE `subject` DISABLE KEYS */;
-INSERT INTO `subject` VALUES ('SCSJ1001','Test Subject 1'),('SCSJ2022','Test Subject 2'),('SCSJ2133','Application Development'),('SCSJ3303','Test Subject 3'),('SCSJ4444','Test Subject 4');
+INSERT INTO `subject` VALUES ('HIST1244','New World History'),('SCSJ1001','Test Subject 1'),('SCSJ2022','Test Subject 2'),('SCSJ2133','Application Development'),('SCSJ3303','Test Subject 3'),('SCSJ4444','Test Subject 4'),('SCSJ8888','Sembang Kemas'),('SJJJ1234','Test Subject'),('SJKJ1234','SUQILAJAJ');
 /*!40000 ALTER TABLE `subject` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -255,4 +255,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-08-09 13:28:06
+-- Dump completed on 2015-08-09 15:33:54

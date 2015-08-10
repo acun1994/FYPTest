@@ -41,6 +41,8 @@ and open the template in the editor.
                 {%><div class="text-center alert-danger alert">You are not logged in.</div><%}
             else if (request.getParameter("login").equals("failed"))
                 {%><div class="text-center alert-danger alert">Incorrect login information.</div><%}
+            else if (request.getParameter("login").equals("logout"))
+                {%><div class="text-center alert-warning alert">You have successfully logged out.</div><%}
             }
         %>
         <div id="center" align="center">

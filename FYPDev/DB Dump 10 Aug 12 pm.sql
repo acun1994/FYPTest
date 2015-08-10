@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `cfms_newschema` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `cfms_newschema`;
 -- MySQL dump 10.13  Distrib 5.6.24, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: cfms_newschema
@@ -25,15 +23,17 @@ DROP TABLE IF EXISTS `coordinatorlist`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `coordinatorlist` (
-  `courseEntryID` int(11) NOT NULL,
+  `listID` varchar(45) NOT NULL,
+  `semYear` varchar(7) NOT NULL,
   `subjectID` varchar(45) NOT NULL,
   `sectionCount` varchar(45) NOT NULL,
   `coordinatorID` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`courseEntryID`),
+  `status` varchar(45) NOT NULL DEFAULT 'Incomplete',
+  PRIMARY KEY (`listID`),
   KEY `coorList_subID_idx` (`subjectID`),
   KEY `coorList_coorID_idx` (`coordinatorID`),
+  KEY `coorList_entryID` (`semYear`),
   CONSTRAINT `coorList_coorID` FOREIGN KEY (`coordinatorID`) REFERENCES `userinfo` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `coorList_entryID` FOREIGN KEY (`courseEntryID`) REFERENCES `courseentry` (`courseEntryID`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `coorList_subID` FOREIGN KEY (`subjectID`) REFERENCES `subject` (`subjectID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -67,7 +67,7 @@ CREATE TABLE `course` (
 
 LOCK TABLES `course` WRITE;
 /*!40000 ALTER TABLE `course` DISABLE KEYS */;
-INSERT INTO `course` VALUES ('1SCSJ','Soft.Eng. 1'),('2SCSJ','Soft.Eng. 2'),('3SCSJ','Soft.Eng. 3'),('4SCSJ','Soft.Eng. 4');
+INSERT INTO `course` VALUES ('1SCSJ','Soft.Eng. 1'),('1SCSV','Graphics 1'),('2SCSJ','Soft.Eng. 2'),('2SCSV','Graphics 2');
 /*!40000 ALTER TABLE `course` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -83,6 +83,7 @@ CREATE TABLE `courseentry` (
   `courseID` varchar(5) NOT NULL,
   `semYear` varchar(45) NOT NULL,
   PRIMARY KEY (`courseEntryID`),
+  UNIQUE KEY `courseentry` (`courseID`,`semYear`),
   KEY `courseEntry_courseID_idx` (`courseID`),
   CONSTRAINT `courseEntry_courseID` FOREIGN KEY (`courseID`) REFERENCES `course` (`courseID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -94,7 +95,7 @@ CREATE TABLE `courseentry` (
 
 LOCK TABLES `courseentry` WRITE;
 /*!40000 ALTER TABLE `courseentry` DISABLE KEYS */;
-INSERT INTO `courseentry` VALUES (1,'1SCSJ','3-14/15');
+INSERT INTO `courseentry` VALUES (1,'1SCSJ','1-14/15'),(2,'1SCSV','1-14/15'),(3,'2SCSJ','1-14/15'),(4,'2SCSV','1-14/15');
 /*!40000 ALTER TABLE `courseentry` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -125,7 +126,6 @@ CREATE TABLE `filechangelog` (
 
 LOCK TABLES `filechangelog` WRITE;
 /*!40000 ALTER TABLE `filechangelog` DISABLE KEYS */;
-INSERT INTO `filechangelog` VALUES (2,4,'ADD','2015-08-04 04:06:33','ID01');
 /*!40000 ALTER TABLE `filechangelog` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -137,16 +137,19 @@ DROP TABLE IF EXISTS `lectlist`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `lectlist` (
-  `courseEntryID` int(11) NOT NULL,
+  `listID` int(11) NOT NULL AUTO_INCREMENT,
+  `courseEntryID` int(11) DEFAULT NULL,
+  `lecturerID` varchar(45) DEFAULT NULL,
   `subjectID` varchar(45) NOT NULL,
   `sectionNo` varchar(45) NOT NULL,
-  `lecturerID` varchar(45) NOT NULL,
-  PRIMARY KEY (`courseEntryID`),
+  `status` varchar(45) NOT NULL DEFAULT 'Pending',
+  PRIMARY KEY (`listID`),
   KEY `lectList_subID_idx` (`subjectID`),
   KEY `lectList_secNo_idx` (`sectionNo`),
   KEY `subList_lectID_idx` (`lecturerID`),
-  CONSTRAINT `lectList_courseEntryID` FOREIGN KEY (`courseEntryID`) REFERENCES `courseentry` (`courseEntryID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `lectList_lectID` FOREIGN KEY (`lecturerID`) REFERENCES `userinfo` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  KEY `lectList_courseEntryID_idx` (`courseEntryID`),
+  CONSTRAINT `lectList_courseID` FOREIGN KEY (`courseEntryID`) REFERENCES `courseentry` (`courseEntryID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `lectList_lectID` FOREIGN KEY (`lecturerID`) REFERENCES `userinfo` (`userID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `lectList_subID` FOREIGN KEY (`subjectID`) REFERENCES `subject` (`subjectID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -161,6 +164,32 @@ LOCK TABLES `lectlist` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `presetsubjects`
+--
+
+DROP TABLE IF EXISTS `presetsubjects`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `presetsubjects` (
+  `courseID` varchar(5) NOT NULL,
+  `subjectID` varchar(8) NOT NULL,
+  PRIMARY KEY (`courseID`,`subjectID`),
+  KEY `preset_subject_idx` (`subjectID`),
+  CONSTRAINT `preset_course` FOREIGN KEY (`courseID`) REFERENCES `course` (`courseID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `preset_subject` FOREIGN KEY (`subjectID`) REFERENCES `subject` (`subjectID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `presetsubjects`
+--
+
+LOCK TABLES `presetsubjects` WRITE;
+/*!40000 ALTER TABLE `presetsubjects` DISABLE KEYS */;
+/*!40000 ALTER TABLE `presetsubjects` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `subject`
 --
 
@@ -170,7 +199,8 @@ DROP TABLE IF EXISTS `subject`;
 CREATE TABLE `subject` (
   `subjectID` varchar(8) NOT NULL,
   `subjectName` varchar(45) NOT NULL,
-  PRIMARY KEY (`subjectID`)
+  PRIMARY KEY (`subjectID`),
+  UNIQUE KEY `subjectName_UNIQUE` (`subjectName`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -180,7 +210,7 @@ CREATE TABLE `subject` (
 
 LOCK TABLES `subject` WRITE;
 /*!40000 ALTER TABLE `subject` DISABLE KEYS */;
-INSERT INTO `subject` VALUES ('SCSJ1001','Test Subject 1'),('SCSJ2022','Test Subject 2'),('SCSJ3303','Test Subject 3'),('SCSJ4444','Test Subject 4');
+INSERT INTO `subject` VALUES ('SCSV1001','MM Sub 1'),('SCSV1002','MM Sub 2'),('SCSV2003','MM Sub 3'),('SCSV2004','MM Sub 4'),('SCSJ1001','SE Sub 1'),('SCSJ1002','SE Sub 2'),('SCSJ2003','SE Sub 3'),('SCSJ2004','SE Sub 4');
 /*!40000 ALTER TABLE `subject` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -193,15 +223,14 @@ DROP TABLE IF EXISTS `subjectfile`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `subjectfile` (
   `fileID` int(11) NOT NULL AUTO_INCREMENT,
-  `courseEntryID` int(11) NOT NULL,
-  `subjectID` varchar(45) NOT NULL,
-  `sectionNo` varchar(45) NOT NULL,
+  `sub_sectionID` int(11) NOT NULL,
   `fileType` varchar(45) NOT NULL,
   `fileName` varchar(45) NOT NULL,
   `status` varchar(45) NOT NULL DEFAULT 'Pending',
+  `fileLoc` varchar(250) NOT NULL,
   PRIMARY KEY (`fileID`),
-  KEY `courseEntryID_idx` (`courseEntryID`),
-  CONSTRAINT `subFile_entryID` FOREIGN KEY (`courseEntryID`) REFERENCES `courseentry` (`courseEntryID`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `subjectFile_subID_idx` (`sub_sectionID`),
+  CONSTRAINT `subjectFile_subID` FOREIGN KEY (`sub_sectionID`) REFERENCES `lectlist` (`listID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -211,7 +240,6 @@ CREATE TABLE `subjectfile` (
 
 LOCK TABLES `subjectfile` WRITE;
 /*!40000 ALTER TABLE `subjectfile` DISABLE KEYS */;
-INSERT INTO `subjectfile` VALUES (4,1,'SCCC202','0','Appointment Letter','FYPSys.txt','Pending');
 /*!40000 ALTER TABLE `subjectfile` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -227,6 +255,7 @@ CREATE TABLE `userinfo` (
   `userName` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
   `userType` varchar(45) NOT NULL,
+  `jabatan` varchar(45) NOT NULL,
   PRIMARY KEY (`userID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -237,7 +266,7 @@ CREATE TABLE `userinfo` (
 
 LOCK TABLES `userinfo` WRITE;
 /*!40000 ALTER TABLE `userinfo` DISABLE KEYS */;
-INSERT INTO `userinfo` VALUES ('ID01','admin','abc123','1'),('ID02','pentadbir','abc123','2'),('ID03','penyelaras','abc123','3'),('ID04','pensyarah','abc123','4');
+INSERT INTO `userinfo` VALUES ('ID01','admin','abc123','1','SC'),('ID02','pentadbir','abc123','2','SC'),('ID03','kjscsj','abc123','2','SCSJ'),('ID04','kjscsv','abc123','2','SCSV'),('ID05','kjscsr','abc123','2','SCSR'),('ID06','coord1','abc123','3','SCSJ'),('ID07','coord2','abc123','3','SCSV'),('ID08','coord3','abc123','3','SCSR'),('ID09','lect1','abc123','4','SCSJ'),('ID10','lect2','abc123','4','SCSV'),('ID11','lect3','abc123','4','SCSR');
 /*!40000 ALTER TABLE `userinfo` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -250,4 +279,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-08-04 12:08:00
+-- Dump completed on 2015-08-10 12:00:05

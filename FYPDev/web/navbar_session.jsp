@@ -45,12 +45,12 @@ and open the template in the editor.
             %>
                         <li><a href="CourseCreation.jsp">Create Course</a></li>
            <%          case 2:%>
-                        <li><a href="courseview.jsp">Edit Course</a></li>
+                        <li><a href="courseview.jsp">Course View</a></li>
            <%          case 3:%>
-                        <li><a href="subjectview.jsp">Edit Course</a></li>
-                        <li><a href="logout.jsp">Log Out</a></li>
+                        <li><a href="subjectview.jsp">Subject View</a></li>
            <%
-                      break;
+                        default:%>
+                        <li><a href="logout.jsp">Log Out</a></li><%;
                       }
                   }
             %>    
