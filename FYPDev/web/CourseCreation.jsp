@@ -45,6 +45,14 @@
         <%Connection connection = null;%>
         <%@ include file="dbCon.jsp"%>
         <div class="container">
+         <% if (request.getParameter("insert")!=null){
+            if (request.getParameter("insert").equals("false"))
+                {%><div class="text-center alert-danger alert">Error in saving data.</div><%}
+            else if (request.getParameter("insert").equals("true"))
+                {%><div class="text-center alert-success success">Data has been successfully saved.</div><%}
+            }
+        %>
+
             <%-- Form for course creation --%>
             <form role="form" name="form" method="post" action="CourseCreationDB.jsp">
                 <div class="form-group">
@@ -103,13 +111,6 @@
                 <button type="submit" class="btn btn-default">Submit</button>
             </form>
         </div>
-        <% if (request.getParameter("insert")!=null){
-            if (request.getParameter("insert").equals("false"))
-                {%><div class="text-center alert-danger alert">Error in saving data.</div><%}
-            else if (request.getParameter("insert").equals("true"))
-                {%><div class="text-center alert-success success">Data has been successfully saved.</div><%}
-            }
-        %>
          
     </body>
 </html>
