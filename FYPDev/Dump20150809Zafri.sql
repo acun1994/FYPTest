@@ -2,7 +2,7 @@
 --
 -- Host: 127.0.0.1    Database: cfms_newschema
 -- ------------------------------------------------------
--- Server version	5.6.26-log
+-- Server version	5.6.24
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -45,7 +45,7 @@ CREATE TABLE `coordinatorlist` (
 
 LOCK TABLES `coordinatorlist` WRITE;
 /*!40000 ALTER TABLE `coordinatorlist` DISABLE KEYS */;
-INSERT INTO `coordinatorlist` VALUES ('',1,'SCSJ2133','Application Development',NULL,'Incomplete');
+INSERT INTO `coordinatorlist` VALUES ('1',1,'SCSJ2133','Application Development',NULL,'Incomplete');
 /*!40000 ALTER TABLE `coordinatorlist` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -85,6 +85,7 @@ CREATE TABLE `courseentry` (
   `courseID` varchar(5) NOT NULL,
   `semYear` varchar(45) NOT NULL,
   PRIMARY KEY (`courseEntryID`),
+  UNIQUE KEY `courseentry` (`courseID`,`semYear`),
   KEY `courseEntry_courseID_idx` (`courseID`),
   CONSTRAINT `courseEntry_courseID` FOREIGN KEY (`courseID`) REFERENCES `course` (`courseID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -96,7 +97,7 @@ CREATE TABLE `courseentry` (
 
 LOCK TABLES `courseentry` WRITE;
 /*!40000 ALTER TABLE `courseentry` DISABLE KEYS */;
-INSERT INTO `courseentry` VALUES (1,'1SCSJ','3-14/15');
+INSERT INTO `courseentry` VALUES (1,'1SCSJ','3-14/15'),(2,'1SCSJ','3-15/16');
 /*!40000 ALTER TABLE `courseentry` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -254,4 +255,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-08-09 10:26:07
+-- Dump completed on 2015-08-09 13:28:06

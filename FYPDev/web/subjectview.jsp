@@ -7,7 +7,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <%@include file="navbar_session.jsp" %>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Overall Course View</title>
@@ -19,139 +18,106 @@
         
     </head>
         <body>
+        <%@include file="navbar_session.jsp" %>
         <% Connection connection = null; %>
         <%@ include file="dbCon.jsp"%>
         <%@page import="java.util.ArrayList" %>
         
-        <%
-            //Setting up the options for the form 
-            ResultSet list = null;
-            PreparedStatement list_query = connection.prepareStatement("select * from courseentry");
-            list = list_query.executeQuery();
-            
-            ArrayList<String> year = new ArrayList();
-            ArrayList<String> sem = new ArrayList();
-            ArrayList<String> course = new ArrayList();
-            
-            while(list.next())
-            {
-                year.add(list.getString("semYear").substring(2));
-                if(sem.contains(list.getString("semYear").substring(0,1)) == false)
-                    {sem.add(list.getString("semYear").substring(0,1));}
-                course.add(list.getString("courseID"));
-            }
+        <h1 class="text-center">Overall Subject View</h1>
+        
+        <%//Getting data from (courseview.jsp)
+        String courseid = request.getParameter("courseid");   
+        String coordinatorid = request.getParameter("coordinatorid");
+        String subid = request.getParameter("subjectid");    
+        
+        PreparedStatement getUserName = connection.prepareStatement("select * from userinfo where userid=? ");
+        PreparedStatement getSubjectName = connection.prepareStatement("select * from subject where subjectid=?");
+        
+        //Getting coordinator name
+        getUserName.setString(1, courseid);
+        ResultSet coordiName = getUserName.executeQuery();
+        
+        //Getting subject name
+        getSubjectName.setString(1,subid);
+        ResultSet subjectName = getSubjectName.executeQuery();
+        
         %>
         
-        <h1 class="text-center">Overall Course View</h1>
+        <div align="center">
+            Coordinator Name : <% if(coordiName.next()){coordiName.getString("userName");}%>
+            Coordinator Id   : <%= coordinatorid %>
+            Course Entry Id  : <%= courseid      %>
+        </div>
         
-        <div align="center"> 
-            <form action="subjectview2.jsp" method="get">
-                <%-- Select for Year selection --%>
-                <select name="year"><%-- options are from database --%>
-                    <option value="#">Year</option>
-                    <% 
-                    for(int i=0;i<year.size();i++)
-                        {
-                         out.println("<option value="+year.get(i)+">"+year.get(i)+"</option>");
-                        }
-                    %>
-                </select>
-         
-                <%-- Select for Course selection --%>
-                <select name="course"><%-- options are from database --%>
-                    <option value="#">Course</option>
-                    <% 
-                    for(int i=0;i<course.size();i++)
-                        {
-                         out.println("<option value="+course.get(i)+">"+course.get(i)+"</option>");
-                        }
-                    %>
-                </select>
+        <div align="center">
+            Subject Name : <% if(subjectName.next()){subjectName.getString("subjectName");}%>
+            Subject Id   : <%= subid %>
+        </div>
         
-                <%-- Dropdown for Semester selection --%>
-                <select name="sem"><%-- options are from database --%>
-                    <option value="#">Semester</option>
-                    <% 
-                    for(int i=0;i<course.size();i++)
-                        {
-                         out.println("<option value="+sem.get(i)+">"+sem.get(i)+"</option>");
-                        }
-                    %>
-                </select>
-            <button type="submit" class="btn btn-submit">Search</button>
-            </form>
-            </div>
         <br/><br/>
         
-        <div> <%-- List of all subject for particular course at that semester & year --%>
+        <div> <%-- List of all section for particular subject at that semester & year --%>
             <%-- 
             The list will be generated from the database. 
             Based the format below.    
             --%>
+            <% 
+               //Checking if the subject has selected sections
+                PreparedStatement checkSectionExist = connection.prepareStatement("select * from lectlist where courseEntryID=?");
+                checkSectionExist.setString(1, courseid);
+                ResultSet sectionResult = checkSectionExist.executeQuery();
+
+                if(sectionResult.next())
+                { 
+                   //Getting section info from lectlist
+                   PreparedStatement getSectionInfo = connection.prepareStatement("select * from lectlist where subjectID=?");
+                    getSectionInfo.setString(1,subid);
+                    ResultSet sectionInfo = getSectionInfo.executeQuery();            
+            %>
             <table class="table-bordered table-responsive" align="center">
-                
-                <% 
-                    String formcourse = request.getParameter("course");
-                    String formyear = request.getParameter("year");
-                    String formsem = request.getParameter("sem");
-                    
-                    String getSemYear = formsem + "-" + formyear;
-                    
-                    //Getting courseEntryID from selected course, year and semester
-                    PreparedStatement getCourseEntry = connection.prepareStatement("select courseentryid from courseentry where courseID=? and semyear=?");
-                        getCourseEntry.setString(1, formcourse);
-                        getCourseEntry.setString(2, getSemYear);
-                    ResultSet entryid = getCourseEntry.executeQuery();
-                    
-                    //Getting all subjectID that have the same courseEntryID
-                    PreparedStatement getSubjectID = connection.prepareStatement("select * from coordinatorlist where courseentryID=?");
-                    
-                    PreparedStatement getSubjectName = connection.prepareStatement("select subjectname from subject where subjectid=?");
-                    
-                    if(entryid.next())
-                    {
-                %>
-                        <tr>
-                        <th class="text-center">No.</th>
-                        <th class="text-center">Subject</th>
-                        <th class="text-center">Subject ID</th>
+                <tr>
+                        <th class="text-center">Section No.</th>
+                        <th class="text-center">Lecturer Name</th>
+                        <th class="text-center">Lecturer ID</th>
                         <th class="text-center">Status</th>
                         <th class="text-center">View</th>
-                        </tr>
-                        <tr>   
-                <%
-                        getSubjectID.setString(1, entryid.getString("courseentryid"));
-                    
-                        ResultSet subjectID = getSubjectID.executeQuery();
+                </tr>
+                <tr>
+            <%        while(sectionInfo.next())
+                    {
+            %>
+                        <%-- Section No Table Column --%>
+                        <td class="text-center" style="padding:10px"> <%= sectionInfo.getString("sectionNo") %> </td>
                         
-                        int i = 1;
+                        <%-- Lecturer Name Table Column --%>
+                        <td class="text-center" style="padding:10px"> 
+            <%
+                                //Getting Lecturer Name from userInfo
+                                getUserName.setString(1, sectionInfo.getString("lecturerID"));
+                                ResultSet lectName = getUserName.executeQuery();
+                                                                        
+                                //Outputting Lecturer Name
+                                if(lectName.next())
+                                    {out.println(lectName.getString("userName"));}
+            %> 
+                        </td>
                         
-                         while(subjectID.next())
-                         { 
-                             //Getting subjectname from the subject table using subjectid
-                             getSubjectName.setString(1, subjectID.getString("subjectID"));
-                             
-                             ResultSet subjectName = getSubjectName.executeQuery();
-                %>
-                           <td class="text-center" style="padding:10px"> <%= i %> </td>
-                           <td class="text-center" style="padding:10px"> <% if(subjectName.next()){out.println(subjectName.getString("subjectName"));} %> </td>
-                           <td class="text-center" style="padding:10px"> <%= subjectID.getString("subjectID") %> </td>
-                           <td class="text-center" style="padding:10px"> <% 
-                                                                            switch(subjectID.getInt("status"))
-                                                                            {
-                                                                                case 1: out.println("Not Approved");
-                                                                                        break;
-                                                                                case 2: out.println("Approved");
-                                                                                        break;
-                                                                            }
-                                                                         %> </td>
-                           <td class="text-center" style="padding:10px"><span class="glyphicon glyphicon-search"></span></td>         
-                <%
-                         i++;
-                         }//endWhile 
-                    }//endIf
-                %>
-                  
+                        <%-- Lecturer ID Table Column --%>
+                        <td class="text-center" style="padding:10px"> <%= sectionInfo.getString("lecturerID") %> </td>
+                        
+                        <%-- Status Table Column --%>
+                        <td class="text-center" style="padding:10px"> <%= sectionInfo.getString("Status") %> </td>
+                        
+                        <%-- View Table Column --%>
+                        <td class="text-center" style="padding:10px"> <span class="glyphicon glyphicon-search"></span> </td>         
+            <% 
+                    }//end WHILE
+                }//end IF 
+                else
+                {
+                    out.println("There is no lecturer selected for this subject yet");
+                }
+            %>
                 </tr>
             </table>
         </div>    

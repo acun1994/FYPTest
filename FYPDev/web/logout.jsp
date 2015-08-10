@@ -7,5 +7,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     session.invalidate();
-    response.sendRedirect("login.jsp");
+    response.sendRedirect("login.jsp?login=logout");
 %>

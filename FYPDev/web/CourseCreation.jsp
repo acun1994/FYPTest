@@ -14,6 +14,12 @@
         <link rel="stylesheet" href="./resources/css/bootstrap.min.css">
         <script src="./resources/js/jquery.min.js"></script>
         <script src="./resources/js/bootstrap.min.js"></script>
+        <!--mdl-->
+        <script src="resources/mdl/material.min.js" type="text/javascript"></script>
+        <link href="resources/mdl/material.light_blue-indigo.min.css" rel="stylesheet" type="text/css"/>
+        <!--Materialize-->
+        <script src="./resources/js/materialize.min.js"></script>
+        <link rel="stylesheet" href="./resources/css/materialize.min/css">
         <script language="javascript">
         var i = 0;
         function addKid()
@@ -41,8 +47,8 @@
     </head>
     
     <body>
-        <%@include file="navbar_session.jsp" %>
         <%Connection connection = null;%>
+        <%@include file="navbar_session.jsp" %>
         <%@ include file="dbCon.jsp"%>
         <div class="container">
          <% if (request.getParameter("insert")!=null){
@@ -61,25 +67,29 @@
                             <td class="col-md-2">
                                 <label>Year : </label>
                             </td>
-                            <td>
-                                <input type="text" name="CourseYear" placeholder="Example 13/14">
+                            <td class="mdl-textfield mdl-js-textfield textfield-demo">
+                                <input class="mdl-textfield__input" type="text" name="CourseYear" id="courseyear">
+                                <label class="mdl-textfield__label" for="courseyear">Example 2013/2014</label>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <label>Semester</label>
+                                <label>Semester :</label>
                             </td>
                             <td>
                                 <%-- Value not added yet --%>
-                                <label><input type="radio" name="semester" value="1">1 </label>
-                                <label><input type="radio" name="semester" value="2">2 </label>
-                                <label><input type="radio" name="semester" value="3">3 </label>
+                                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="sem1">
+                                    <input class="mdl-radio__button" type="radio" name="semester" value="1" id="sem1">1
+                                </label>
+                                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="sem2">
+                                    <input class="mdl-radio__button" type="radio" name="semester" value="2" id="sem2">2 
+                                </label>
                             </td>
                         </tr>
                         <tr>
                             <td><label>Course</label></td>
                             <td>
-                                <div class="form-horizontal" >
+                                <div class="input-field col s12" >
                                     <select name="COURSEID">
                                       <%-- 
                                       Course list should be taken from database 
@@ -108,7 +118,8 @@
                         </tr>
                     </table>
                 </div>
-                <button type="submit" class="btn btn-default">Submit</button>
+                <button type="submit" class="btn waves-effect waves-light" name="action">Submit
+                    <i class="material-icons"></i></button>
             </form>
         </div>
          

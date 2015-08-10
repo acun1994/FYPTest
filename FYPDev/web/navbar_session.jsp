@@ -16,7 +16,7 @@ and open the template in the editor.
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>                        
+                    <span class="icon-bar"></span>
                 </button>   
                 <a class="navbar-brand" href="index.jsp">CFMS</a>
             </div>
@@ -45,12 +45,12 @@ and open the template in the editor.
             %>
                         <li><a href="CourseCreation.jsp">Create Course</a></li>
            <%          case 2:%>
-                        <li><a href="courseview.jsp">Edit Course</a></li>
+                        <li><a href="courseview.jsp">Course View</a></li>
            <%          case 3:%>
-                        <li><a href="subjectview.jsp">Edit Course</a></li>
-                        <li><a href="logout.jsp">Log Out</a></li>
+                        <li><a href="subjectview.jsp">Subject View</a></li>
            <%
-                      break;
+                        default:%>
+                        <li><a href="logout.jsp">Log Out</a></li><%;
                       }
                   }
             %>    

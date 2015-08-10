@@ -19,38 +19,54 @@
         <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
         
         <!--Material Design-->
-        <script src="./resources/mdl/material.min.js"></script>
-        <link rel="stylesheet" href="./resources/mdl/material.light_blue-indigo.min.css">
-        <!--Materialize-->
-        <script src="./resources/materialize/materialize.min.js"></script>
-        <link rel="stylesheet" href="./resources/materialize/materialize.min.css">
+        <link href="resources/mdl/material.light_blue-indigo.min.css" rel="stylesheet" type="text/css"/>
+        <link href="resources/mdl/material.min.css" rel="stylesheet" type="text/css"/>
+        <script src="resources/mdl/material.min.js" type="text/javascript"></script>
         
         <title>Form02 : Lecturer Selection</title>
     </head>
     <body>
+
         <%@include file="navbar_session.jsp" %>
         <% String[] str;
            String[] str2;%>
         <%@include file="LecturerSelectionDB.jsp" %>
+
         <div class="container" align="center">
+
             <form role="form" class="form-group" method="post" action = "LecturerSelectionDB.jsp" name="Lecturer_Selection" autocomplete="on">
-                <input name="Subject_ID" ID="tags" type="text" class="form-horizontal" placeholder="Subject ID" />
-                <table class="table table-borderline">
+                <div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" name="Subject_ID" type="text" id="tags">
+                    <label for="sub_id" class="mdl-textfield__label">Subject ID</label>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" name="Subject_Name" type="text" id="sub_name">
+                    <label for="sub_name" class="mdl-textfield__label">Subject Name</label>
+                </div>
+                <table>
+
                     <tr>
                         <td><label>Penyelaras : </label></td>
-                        <td><input name="Penyelaras_Name" type="text" class="col-sm-10 form-horizontal" placeholder="Enter Lect. Name Here"></td>
+
+                        <td>
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+                            <input  class="mdl-textfield__input" id="name_penyelaras" name="Penyelaras_Name" type="text">
+                            <div class="mdl-tooltip mdl-tooltip--large">Enter Coordinator name here</div>
+                            </div>
+                        </td>
+
                     </tr>
                     <tr>
                         <td><label>Lecturer: </label></td>
-                        <td><table class="table table-bordered">
+                        <td><table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
                                 <thead>
                                     <tr>
-                                        <th><div align="center">Name</div></th>
+                                        <th class="mdl-data-table__cell--non-numeric"><div align="center">Name</div></th>
                                         <th><div align="center">ID</div></th>
                                     </tr>
                                 </thead>
                                 <tr>
-                                    <td><div align="center" class="col-sm-10"><input type="text" class="col-sm-10" name="lecturer_name"></div></td>
+                                    <td class="mdl-data-table__cell--non-numeric"><div align="center" class="col-sm-10"><input type="text" class="col-sm-10" name="lecturer_name"></div></td>
                                     <td><div align="center" class="col-sm-10"><input type="text" class="col-sm-10" name="lecturer_id"></div></td>
                                 </tr>
                             </table>
@@ -61,7 +77,7 @@
                 <br>
                 <label>Total Section : </label>
                 <br>
-                <button type="button" value="Submit" id="btnSubmit" onClick="submitForm()" class="btn btn-submit">Submit</button>
+                <button type="button" value="Submit" id="btnSubmit" onClick="submitForm()" class="mdl-button md-js-button mdl-button--raised mdl-button--colored">Submit</button>
             </form>
         </div>
         <script>
