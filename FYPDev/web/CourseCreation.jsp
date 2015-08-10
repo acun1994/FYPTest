@@ -103,6 +103,13 @@
                 <button type="submit" class="btn btn-default">Submit</button>
             </form>
         </div>
+        <% if (request.getParameter("insert")!=null){
+            if (request.getParameter("insert").equals("false"))
+                {%><div class="text-center alert-danger alert">Error in saving data.</div><%}
+            else if (request.getParameter("insert").equals("true"))
+                {%><div class="text-center alert-success success">Data has been successfully saved.</div><%}
+            }
+        %>
          
     </body>
 </html>

@@ -37,8 +37,6 @@
                 query = "UPDATE subject_list SET penyelarasID = '"+penyelaras+"' WHERE subjectID = 'ANA1234'";
                 st.executeUpdate(query);  
                 out.println("Successful insertion</br>" + penyelaras);
-                
-               
              }
                
           catch(Exception e){
