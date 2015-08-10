@@ -7,7 +7,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <%@include file="navbar_session.jsp" %>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Overall Course View</title>
@@ -22,6 +21,7 @@
         <% Connection connection = null; %>
         <%@ include file="dbCon.jsp"%>
         <%@page import="java.util.ArrayList" %>
+        <%@include file="navbar_session.jsp" %>
         
         <%
             //Setting up the options for the form 
@@ -43,7 +43,6 @@
                     course.add(list.getString("courseID"));
             }
         %>
-        
         <h1 class="text-center">Overall Course View</h1>
         
         <div align="center"> 

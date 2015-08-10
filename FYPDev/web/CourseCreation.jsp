@@ -47,8 +47,8 @@
     </head>
     
     <body>
-        <%@include file="navbar_session.jsp" %>
         <%Connection connection = null;%>
+        <%@include file="navbar_session.jsp" %>
         <%@ include file="dbCon.jsp"%>
         <div class="container">
             <%-- Form for course creation --%>
