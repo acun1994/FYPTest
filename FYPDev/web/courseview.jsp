@@ -7,7 +7,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <%@include file="navbar_session.jsp" %>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Overall Course View</title>
@@ -19,6 +18,7 @@
         
     </head>
         <body>
+        <%@include file="navbar_session.jsp" %>    
         <% Connection connection = null; %>
         <%@ include file="dbCon.jsp"%>
         <%@page import="java.util.ArrayList" %>

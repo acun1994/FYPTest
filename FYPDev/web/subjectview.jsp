@@ -7,7 +7,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <%@include file="navbar_session.jsp" %>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Overall Course View</title>
@@ -19,6 +18,7 @@
         
     </head>
         <body>
+        <%@include file="navbar_session.jsp" %>
         <% Connection connection = null; %>
         <%@ include file="dbCon.jsp"%>
         <%@page import="java.util.ArrayList" %>
@@ -86,10 +86,12 @@
             <%        while(sectionInfo.next())
                     {
             %>
+                        <%-- Section No Table Column --%>
                         <td class="text-center" style="padding:10px"> <%= sectionInfo.getString("sectionNo") %> </td>
-                        <td class="text-center" style="padding:10px"> <%= sectionInfo.getString("sectionNo") %> </td>
+                        
+                        <%-- Lecturer Name Table Column --%>
                         <td class="text-center" style="padding:10px"> 
-                            <%
+            <%
                                 //Getting Lecturer Name from userInfo
                                 getUserName.setString(1, sectionInfo.getString("lecturerID"));
                                 ResultSet lectName = getUserName.executeQuery();
@@ -97,9 +99,16 @@
                                 //Outputting Lecturer Name
                                 if(lectName.next())
                                     {out.println(lectName.getString("userName"));}
-                            %> 
+            %> 
                         </td>
+                        
+                        <%-- Lecturer ID Table Column --%>
+                        <td class="text-center" style="padding:10px"> <%= sectionInfo.getString("lecturerID") %> </td>
+                        
+                        <%-- Status Table Column --%>
                         <td class="text-center" style="padding:10px"> <%= sectionInfo.getString("Status") %> </td>
+                        
+                        <%-- View Table Column --%>
                         <td class="text-center" style="padding:10px"> <span class="glyphicon glyphicon-search"></span> </td>         
             <% 
                     }//end WHILE
