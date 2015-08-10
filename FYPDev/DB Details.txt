@@ -1,0 +1,54 @@
+UserInfo
+- On login, check userName, password
+-- Valid login, assign userName, userID, userType, jabatan to Session
+--- userType 1 = All access
+--- userType 2 = View access to jabatan (SC = all)
+--- userType 3 = Coordinator access to subject
+--- userType 4 = Lecturer, only file access to own section
+
+Course
+- On addition, add courseID(PK), courseName
+
+CourseEntry
+- On addition, add courseID, semYear
+-- courseID = FK = Course(courseID)
+-- semYear format(x-yy/zz)
+--- x = semester
+--- y = start year
+--- z = end year
+
+Subject
+- On addition, add subjectID(PK), subjectName(UN)
+-- subjectID format(xxxxyyyy)
+--- xxxx = 4 character denoting course
+--- yyyy = 4 numbers
+
+LectList
+- On addition, add subjectID, sectionNo
+-- subjectID = FK = Subject(subjectID)
+- On update (lect assignment), add courseEntryID, lecturerID
+-- courseEntryID = FK = CourseEntry(courseEntryID)
+-- lecturerID = FK = UserInfo(userID)
+
+CoordinatorList
+- On addition, add semYear, subjectID, sectionCount
+-- semYear format(x-yy/zz)
+--- x = semester
+--- y = start year
+--- z = end year
+-- subjectID = FK = Subject(subjectID)
+- On update, add coordinatorID
+
+SubjectFile
+- On addition, add sub_sectionID, fileType, fileName, fileLoc
+-- sub_sectionID = FK = lectList(listID)
+-- fileLoc = file location in drive
+
+FileChangelog
+- On addition, add fileID, action, timestamp, userID
+-- fileID = PK = SubjectFile(fileID)
+-- action = ADD, DELETE, UPDATE
+-- userID = session.getAttribute(userID)
+
+PresetSubjects
+- On course creation, create entries in CoordinatorList
