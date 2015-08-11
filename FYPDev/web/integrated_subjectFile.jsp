@@ -19,8 +19,8 @@
         <% 
             String userID = (session.getAttribute("userid")).toString();
             ResultSet fileListRS = null;
-            int section;
-            String subject;
+            int section = 0;
+            String subject = "";
             
             String getClassesSQL = "SELECT listID, subjectID, sectionNo FROM lectlist WHERE lecturerID = ?";
                 PreparedStatement getClasses = connection.prepareStatement(getClassesSQL);
@@ -52,11 +52,11 @@
         <form action="./integrated_subjectFile.jsp" method="POST">
             <label> Class : </label>
             <select name = "class" onchange="this.form.submit()">
-                <option disabled selected>Choose a class</option>
+                <option disabled <% if (section == 0){ %>selected<% } %>>Choose a class</option>
                 <% while (classListRS.next()) {
                     String className = classListRS.getString("subjectID") + "-" + classListRS.getInt("sectionNo");
                     %>
-                    <option value = <%= quote(className) %>> <%= className %></option>
+                    <option <%if((subject + "-" + section).equals(className)){%>selected<%}%> value = <%= quote(className) %>> <%= className %></option>
                     <%
                 }%>        
             </select>
@@ -69,9 +69,9 @@
                 </thead>
                 <% while (fileListRS.next()){%>
                     <tr>
-                        <td><%= fileListRS.getString(1) %></td>
-                        <td><%= fileListRS.getString(2) %></td>
-                        <td><%= fileListRS.getString(3) %></td>
+                        <td><%= fileListRS.getString("fileType") %></td>
+                        <td><%= fileListRS.getString("fileName") %></td>
+                        <td><%= fileListRS.getString("status") %></td>
                     </tr>
                 <% } %>
             </table>
