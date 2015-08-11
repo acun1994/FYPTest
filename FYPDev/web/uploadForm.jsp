@@ -35,7 +35,7 @@ and open the template in the editor.
                                  <option value ="Course Outline"> Course Outline </option>\n\
                                  <option value ="Student List"> Student List </option>\n\
                                  <option value ="Notes"> Notes/Slides </option>\n\
-                                 <option value ="Std Work"> Assignment/Tutorial/Lab </option>\n\
+                                 <option value ="Student Work"> Assignment/Tutorial/Lab </option>\n\
                                  <option value ="Quiz MidTerm"> Quiz/Mid Term </option>\n\
                                  <option value ="Final Exam"> Final Exam </option>\n\
                                  <option value ="Course Work Grade"> Course Work Grades </option>\n\

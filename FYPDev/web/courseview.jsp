@@ -10,19 +10,14 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Overall Course View</title>
-        
-        <link rel="stylesheet" type="text/css" href="./resources/css/bootstrap.css"/>
-        <script src="./resources/js/jquery.min.js"></script>
-        <script src="./resources/js/bootstrap.min.js"></script>
-        <script src="./resources/js/gen_validatorv4.js"></script>
-        
-    </head>
-        <body>
-        <%@include file="navbar_session.jsp" %>    
         <% Connection connection = null; %>
         <%@ include file="dbCon.jsp"%>
         <%@page import="java.util.ArrayList" %>
         
+        <link rel="stylesheet" type="text/css" href="./resources/css/bootstrap.css"/>
+        <script src="./resources/js/jquery.js"></script>
+        <script src="./resources/js/bootstrap.min.js"></script>
+        <script src="./resources/js/gen_validatorv4.js"></script>
         <%
             //Setting up the options for the form 
             ResultSet list = null;
@@ -38,21 +33,87 @@
             { //Making sure all listed result are unique
                 if(year.contains(list.getString("semYear").substring(2)) == false)
                     year.add(list.getString("semYear").substring(2));
-                if(sem.contains(list.getString("semYear").substring(0,1)) == false)
-                    {sem.add(list.getString("semYear").substring(0,1));}
-                if(course.contains(list.getString("courseID")) == false)
-                    course.add(list.getString("courseID"));
             }
-        %>
+        %>    
+        <script>
+        function showCourse(year) 
+        {
+            $("#yearValue").val(year);
+            if (year == "#") 
+            {
+                document.getElementById("course").innerHTML = "<option value='#'>Please Select A Year First</option>";
+                return;
+            } 
+            else 
+            { 
+                if (window.XMLHttpRequest) 
+                {// code for IE7+, Firefox, Chrome, Opera, Safari
+                 xmlhttp = new XMLHttpRequest();
+                } 
+                else 
+                {// code for IE6, IE5
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+
+            xmlhttp.onreadystatechange = function() 
+            {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) 
+                {document.getElementById("course").innerHTML = xmlhttp.responseText;}
+            }
+            xmlhttp.open("GET","getcourse.jsp?year="+year,true);
+            xmlhttp.send();
+            }
+             
+        }
+        
+        function showSem(course,year) 
+        {
+                     
+             $("#courseValue").val(course);
+             
+            if (course == "#" || year == "#") 
+            {
+                document.getElementById("sem").innerHTML = "<option value='#'>Please Select A Course First</option>";
+                return;
+            } 
+            else 
+            { 
+                if (window.XMLHttpRequest) 
+                {// code for IE7+, Firefox, Chrome, Opera, Safari
+                 xmlhttp = new XMLHttpRequest();
+                } 
+                else 
+                {// code for IE6, IE5
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+
+            xmlhttp.onreadystatechange = function() 
+            {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) 
+                {document.getElementById("sem").innerHTML = xmlhttp.responseText;}
+            }
+            xmlhttp.open("GET","getsem.jsp?course="+course+"&year="+year,true);
+            xmlhttp.send();
+            }
+
+        }
+
+        </script>
+        
+    </head>
+        <body>
+        <%@include file="navbar_session.jsp" %>    
+       
+       
         
         <h1 class="text-center">Overall Course View</h1>
         
         <%-- Search form --%>
-        <div align="center"> 
-            <form action="courseview.jsp" method="get">
+        <div align="center" style="display: inline"> 
+            <form>
                 <%-- Select for Year selection --%>
-                <select name="year"><%-- options are from database --%>
-                    <option value="#">Year</option>
+                <select id="year" onchange="showCourse(this.value)"><%-- options are from database --%>
+                    <option value="#">Select A Year</option>
                     <% //Outputting Year option
                     for(int i=0;i<year.size();i++)
                         {
@@ -60,29 +121,24 @@
                         }
                     %>
                 </select>
-         
+            </form>
+            <form>
                 <%-- Select for Course selection --%>
-                <select name="course"><%-- options are from database --%>
-                    <option value="#">Course</option>
-                    <% //Outputting Course option
-                    for(int i=0;i<course.size();i++)
-                        {
-                         out.println("<option value="+course.get(i)+">"+course.get(i)+"</option>");
-                        }
-                    %>
+                <select id="course" onchange="showSem(this.value,document.getElementById('yearValue').valueOf())"><%-- options are from database --%>
+                    <option value="#">Please Select Year First</option>
                 </select>
-        
+            </form>
+            <form action="courseview.jsp" method="get">
                 <%-- Dropdown for Semester selection --%>
-                <select name="sem"><%-- options are from database --%>
-                    <option value="#">Semester</option>
-                    <% //Outputting Semester option
-                    for(int i=0;i<sem.size();i++)
-                        {
-                         out.println("<option value="+sem.get(i)+">"+sem.get(i)+"</option>");
-                        }
-                    %>
+                <select id="sem" name="sem"><%-- options are from database --%>
+                    <option value="#">Please Select A Course First</option>
                 </select>
-            <button type="submit" class="btn btn-submit">Search</button>
+            
+                <%-- Field for storing selected year and course value --%>  
+                <input type="hidden" id="yearValue" name="year">
+                <input type="hidden" id="courseValue" name="course">
+            
+                <button type="submit" class="btn btn-submit">Search</button>
             </form>
             </div>
                 </br>
@@ -98,7 +154,7 @@
                     String formyear   = request.getParameter("year");
                     String formsem    = request.getParameter("sem");
                     
-                    if(formcourse != null)
+                    if(formcourse != null && formyear != null && formsem != null)
                     {
                 %>
                 <div align="center" position="fixed">
