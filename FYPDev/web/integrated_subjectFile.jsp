@@ -16,15 +16,32 @@
     </head>
 
     <body>
-        <% 
-            String userID = (session.getAttribute("userid")).toString();
+        <%         
+            String lecturerID;
+            String lecturerName;
             ResultSet fileListRS = null;
             int section = 0;
             String subject = "";
             
+            if (checkAccess(session, 4)){
+                lecturerID = (session.getAttribute("userid")).toString();
+            }
+            //Prep case for other level of access
+            else if (request.getParameter("lecturerID")!= null){
+                lecturerID = request.getParameter("lecturerID");
+            }
+            else lecturerID = "";
+            
+            String getLectNameSQL = "SELECT userName FROM userinfo WHERE userID = ?";
+                PreparedStatement getLectName = connection.prepareStatement(getLectNameSQL);
+                    getLectName.setString(1, lecturerID);
+                ResultSet lectNameRS = getLectName.executeQuery();
+                    lectNameRS.next();
+                lecturerName = lectNameRS.getString("userName");
+            
             String getClassesSQL = "SELECT listID, subjectID, sectionNo FROM lectlist WHERE lecturerID = ?";
                 PreparedStatement getClasses = connection.prepareStatement(getClassesSQL);
-                    getClasses.setString(1, userID);
+                    getClasses.setString(1, lecturerID);
                 ResultSet classListRS = getClasses.executeQuery();
            
             if (request.getParameter("class")!=null && !request.getParameter("class").equals("")){
@@ -49,8 +66,11 @@
             }
         %>
         
+        <label> Lecturer :  </label> <%= lecturerID %> - <%= lecturerName %>
         <form action="./integrated_subjectFile.jsp" method="POST">
             <label> Class : </label>
+            <% // So that form remembers lectID %>
+            <input hidden name="lecturerID" value=<%= quote(lecturerID) %>></input>
             <select name = "class" onchange="this.form.submit()">
                 <option disabled <% if (section == 0){ %>selected<% } %>>Choose a class</option>
                 <% while (classListRS.next()) {
