@@ -17,15 +17,24 @@
     <body>
         <% 
             String userID = (session.getAttribute("userID")).toString(); 
-            String getClassesSQL = "SELECT * FROM lectlist WHERE ";
-            PreparedStatement getClasses = connection.prepareStatement(getClassesSQL);
-            ResultSet classList = getClasses.executeQuery();
-            classList.next();
-        
-        
-        
+            String getClassesSQL = "SELECT * FROM lectlist WHERE lecturerID = " + quote(userID);
+                PreparedStatement getClasses = connection.prepareStatement(getClassesSQL);
+                ResultSet classList = getClasses.executeQuery();
+                   
         %>
         
-        
+        <form>
+            <label> Class : </label>
+            <select>
+                <% while (classList.next()) {
+                    %>
+                    <option> <%= classList.getString("subjectID") %> - <%= classList.getInt("sectionNo") %></option>
+                    <%
+                }%>
+            </select>
+            
+            
+        </form>
+
     </body>
 </html>
