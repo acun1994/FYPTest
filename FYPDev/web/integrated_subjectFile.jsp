@@ -14,27 +14,67 @@
         <%@ include file="checkLogin.jsp"%>
         <title>Subject File View</title>
     </head>
+
     <body>
         <% 
-            String userID = (session.getAttribute("userID")).toString(); 
-            String getClassesSQL = "SELECT * FROM lectlist WHERE lecturerID = " + quote(userID);
+            String userID = (session.getAttribute("userid")).toString();
+            ResultSet fileListRS = null;
+            int section;
+            String subject;
+            
+            String getClassesSQL = "SELECT listID, subjectID, sectionNo FROM lectlist WHERE lecturerID = ?";
                 PreparedStatement getClasses = connection.prepareStatement(getClassesSQL);
-                ResultSet classList = getClasses.executeQuery();
-                   
+                    getClasses.setString(1, userID);
+                ResultSet classListRS = getClasses.executeQuery();
+           
+            if (request.getParameter("class")!=null && !request.getParameter("class").equals("")){
+                String[] splitText = request.getParameter("class").toString().split("-");
+                subject = splitText[0];
+                section = Integer.parseInt(splitText[1]);
+                int classID = 0;
+                
+                while (classListRS.next()){
+                    if (classListRS.getString("subjectID").equals(subject) && classListRS.getInt("sectionNo")==section){
+                        classID = classListRS.getInt("listID");
+                    }
+                }
+                classListRS.beforeFirst();
+                
+                if (classID!=0){
+                String fileListSQL = "SELECT fileType, fileName, status FROM subjectfile WHERE sub_sectionID = ?";
+                    PreparedStatement fileList = connection.prepareStatement(fileListSQL);
+                        fileList.setInt(1, classID);
+                    fileListRS = fileList.executeQuery();
+                }    
+            }
         %>
         
-        <form>
+        <form action="./integrated_subjectFile.jsp" method="POST">
             <label> Class : </label>
-            <select>
-                <% while (classList.next()) {
+            <select name = "class" onchange="this.form.submit()">
+                <option disabled selected>Choose a class</option>
+                <% while (classListRS.next()) {
+                    String className = classListRS.getString("subjectID") + "-" + classListRS.getInt("sectionNo");
                     %>
-                    <option> <%= classList.getString("subjectID") %> - <%= classList.getInt("sectionNo") %></option>
+                    <option value = <%= quote(className) %>> <%= className %></option>
                     <%
-                }%>
+                }%>        
             </select>
-            
-            
         </form>
 
+        <% if (fileListRS!= null){ %>
+            <table class="table-bordered table">
+                <thead>
+                    <th>Type</th><th>Filename</th><th>Status</th>
+                </thead>
+                <% while (fileListRS.next()){%>
+                    <tr>
+                        <td><%= fileListRS.getString(1) %></td>
+                        <td><%= fileListRS.getString(2) %></td>
+                        <td><%= fileListRS.getString(3) %></td>
+                    </tr>
+                <% } %>
+            </table>
+        <% } %>
     </body>
 </html>
