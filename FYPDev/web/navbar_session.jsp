@@ -48,6 +48,7 @@ and open the template in the editor.
                         <li><a href="courseview.jsp">Course View</a></li>
            <%          case 3:%>
                         <li><a href="subjectview.jsp">Subject View</a></li>
+                        <li><a href="presetSubjectView.jsp">Preset Subject View</a></li>
            <%
                         default:%>
                         <li><a href="logout.jsp">Log Out</a></li><%;

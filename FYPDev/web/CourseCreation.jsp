@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.sql.*"%>
+<%@page import="java.util.*"%>
 
 <!DOCTYPE html>
 <html>
@@ -14,6 +16,10 @@
         <link rel="stylesheet" href="./resources/css/bootstrap.min.css">
         <script src="./resources/js/jquery.min.js"></script>
         <script src="./resources/js/bootstrap.min.js"></script>
+        
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+        <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
         <!--mdl-->
         <script src="resources/mdl/material.min.js" type="text/javascript"></script>
         <link href="resources/mdl/material.light_blue-indigo.min.css" rel="stylesheet" type="text/css"/>
@@ -23,14 +29,29 @@
     </head>
     
     <body>
-        <%Connection connection = null;%>
+        <% Connection connection = null; %> <!-- This variable must be declared above dbCon.jsp -->
+        <%@include file="dbCon.jsp"%>
+        <%@include file = "checkLogin.jsp" %>
         <%@include file="navbar_session.jsp" %>
-        <%@ include file="dbCon.jsp"%>
         <div class="container">
+            <% 
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery("SELECT userID,userName from userinfo");
+            int r = 0;
+            List li = new ArrayList();
+            List li2 = new ArrayList();
+            String[] str1; String[] str2;
+            
+            Iterator it;
+            Iterator it2;
+            String subIDCol,subNameCol;
+            
+        %>
+        <%@include file="autoCompleteTB.jsp" %>
             <%-- Form for course creation --%>
             <form role="form" name="form" method="post" action="CourseCreationDB.jsp">
                 <div class="form-group">
-                    <table style="float:center">
+                    <table>
                         <tr>
                             <td class="col-md-2">
                                 <label>Year : </label>
@@ -45,7 +66,6 @@
                                 <label>Semester :</label>
                             </td>
                             <td>
-                                <%-- Value not added yet --%>
                                 <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="sem1">
                                     <input class="mdl-radio__button" type="radio" name="semester" value="1" id="sem1">1
                                 </label>
@@ -65,8 +85,8 @@
                                       --%>
                                       <%
                                             try{
-                                                Statement st = connection.createStatement();
-                                                ResultSet rs = st.executeQuery("SELECT courseID FROM courseentry");
+                                                st = connection.createStatement();
+                                                rs = st.executeQuery("SELECT courseID FROM courseentry");
                                                 while(rs.next()){
                                       %> <option value="<%=rs.getString(1)%>"><% out.print(rs.getString(1)); %></option>
                                                 <%}
@@ -83,7 +103,7 @@
                             <td><label>Subject : </label></td>
                             <td id="kids">
                                 <%-- See java script for detail --%>
-                                <input autocomplete="off" type="text" name="subjectname" placeholder="Enter subject name">
+                                <input autocomplete="on" id="tags" type="text" name="subjectname" placeholder="Enter subject name">
                                 <input autocomplete="off" type="text" name="subjectID" placeholder="Enter subject ID">
                                 <input autocomplete="off" type="text" name="section" placeholder="Enter number of section">
                                 <input type="button" value="+" onclick="addKid(this)">

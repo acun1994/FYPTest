@@ -6,44 +6,35 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%@page import="java.sql.*"%>
+<%@page import="java.util.*"%>
 <html>
     <head>
             <%@include file="reqHeader.jsp" %>
+            <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+            <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+            <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
             <title>Form02 : Lecturer Selection</title>
     </head>
     <body>
+        <% Connection connection = null; %> <!-- This variable must be declared above dbCon.jsp -->
+        <%@include file="dbCon.jsp"%>
         <%@include file = "checkLogin.jsp" %>
         <%@include file="navbar_session.jsp" %>
-        <% String[] str1; String[] str2;%>
-        <%@include file="LecturerSelectionDB.jsp" %>
         <% 
-                Statement st = connection.createStatement();
-                ResultSet rs = st.executeQuery("SELECT * FROM subject");
-                int i = 0;
-                List li = new ArrayList();
-                List li2 = new ArrayList();
-                //Add data to the arraylist 
-                while(rs.next()){
-                    li.add(rs.getString(1));
-                    li2.add(rs.getString(2));
-                }
-                
-                str1 = new String[li.size()];
-                str2 = new String[li2.size()];
-                
-                Iterator it = li.iterator();
-                Iterator it2 = li2.iterator();
-                
-                String subIDCol,subNameCol;
-                //Assign value from arrayList to local array for use of jQuery 
-                while(it.hasNext()){
-                    subIDCol = (String)it.next();
-                    str1[i] = subIDCol;
-                    subNameCol = (String)it2.next();
-                    str2[i] = subNameCol;
-                    i++;
-                }
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM subject");
+            int r = 0;
+            List li = new ArrayList();
+            List li2 = new ArrayList();
+            String[] str1; String[] str2;
+            
+            Iterator it;
+            Iterator it2;
+            String subIDCol,subNameCol;
+            
         %>
+        <%@include file="autoCompleteTB.jsp" %>
         
         <div class="container" align="center">
             <% if (request.getParameter("insert")!=null){
@@ -61,13 +52,12 @@
                     <label for="sub_id" class="mdl-textfield__label">Subject ID</label>
                 </div>
                 <div class="input-field col s12" >
-                    <select name="semesteYear">
+                    <select name="semesterYear">
                       <%
                             try{
-                                Statement state = connection.createStatement();
-                                ResultSet result = state.executeQuery("SELECT DISTINCT semYear FROM courseentry");
-                                while(result.next()){
-                      %> <option value="<%=result.getString(1)%>"><% out.print(result.getString(1)); %></option>
+                                rs = st.executeQuery("SELECT semYear FROM courseentry");
+                                while(rs.next()){
+                      %> <option value="<%=rs.getString(1)%>"><% out.print(rs.getString(1)); %></option>
                                 <%}
                             }catch(Exception e) {
                                 out.println(e.toString());
@@ -92,7 +82,7 @@
                             <td><label>Lecturer Details : </label></td>
                             <td id="kids">
                                 <%-- See java script for detail --%>
-                                <input autocomplete="off" type="text" name="lecturerID" placeholder="Enter lecturer ID" >
+                                <input autocomplete="off" type="text" id="newtags" name="lecturerID" placeholder="Enter lecturer ID" >
                                 <input autocomplete="off" type="text" name="lecturerSection" placeholder="Enter distinct section" >
                                 <button type="button" onclick="addKid(this)"><span class="glyphicon glyphicon-plus"></span></button><br><br>
                             </td>
@@ -116,22 +106,6 @@
             frm.reset();  // Reset
             return false; // Prevent page refresh
             }
-            
-            $(function() {
-                var availableTags = [<% 
-                int arrayLength = str1.length;            
-                for (int curr=0; curr<arrayLength-1; curr++){
-                    out.println('"' + str1[curr]+ "  -  " + str2[curr] +'"' + ",");
-                }
-                out.println('"' + str1[arrayLength-1] + "  -  " +str2[arrayLength-1] +'"');
-               %>]
-                $( "#tags" ).autocomplete({
-                  source: availableTags
-                });
-               });
-               
-        </script>
-        <script language="javascript">
         var i = 0;
         function addKid()
         {
