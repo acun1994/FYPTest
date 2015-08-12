@@ -1,6 +1,6 @@
 UserInfo
 - On login, check userName, password
--- Valid login, assign userName, userID, userType, jabatan to Session
+-- Valid login, assign userName, userID, userType,name, jabatan to Session
 --- userType 1 = All access
 --- userType 2 = View access to jabatan (SC = all)
 --- userType 3 = Coordinator access to subject
@@ -24,14 +24,13 @@ Subject
 --- yyyy = 4 numbers
 
 LectList
-- On addition, add subjectID, sectionNo
+- On addition (lect assignment), add subjectID, sectionNo,lecturerID,courseEntryID
 -- subjectID = FK = Subject(subjectID)
-- On update (lect assignment), add courseEntryID, lecturerID
 -- courseEntryID = FK = CourseEntry(courseEntryID)
 -- lecturerID = FK = UserInfo(userID)
 
 CoordinatorList
-- On addition, add semYear, subjectID, sectionCount
+- On addition (course creation), add semYear, subjectID, sectionCount
 -- semYear format(x-yy/zz)
 --- x = semester
 --- y = start year
