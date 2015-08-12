@@ -11,15 +11,8 @@
     <head>
         <title>Course creation</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="./resources/css/bootstrap.min.css">
-        <script src="./resources/js/jquery.min.js"></script>
-        <script src="./resources/js/bootstrap.min.js"></script>
-        <!--mdl-->
-        <script src="resources/mdl/material.min.js" type="text/javascript"></script>
-        <link href="resources/mdl/material.light_blue-indigo.min.css" rel="stylesheet" type="text/css"/>
-        <!--Materialize-->
-        <script src="./resources/js/materialize.min.js"></script>
-        <link rel="stylesheet" href="./resources/css/materialize.min/css">
+        <%@include file="resources.jsp"%>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <script language="javascript">
         var i = 0;
         function addKid()

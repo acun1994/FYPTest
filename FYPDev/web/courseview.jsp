@@ -13,10 +13,7 @@
         <% Connection connection = null; %>
         <%@ include file="dbCon.jsp"%>
         <%@page import="java.util.ArrayList" %>
-        
-        <link rel="stylesheet" type="text/css" href="./resources/css/bootstrap.css"/>
-        <script src="./resources/js/jquery.js"></script>
-        <script src="./resources/js/bootstrap.min.js"></script>
+        <%@include file="resources.jsp" %>
         <script src="./resources/js/gen_validatorv4.js"></script>
         <%
             //Setting up the options for the form 
