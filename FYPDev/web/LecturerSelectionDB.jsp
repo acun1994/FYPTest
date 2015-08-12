@@ -10,7 +10,6 @@
 <%@page import="java.util.*"%>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
         <script src="//code.jquery.com/jquery-1.10.2.js"></script>
         <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
@@ -19,50 +18,72 @@
     <body>
         <%Connection connection = null;%>
         <%@ include file="dbCon.jsp"%>
-        <% 
-                String sN =  null;
-                String sID = null;
-                String penyelaras = null;
-                String query = null;
+        <% if(request.getParameter("Subject_ID") != null){
+            String subjectIn = request.getParameter("Subject_ID");
+            String[] str = subjectIn.split("  -  ");
+            String subID = str[0];  //hold value of subjectID
+            String subName = str[1];//value of second subjectName
+            String tempSubID = null;
+            boolean check = false;
+            
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery("SELECT subjectID FROM subject");
+            
+            //check whether database has same data as user input
+            while(rs.next()){
+                tempSubID = rs.getString(1);
+                if(subID.equals(tempSubID)){
+                    check = true;
+                }
+            }
+            
+            //if there is no same data in database, display appropriate error.
+            if(check == false){
+                response.sendRedirect("Lecturer Selection.jsp?insert=false");
+            }
+            //if there exist same data
+            else
+            {
+                try{
+                    
+                    String yearHolder = request.getParameter("semesterYear");   //used for later use
+                    String[] lecturerID = request.getParameterValues("lecturerID");
+                    String[] lecturerSection = request.getParameterValues("lecturerSection");
+                    int[] assignSection = new int[lecturerID.length];
+                    int q = 0;
+                    
+                    //retrieve value(s) from user input.
+                    for (int i = 0 ; i < lecturerSection.length ; i++) {
+                        assignSection[i] = Integer.parseInt(lecturerSection[i]);
+                        String checkDuplicate = "SELECT subjectID,sectionNo FROM lectlist WHERE subjectID='"+subID+"' AND sectionNo='"+assignSection[0]+"' ";
+                        ResultSet duplicateProof = st.executeQuery(checkDuplicate);
 
-                sN = request.getParameter("Subject_Name");
-                sID = request.getParameter("subject_ID");
-                penyelaras = request.getParameter("Penyelaras_Name");
-                
-                int i = 0;
-  
-                Statement st = connection.createStatement();
-                ResultSet rs = st.executeQuery("SELECT * FROM subject");
-                
-                List li = new ArrayList();
-                List li2 = new ArrayList();
-                while(rs.next()){
-                    li.add(rs.getString(1));
-                    li2.add(rs.getString(2));
+                        if(duplicateProof.next()){
+                           q++;
+                           response.sendRedirect("Lecturer Selection.jsp?insert=duplicate");
+                        }
+                        
+                    }
+                    
+                    
+                    
+                    if(q==0){
+                        for (int i = 0 ; i < lecturerSection.length ; i++) {
+                        st.execute(""
+                                + "INSERT INTO lectlist(subjectID,sectionNo,lecturerID) "
+                                + "VALUES('"+subID+"','"+assignSection[i]+"','"+lecturerID[i]+"')"
+                                + "");
+                        }
+                        response.sendRedirect("Lecturer Selection.jsp?insert=true");
+                    }
+                    
+                }catch(Exception e){
+                    out.println("ERROR!!" + "<br>" + e.toString());
                 }
-                str = new String[li.size()];
-                Iterator it = li.iterator();
-                
-                while(it.hasNext()){
-                    String p = (String)it.next();
-                    str[i] = p;
-                    //out.print(p + " ");
-                    i++;
-                }
-                
-                i = 0;
-                str2 = new String[li2.size()];
-                Iterator it2 = li2.iterator();
-                while(it2.hasNext()){
-                    String p = (String)it2.next();
-                    str2[i] = p;
-                    //out.print(p + " ");
-                    i++;
-                }
-                //st.executeUpdate(UPDATE subject_list SET penyelarasID = '"+penyelaras+"' WHERE subjectID = 'ANA1234');  
-              
-        %>
-           
-           
+            }
+        }if(request.getParameter("Subject_ID") == ""){
+            out.println("Pick something lol");
+        }
+            %>
     </body>
 </html>

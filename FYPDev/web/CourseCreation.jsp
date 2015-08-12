@@ -20,30 +20,6 @@
         <!--Materialize-->
         <script src="./resources/js/materialize.min.js"></script>
         <link rel="stylesheet" href="./resources/css/materialize.min/css">
-        <script language="javascript">
-        var i = 0;
-        function addKid()
-        {
-		i++;	
-        	var div = document.createElement('div');
-		
-                                   //Details for subject information
-                                   //Input from admin to be inserted into the database
-        	div.innerHTML = '<input autocomplete="off" type="text" name="subjectname" placeholder="Enter subject name">\n\
-                                 <input autocomplete="off" type="text" name="subjectID" placeholder="Enter subject ID">\n\
-                                 <input autocomplete="off" type="text" name="section" placeholder="Enter number of section">\n\
-                                 <input type="button" value="-" onclick="removeKid(this)">\n\
-                                 <br>';
-                document.getElementById('kids').appendChild(div);
-         }
-
-        function removeKid(div)
-        {	
-         document.getElementById('kids').removeChild( div.parentNode );
-	i--;
-        }
-        </script>
-        
     </head>
     
     <body>
@@ -51,14 +27,6 @@
         <%@include file="navbar_session.jsp" %>
         <%@ include file="dbCon.jsp"%>
         <div class="container">
-         <% if (request.getParameter("insert")!=null){
-            if (request.getParameter("insert").equals("false"))
-                {%><div class="text-center alert-danger alert">Error in saving data.</div><%}
-            else if (request.getParameter("insert").equals("true"))
-                {%><div class="text-center alert-success success">Data has been successfully saved.</div><%}
-            }
-        %>
-
             <%-- Form for course creation --%>
             <form role="form" name="form" method="post" action="CourseCreationDB.jsp">
                 <div class="form-group">
@@ -68,8 +36,8 @@
                                 <label>Year : </label>
                             </td>
                             <td class="mdl-textfield mdl-js-textfield textfield-demo">
-                                <input class="mdl-textfield__input" type="text" name="CourseYear" id="courseyear">
-                                <label class="mdl-textfield__label" for="courseyear">Example 2013/2014</label>
+                                <input class="mdl-textfield__input" type="text" name="CourseYear" id="courseyear" autocomplete="off">
+                                <label class="mdl-textfield__label" for="courseyear">Example 13/14</label>
                             </td>
                         </tr>
                         <tr>
@@ -95,9 +63,18 @@
                                       Course list should be taken from database 
                                       Value not yet added to the option
                                       --%>
-                                        <option value="Not Selected">Course</option>
-                                        <option value="1SCSJ">1SCSJ</option>
-                                        <option value="2SCSJ">2SCSJ</option>
+                                      <%
+                                            try{
+                                                Statement st = connection.createStatement();
+                                                ResultSet rs = st.executeQuery("SELECT courseID FROM courseentry");
+                                                while(rs.next()){
+                                      %> <option value="<%=rs.getString(1)%>"><% out.print(rs.getString(1)); %></option>
+                                                <%}
+                                            }catch(Exception e) {
+                                                out.println(e.toString());
+                                            }
+                                      
+                                      %>
                                     </select>
                                 </div>
                             </td>
@@ -109,12 +86,8 @@
                                 <input autocomplete="off" type="text" name="subjectname" placeholder="Enter subject name">
                                 <input autocomplete="off" type="text" name="subjectID" placeholder="Enter subject ID">
                                 <input autocomplete="off" type="text" name="section" placeholder="Enter number of section">
-                                <input type="button" value="-" onclick="removeKid(this)">
+                                <input type="button" value="+" onclick="addKid(this)">
                             </td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                        <td><input type="button" onClick="addKid()" value="Add Subject" /></td>
                         </tr>
                     </table>
                 </div>
@@ -122,6 +95,31 @@
                     <i class="material-icons"></i></button>
             </form>
         </div>
-         
+        <script language="javascript">
+        var i = 0;
+        function addKid()
+        {
+		i++;	
+        	var div = document.createElement('div');
+		
+                                   //Details for subject information
+                                   //Input from admin to be inserted into the database
+        	div.innerHTML = '<input autocomplete="off" type="text" name="subjectname" placeholder="Enter subject name">\n\
+                                 <input autocomplete="off" type="text" name="subjectID" placeholder="Enter subject ID">\n\
+                                 <input autocomplete="off" type="text" name="section" placeholder="Enter number of section">\n\
+                                 <input type="button" value="+" onclick="addKid(this)">\n\
+                                 <input type="button" value="-" onclick="removeKid(this)">\n\
+                                 <br>';
+        
+                    document.getElementById('kids').appendChild(div);
+                
+         }
+
+        function removeKid(div)
+        {	
+         document.getElementById('kids').removeChild( div.parentNode );
+	i--;
+        }
+        </script>
     </body>
 </html>

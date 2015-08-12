@@ -8,76 +8,102 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="./resources/css/bootstrap.css" type="text/css"/>
-        <script src="./resources/js/jquery.js" type="text/javascript"></script>
-        <script src="./resources/js/bootstrap.js" type="text/javascript"></script>
-        <script src="./resources/jquery-1.11.3.min.js"></script>
-        
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-        <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-        
-        <!--Material Design-->
-        <link href="resources/mdl/material.light_blue-indigo.min.css" rel="stylesheet" type="text/css"/>
-        <link href="resources/mdl/material.min.css" rel="stylesheet" type="text/css"/>
-        <script src="resources/mdl/material.min.js" type="text/javascript"></script>
-        
-        <title>Form02 : Lecturer Selection</title>
+            <%@include file="reqHeader.jsp" %>
+            <title>Form02 : Lecturer Selection</title>
     </head>
     <body>
-
+        <%@include file = "checkLogin.jsp" %>
         <%@include file="navbar_session.jsp" %>
-        <% String[] str;
-           String[] str2;%>
+        <% String[] str1; String[] str2;%>
         <%@include file="LecturerSelectionDB.jsp" %>
-
+        <% 
+                Statement st = connection.createStatement();
+                ResultSet rs = st.executeQuery("SELECT * FROM subject");
+                int i = 0;
+                List li = new ArrayList();
+                List li2 = new ArrayList();
+                //Add data to the arraylist 
+                while(rs.next()){
+                    li.add(rs.getString(1));
+                    li2.add(rs.getString(2));
+                }
+                
+                str1 = new String[li.size()];
+                str2 = new String[li2.size()];
+                
+                Iterator it = li.iterator();
+                Iterator it2 = li2.iterator();
+                
+                String subIDCol,subNameCol;
+                //Assign value from arrayList to local array for use of jQuery 
+                while(it.hasNext()){
+                    subIDCol = (String)it.next();
+                    str1[i] = subIDCol;
+                    subNameCol = (String)it2.next();
+                    str2[i] = subNameCol;
+                    i++;
+                }
+        %>
+        
         <div class="container" align="center">
-
-            <form role="form" class="form-group" method="post" action = "LecturerSelectionDB.jsp" name="Lecturer_Selection" autocomplete="on">
+            <% if (request.getParameter("insert")!=null){
+            if (request.getParameter("insert").equals("false"))
+                {%><div class="text-center alert-danger alert">Error in saving data.</div><%}
+            else if (request.getParameter("insert").equals("true"))
+                {%><div class="text-center alert-success success">Data has been successfully saved.</div><%}
+            else if (request.getParameter("insert").equals("duplicate"))
+                {%><div class="text-center alert-warning warning">There exist duplicates for subjectID and section.</div><%}
+            }
+        %>
+            <form role="form" class="form-group" method="post" action = "LecturerSelectionDB.jsp" name="Lecturer_Selection">
                 <div class="mdl-textfield mdl-js-textfield">
-                    <input class="mdl-textfield__input" name="Subject_ID" type="text" id="tags">
+                    <input class="mdl-textfield__input" name="Subject_ID" type="text" id="tags" autocomplete="on">
                     <label for="sub_id" class="mdl-textfield__label">Subject ID</label>
                 </div>
-                <div class="mdl-textfield mdl-js-textfield">
-                    <input class="mdl-textfield__input" name="Subject_Name" type="text" id="sub_name">
-                    <label for="sub_name" class="mdl-textfield__label">Subject Name</label>
+                <div class="input-field col s12" >
+                    <select name="semesteYear">
+                      <%
+                            try{
+                                Statement state = connection.createStatement();
+                                ResultSet result = state.executeQuery("SELECT DISTINCT semYear FROM courseentry");
+                                while(result.next()){
+                      %> <option value="<%=result.getString(1)%>"><% out.print(result.getString(1)); %></option>
+                                <%}
+                            }catch(Exception e) {
+                                out.println(e.toString());
+                            }
+
+                      %>
+                    </select>
                 </div>
                 <table>
-
                     <tr>
                         <td><label>Penyelaras : </label></td>
 
                         <td>
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
-                            <input  class="mdl-textfield__input" id="name_penyelaras" name="Penyelaras_Name" type="text">
+                            <input  class="mdl-textfield__input" id="name_penyelaras" name="Penyelaras_Name" type="text" >
                             <div class="mdl-tooltip mdl-tooltip--large">Enter Coordinator name here</div>
                             </div>
                         </td>
 
                     </tr>
                     <tr>
-                        <td><label>Lecturer: </label></td>
-                        <td><table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-                                <thead>
-                                    <tr>
-                                        <th class="mdl-data-table__cell--non-numeric"><div align="center">Name</div></th>
-                                        <th><div align="center">ID</div></th>
-                                    </tr>
-                                </thead>
-                                <tr>
-                                    <td class="mdl-data-table__cell--non-numeric"><div align="center" class="col-sm-10"><input type="text" class="col-sm-10" name="lecturer_name"></div></td>
-                                    <td><div align="center" class="col-sm-10"><input type="text" class="col-sm-10" name="lecturer_id"></div></td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
+                            <td><label>Lecturer Details : </label></td>
+                            <td id="kids">
+                                <%-- See java script for detail --%>
+                                <input autocomplete="off" type="text" name="lecturerID" placeholder="Enter lecturer ID" >
+                                <input autocomplete="off" type="text" name="lecturerSection" placeholder="Enter distinct section" >
+                                <button type="button" onclick="addKid(this)"><span class="glyphicon glyphicon-plus"></span></button><br><br>
+                            </td>
+                        </tr>
                 </table>
+                            
                 <label>Total Lecturer : </label>
                 <br>
                 <label>Total Section : </label>
                 <br>
-                <button type="button" value="Submit" id="btnSubmit" onClick="submitForm()" class="mdl-button md-js-button mdl-button--raised mdl-button--colored">Submit</button>
+                <input type="button" value="Submit" id="btnSubmit" onClick="submitForm()" class="mdl-button md-js-button mdl-button--raised mdl-button--colored">
             </form>
         </div>
         <script>
@@ -91,19 +117,44 @@
             return false; // Prevent page refresh
             }
             
-            
-                $(function() {
-                    var availableTags = [<% 
-                    int arrayLength = str.length;            
-                    for (int curr=0; curr<arrayLength-1; curr++){
-                        out.println('"' + str[curr]+ "  -  " + str2[curr] +'"' + ",");
-                    }
-                    out.println('"' + str[arrayLength-1] + "-" +str2[arrayLength-1] +'"');
-                   %>]
-                    $( "#tags" ).autocomplete({
-                      source: availableTags
-                    });
-                  });
+            $(function() {
+                var availableTags = [<% 
+                int arrayLength = str1.length;            
+                for (int curr=0; curr<arrayLength-1; curr++){
+                    out.println('"' + str1[curr]+ "  -  " + str2[curr] +'"' + ",");
+                }
+                out.println('"' + str1[arrayLength-1] + "  -  " +str2[arrayLength-1] +'"');
+               %>]
+                $( "#tags" ).autocomplete({
+                  source: availableTags
+                });
+               });
+               
+        </script>
+        <script language="javascript">
+        var i = 0;
+        function addKid()
+        {
+		i++;	
+        	var div = document.createElement('div');
+		
+                                   //Details for subject information
+                                   //Input from admin to be inserted into the database
+        	div.innerHTML = '<input autocomplete="off" type="text" name="lecturerID" placeholder="Enter lecturer ID" >\n\
+                                 <input autocomplete="off" type="text" name="lecturerSection" placeholder="Enter distinct section" >\n\
+                                 <button type="button" onclick="addKid(this)"><span class="glyphicon glyphicon-plus"></span></button>\n\
+                                 <button type="button" onclick="removeKid(this)"><span class="glyphicon glyphicon-minus"></span></button>\n\
+                                 <br><br>';
+        
+                    document.getElementById('kids').appendChild(div);
+                
+         }
+
+        function removeKid(div)
+        {	
+            document.getElementById('kids').removeChild( div.parentNode );
+            i--;
+        }
         </script>
     </body>
 </html>
