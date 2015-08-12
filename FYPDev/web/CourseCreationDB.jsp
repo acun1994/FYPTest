@@ -31,39 +31,42 @@
                 String cID = request.getParameter("COURSEID");
                 String courseYear = request.getParameter("CourseYear");
                 String semesterYear = sM + "-" + courseYear;
-                int i = 0;
+                //String userID = (String)session.getAttribute("userid");
+                int i = 0,q = 0;
   
                 Statement st = connection.createStatement();
                 String query = null;
                 
                 
-                String checkDuplicate = "SELECT courseID,semYear FROM courseentry WHERE courseID LIKE '"+cID+"' AND semYear LIKE '"+semesterYear+"'";
-                
+                String checkDuplicate = "SELECT courseID,semYear FROM courseentry WHERE courseID='"+cID+"' AND semYear='"+semesterYear+"' ";
                 ResultSet duplicateProof = st.executeQuery(checkDuplicate);
                 
-                //mean that there exist courseID and semYear that are exactly the same,then just proceed to insert value courseEntryID to coordinatorlist
-                if(duplicateProof.getRow() == 0){
+                if(duplicateProof.next()){
+                   q++;
+                }
+                
+                if(q==0){
                     query = "INSERT INTO courseentry(courseID,semYear) VALUES('"+cID+"','"+semesterYear+"')";
                     st.executeUpdate(query);
                 }
-                        
-                for(String listSN : sID){
-                    ResultSet  rs = st.executeQuery("SELECT courseEntryID FROM courseentry WHERE courseID = '"+cID+"' AND semYear = '"+semesterYear+"'");
-                    rs.next();
-                    int courseEntryID = rs.getInt("courseEntryID");
+                else{
+                     for(String listSubject : sID){
+                       /* ResultSet  rs = st.executeQuery("SELECT courseEntryID FROM courseentry WHERE courseID = '"+cID+"' AND semYear = '"+semesterYear+"'");
+                        rs.next();
+                        int courseEntryID = rs.getInt("courseEntryID");
 
-                    query = "INSERT INTO subject(subjectID, subjectName) VALUES('"+sID[i]+"','"+sN[i]+"')";
-                    st.executeUpdate(query);
-                    query = "INSERT INTO coordinatorlist(courseEntryID,subjectID,sectionCount) VALUES('"+courseEntryID+"','"+sID[i]+"','"+Section[i]+"')";
-                    st.execute(query); 
-
-                    i++;
+                        query = "INSERT INTO subject(subjectID, subjectName) VALUES('"+sID[i]+"','"+sN[i]+"')";
+                        st.executeUpdate(query);*/
+                        query = "INSERT INTO coordinatorlist(subjectID,sectionCount,semYear) VALUES('"+listSubject+"','"+Section[i]+"','"+semesterYear+"')";
+                        st.execute(query); 
+                        i++;  
+                    
                 }
-                    response.sendRedirect("CourseCreation.jsp?insert=true");
-          }
+            } response.sendRedirect("CourseCreation.jsp?insert=true");
+        }
           catch(Exception e){
               out.println("Unsuccessful insertion" + "<br/>" + e.toString());
-              response.sendRedirect("CourseCreation.jsp?insert=false");
+              //response.sendRedirect("CourseCreation.jsp?insert=false");
            } %>
     </body>
 </html>

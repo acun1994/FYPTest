@@ -14,7 +14,7 @@ and open the template in the editor.
 <%@include file="resources.jsp" %>
 <div>
     
-    <nav class="navbar navbar-inverse">
+    <nav class="navbar navbar-default navbar-top">
         <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">

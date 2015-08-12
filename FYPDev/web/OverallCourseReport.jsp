@@ -20,7 +20,7 @@
     <body>
         <%@include file="navbar_session.jsp" %>
         <div class="container">
-            <form type="form-group">
+            <form class="form-group">
                 <h3 align="center">Overall Course Report</h3>
                 <label>Course : </label>
                 <table class="table table-bordered">
