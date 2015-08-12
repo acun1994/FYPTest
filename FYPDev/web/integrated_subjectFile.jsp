@@ -12,25 +12,32 @@
         <% Connection connection = null; %>
         <%@ include file="dbCon.jsp"%>
         <%@ include file="checkLogin.jsp"%>
+        
         <title>Subject File View</title>
     </head>
 
     <body>
-        <%         
-            String lecturerID;
+        <%        
+            String lecturerID ="";
             String lecturerName;
             ResultSet fileListRS = null;
             int section = 0;
             String subject = "";
             
-            if (checkAccess(session, 4)){
-                lecturerID = (session.getAttribute("userid")).toString();
+            if (session.getAttribute("userid")!=null){
+                if (checkAccess(session, 4)){
+                    lecturerID = (session.getAttribute("userid")).toString();
+                }
             }
             //Prep case for other level of access
-            else if (request.getParameter("lecturerID")!= null){
+            else if (request.getParameter("lecturerID")!= null && !request.getParameter("lecturerID").equals("")){
                 lecturerID = request.getParameter("lecturerID");
             }
-            else lecturerID = "";
+            
+            if (lecturerID.equals("")){
+                %><div class="alert alert-warning">No request found</div><%
+            }
+            else{
             
             String getLectNameSQL = "SELECT userName FROM userinfo WHERE userID = ?";
                 PreparedStatement getLectName = connection.prepareStatement(getLectNameSQL);
@@ -95,6 +102,6 @@
                     </tr>
                 <% } %>
             </table>
-        <% } %>
+        <% } }%>
     </body>
 </html>
