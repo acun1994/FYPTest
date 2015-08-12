@@ -109,38 +109,49 @@
         <h1 class="text-center">Overall Course View</h1>
         
         <%-- Search form --%>
-        <div align="center" style="display: inline"> 
-            <form>
-                <%-- Select for Year selection --%>
-                <select id="year" onchange="showCourse(this.value)"><%-- options are from database --%>
-                    <option value="#">Select A Year</option>
-                    <% //Outputting Year option
-                    for(int i=0;i<year.size();i++)
-                        {
-                         out.println("<option value="+year.get(i)+">"+year.get(i)+"</option>");
-                        }
-                    %>
-                </select>
-            </form>
-            <form>
-                <%-- Select for Course selection --%>
-                <select id="course" onchange="showSem(this.value,document.getElementById('yearValue').valueOf())"><%-- options are from database --%>
-                    <option value="#">Please Select Year First</option>
-                </select>
-            </form>
-            <form action="courseview.jsp" method="get">
-                <%-- Dropdown for Semester selection --%>
-                <select id="sem" name="sem"><%-- options are from database --%>
-                    <option value="#">Please Select A Course First</option>
-                </select>
+        <table align="center"> 
+            <tr>
             
-                <%-- Field for storing selected year and course value --%>  
-                <input type="hidden" id="yearValue" name="year">
-                <input type="hidden" id="courseValue" name="course">
+                <td>
+                <form>
+                    <%-- Select for Year selection --%>
+                    <select id="year" onchange="showCourse(this.value)"><%-- options are from database --%>
+                        <option value="#">Select A Year</option>
+                        <% //Outputting Year option
+                        for(int i=0;i<year.size();i++)
+                            {
+                             out.println("<option value="+year.get(i)+">"+year.get(i)+"</option>");
+                            }
+                        %>
+                    </select>
+                </form>
+                </td>
             
-                <button type="submit" class="btn btn-submit">Search</button>
-            </form>
-            </div>
+                <td>
+                <form>
+                    <%-- Select for Course selection --%>
+                    <select id="course" onchange="showSem(this.value,document.getElementById('yearValue').valueOf())"><%-- options are from database --%>
+                        <option value="#">Please Select Year First</option>
+                    </select>
+                </form>
+                </td>
+            
+                <td>
+                <form action="courseview.jsp" method="get">
+                    <%-- Dropdown for Semester selection --%>
+                    <select id="sem" name="sem"><%-- options are from database --%>
+                        <option value="#">Please Select A Course First</option>
+                    </select>
+
+                    <%-- Field for storing selected year and course value --%>  
+                    <input type="hidden" id="yearValue" name="year">
+                    <input type="hidden" id="courseValue" name="course">
+
+                    <button type="submit" class="btn btn-submit">Search</button>
+                </form>
+                </td>
+              </tr>
+            </table>
                 </br>
         
         <div> <%-- List of all subject for particular course at that semester & year --%>
