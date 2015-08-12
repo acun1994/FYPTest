@@ -22,7 +22,7 @@
             String subName = str[1];//value of second subjectName
             String courseID = subID.substring(4,5) + subID.substring(0,4); //contain value of courseID
             String tempSubID = null;
-            boolean check = false;
+            boolean check = false; 
             
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery("SELECT subjectID FROM subject");
@@ -82,8 +82,8 @@
                     
                 }catch(Exception e){
                     out.println("ERROR!!" + "<br>" + e.toString());
-                }
-            }
+                } 
+            } 
         }if(request.getParameter("Subject_ID") == ""){
             out.println("Pick something lol");
         }    

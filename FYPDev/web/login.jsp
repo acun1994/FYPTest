@@ -87,5 +87,12 @@ and open the template in the editor.
         }
         </script>
         --%>
+        
+        <!-- Remove GET variable when refresh -->
+        <script>    
+        if(typeof window.history.pushState === 'function') {
+            window.history.pushState({}, "Hide", "http://localhost:8080/FYPDev/login.jsp");
+        }
+        </script>
 </body>
 </html>

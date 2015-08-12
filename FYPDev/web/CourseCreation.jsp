@@ -29,25 +29,12 @@
     </head>
     
     <body>
-        <% Connection connection = null; %> <!-- This variable must be declared above dbCon.jsp -->
+       <% Connection connection = null; %> <!-- This variable must be declared above dbCon.jsp -->
         <%@include file="dbCon.jsp"%>
+        <% Statement st = connection.createStatement(); %>
         <%@include file = "checkLogin.jsp" %>
         <%@include file="navbar_session.jsp" %>
         <div class="container">
-            <% 
-            Statement st = connection.createStatement();
-            ResultSet rs = st.executeQuery("SELECT userID,userName from userinfo");
-            int r = 0;
-            List li = new ArrayList();
-            List li2 = new ArrayList();
-            String[] str1; String[] str2;
-            
-            Iterator it;
-            Iterator it2;
-            String subIDCol,subNameCol;
-            
-        %>
-        <%@include file="autoCompleteTB.jsp" %>
             <%-- Form for course creation --%>
             <form role="form" name="form" method="post" action="CourseCreationDB.jsp">
                 <div class="form-group">
@@ -85,6 +72,7 @@
                                       --%>
                                       <%
                                             try{
+                                                ResultSet rs = null;
                                                 st = connection.createStatement();
                                                 rs = st.executeQuery("SELECT courseID FROM courseentry");
                                                 while(rs.next()){
@@ -103,7 +91,7 @@
                             <td><label>Subject : </label></td>
                             <td id="kids">
                                 <%-- See java script for detail --%>
-                                <input autocomplete="on" id="tags" type="text" name="subjectname" placeholder="Enter subject name">
+                                <input autocomplete="on" type="text" name="subjectname" placeholder="Enter subject name">
                                 <input autocomplete="off" type="text" name="subjectID" placeholder="Enter subject ID">
                                 <input autocomplete="off" type="text" name="section" placeholder="Enter number of section">
                                 <input type="button" value="+" onclick="addKid(this)">
@@ -139,6 +127,12 @@
         {	
          document.getElementById('kids').removeChild( div.parentNode );
 	i--;
+        }
+        </script>
+        <!-- Remove GET variable when refresh -->
+        <script>    
+        if(typeof window.history.pushState === 'function') {
+            window.history.pushState({}, "Hide", "http://localhost:8080/FYPDev/CourseCreation.jsp");
         }
         </script>
     </body>

@@ -38,7 +38,7 @@ and open the template in the editor.
                      {
                         case 0:
             %>
-                        <li align="left"><a href="login.jsp">Log In</a></li>
+                        <li><a href="login.jsp">Log In</a></li>
             <%
                         break;
                         case 1:
@@ -49,6 +49,7 @@ and open the template in the editor.
            <%          case 3:%>
                         <li><a href="subjectview.jsp">Subject View</a></li>
                         <li><a href="presetSubjectView.jsp">Preset Subject View</a></li>
+                        <li><a href="presetCourseView.jsp">Preset Course View</a></li>
            <%
                         default:%>
                         <li><a href="logout.jsp">Log Out</a></li><%;

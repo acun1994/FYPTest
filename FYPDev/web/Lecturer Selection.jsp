@@ -19,23 +19,9 @@
     <body>
         <% Connection connection = null; %> <!-- This variable must be declared above dbCon.jsp -->
         <%@include file="dbCon.jsp"%>
+        <% Statement st = connection.createStatement(); %>
         <%@include file = "checkLogin.jsp" %>
         <%@include file="navbar_session.jsp" %>
-        <% 
-            Statement st = connection.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM subject");
-            int r = 0;
-            List li = new ArrayList();
-            List li2 = new ArrayList();
-            String[] str1; String[] str2;
-            
-            Iterator it;
-            Iterator it2;
-            String subIDCol,subNameCol;
-            
-        %>
-        <%@include file="autoCompleteTB.jsp" %>
-        
         <div class="container" align="center">
             <% if (request.getParameter("insert")!=null){
             if (request.getParameter("insert").equals("false"))
@@ -48,22 +34,23 @@
         %>
             <form role="form" class="form-group" method="post" action = "LecturerSelectionDB.jsp" name="Lecturer_Selection">
                 <div class="mdl-textfield mdl-js-textfield">
-                    <input class="mdl-textfield__input" name="Subject_ID" type="text" id="tags" autocomplete="on">
+                    <input class="mdl-textfield__input" name="Subject_ID" type="text" list="subjectData">
                     <label for="sub_id" class="mdl-textfield__label">Subject ID</label>
                 </div>
                 <div class="input-field col s12" >
-                    <select name="semesterYear">
-                      <%
-                            try{
-                                rs = st.executeQuery("SELECT semYear FROM courseentry");
-                                while(rs.next()){
+                    
+                            
+                                
+                    <select name="semesterYear">  
+                      <%try{
+                            ResultSet rs = null;
+                            rs = st.executeQuery("SELECT courseID FROM courseentry");
+                            while(rs.next()){
                       %> <option value="<%=rs.getString(1)%>"><% out.print(rs.getString(1)); %></option>
-                                <%}
-                            }catch(Exception e) {
-                                out.println(e.toString());
-                            }
-
-                      %>
+                            <%}
+                        }catch(Exception e) {
+                            out.println(e.toString());
+                        }%>
                     </select>
                 </div>
                 <table>
@@ -72,21 +59,21 @@
 
                         <td>
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
-                            <input  class="mdl-textfield__input" id="name_penyelaras" name="Penyelaras_Name" type="text" >
-                            <div class="mdl-tooltip mdl-tooltip--large">Enter Coordinator name here</div>
+                                <input autocomplete="off" class="mdl-textfield__input" id="name_penyelaras" name="Penyelaras_Name" type="text" list="userInfoData">
+                            <span class="mdl-tooltip mdl-tooltip--large">Enter Coordinator name here</span>
                             </div>
                         </td>
 
                     </tr>
                     <tr>
-                            <td><label>Lecturer Details : </label></td>
-                            <td id="kids">
-                                <%-- See java script for detail --%>
-                                <input autocomplete="off" type="text" id="newtags" name="lecturerID" placeholder="Enter lecturer ID" >
-                                <input autocomplete="off" type="text" name="lecturerSection" placeholder="Enter distinct section" >
-                                <button type="button" onclick="addKid(this)"><span class="glyphicon glyphicon-plus"></span></button><br><br>
-                            </td>
-                        </tr>
+                        <td><label>Lecturer Details : </label></td>
+                        <td id="kids">
+                            <%-- See java script for detail --%>
+                            <input autocomplete="off" type="text" name="lecturerID" placeholder="Enter lecturer ID" list="userInfoData">
+                            <input autocomplete="off" type="text" name="lecturerSection" placeholder="Enter distinct section" >
+                            <button type="button" onclick="addKid(this)"><span class="glyphicon glyphicon-plus"></span></button><br><br>
+                        </td>
+                    </tr>
                 </table>
                             
                 <label>Total Lecturer : </label>
@@ -114,7 +101,7 @@
 		
                                    //Details for subject information
                                    //Input from admin to be inserted into the database
-        	div.innerHTML = '<input autocomplete="off" type="text" name="lecturerID" placeholder="Enter lecturer ID" >\n\
+        	div.innerHTML = '<input autocomplete="off" type="text" name="lecturerID" placeholder="Enter lecturer ID" list="userInfoData">\n\
                                  <input autocomplete="off" type="text" name="lecturerSection" placeholder="Enter distinct section" >\n\
                                  <button type="button" onclick="addKid(this)"><span class="glyphicon glyphicon-plus"></span></button>\n\
                                  <button type="button" onclick="removeKid(this)"><span class="glyphicon glyphicon-minus"></span></button>\n\
@@ -130,5 +117,33 @@
             i--;
         }
         </script>
+        <!-- Remove GET variable when refresh -->
+        <script>    
+        if(typeof window.history.pushState === 'function') {
+            window.history.pushState({}, "Hide", "http://localhost:8080/FYPDev/Lecturer Selection.jsp");
+        }
+        </script>
+        
+        <!-- DROPDOWN DATA FOR SUBJECT -->
+        <%
+            ResultSet subjectRS = st.executeQuery("SELECT subjectID,subjectName FROM subject");
+        %>
+            <datalist id="subjectData">
+        <%
+            while(subjectRS.next()){
+        %>  <option value="<%=subjectRS.getString(1)+"  -  "+subjectRS.getString(2)%>"><%}%>
+            </datalist>
+            
+        <!-- DROPDOWN DATA FOR PENYELARAS AND LECTURER -->    
+        <%
+            ResultSet penyelarasRS = st.executeQuery("SELECT userID,name FROM userinfo");
+        %>
+            <datalist id="userInfoData">
+        <%
+            while(penyelarasRS.next()){
+        %>  <option value="<%=penyelarasRS.getString(1) + "  -  " + penyelarasRS.getString(2)%>"><%}%>
+            </datalist>
     </body>
+    
+    
 </html>

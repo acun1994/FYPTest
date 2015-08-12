@@ -1,6 +1,6 @@
 <%-- 
-    Document   : presetSubjectView
-    Created on : Aug 12, 2015, 12:03:04 PM
+    Document   : presetCourseView
+    Created on : Aug 13, 2015, 12:16:06 AM
     Author     : User
 --%>
 
@@ -19,13 +19,13 @@
         function setValue(value)
         {
             var valueHolder = value.split("-");
-            var subjectCount = valueHolder[0];
-            var subjectID = valueHolder[1];
-            var subjectName = valueHolder[2];
+            var courseCount = valueHolder[0];
+            var courseID = valueHolder[1];
+            var courseName = valueHolder[2];
             
-            $("#subCount").val(subjectCount);
-            $("#subID").val(subjectID);
-            $("#subName").val(subjectName);
+            $("#courseCount").val(courseCount);
+            $("#courseID").val(courseID);
+            $("#courseName").val(courseName);
         }
         </script>
         
@@ -48,14 +48,14 @@
         <table class="the-table table-bordered">
             <thead>
                 <th>No.</th>
-                <th>Subject ID</th>
-                <th>Subject Name</th><th>Action</th>
+                <th>Course ID</th>
+                <th>Course Name</th><th>Action</th>
             </thead>
             <tbody>
                 
                 <% 
                     Statement st = connection.createStatement();
-                    ResultSet rs = st.executeQuery("SELECT * FROM subject");
+                    ResultSet rs = st.executeQuery("SELECT * FROM course");
                     int count = 0;
                     while(rs.next()){
                 %>
@@ -82,15 +82,15 @@
                     <h4 class="modal-title">Edit Information</h4>
                   </div>
                   <div class="modal-body">
-                    <form role="form" name="form" method="post" action="presetSubjectViewDB.jsp">
+                    <form role="form" name="form" method="post" action="presetCourseDB.jsp">
                       <table>
                           <tr>
-                              <td><label>Subject ID : </label><input id="subID" type="text" name="subjectID"/><br></td>
+                              <td><label>Course ID : </label><input id="courseID" type="text" name="subjectID"/><br></td>
                           </tr>
                           <tr>
                               <td>
-                                  <label>Subject Name :</label><input id="subName" type="text" name="subjectName"/>
-                                  <input id="subCount" name="subjectCount" type="hidden"/>
+                                  <label>Course Name :</label><input id="courseName" type="text" name="subjectName"/>
+                                  <input id="subCount" name="courseCount" type="hidden"/>
                               </td>
 
                           </tr>
@@ -107,6 +107,7 @@
             
           </div>
         </div>
+        <!-- Remove GET variable when refresh -->
         <script>    
         if(typeof window.history.pushState === 'function') {
             window.history.pushState({}, "Hide", "http://localhost:8080/FYPDev/presetSubjectView.jsp");
@@ -116,14 +117,8 @@
         function ConfirmDelete()
         {
           var x = confirm("Are you sure you want to delete?");
-          if (x)
-              {
-                <%
-                    String subjectCount = request.getParameter("subjectCount2");
-                    st.executeUpdate("DELETE FROM subject WHERE subjectCount='"+subjectCount+"'");
-                %>
-                        
-              }
+          if(x)
+            return true;
           else
             return false;
         }
