@@ -25,6 +25,7 @@
         
     </head>
         <body>
+        <%@include file="checkLogin.jsp" %>
         <%@include file="navbar_session.jsp" %>
         <% Connection connection = null; %>
         <%@ include file="dbCon.jsp"%>

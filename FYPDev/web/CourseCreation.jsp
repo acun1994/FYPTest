@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.sql.*"%>
+<%@page import="java.util.*"%>
 
 <!DOCTYPE html>
 <html>
@@ -48,14 +50,16 @@
     </head>
     
     <body>
-        <%Connection connection = null;%>
+       <% Connection connection = null; %> <!-- This variable must be declared above dbCon.jsp -->
+        <%@include file="dbCon.jsp"%>
+        <% Statement st = connection.createStatement(); %>
+        <%@include file = "checkLogin.jsp" %>
         <%@include file="navbar_session.jsp" %>
-        <%@ include file="dbCon.jsp"%>
         <div class="container">
             <%-- Form for course creation --%>
             <form role="form" name="form" method="post" action="CourseCreationDB.jsp">
                 <div class="form-group">
-                    <table style="float:center">
+                    <table>
                         <tr>
                             <td class="col-md-2">
                                 <label>Year : </label>
@@ -70,7 +74,6 @@
                                 <label>Semester :</label>
                             </td>
                             <td>
-                                <%-- Value not added yet --%>
                                 <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="sem1">
                                     <input class="mdl-radio__button" type="radio" name="semester" value="1" id="sem1">1
                                 </label>
@@ -108,7 +111,7 @@
                             <td><label>Subject : </label></td>
                             <td id="kids">
                                 <%-- See java script for detail --%>
-                                <input autocomplete="off" type="text" name="subjectname" placeholder="Enter subject name">
+                                <input autocomplete="on" type="text" name="subjectname" placeholder="Enter subject name">
                                 <input autocomplete="off" type="text" name="subjectID" placeholder="Enter subject ID">
                                 <input autocomplete="off" type="text" name="section" placeholder="Enter number of section">
                                 <input type="button" value="+" onclick="addKid(this)">
@@ -144,6 +147,12 @@
         {	
          document.getElementById('kids').removeChild( div.parentNode );
 	i--;
+        }
+        </script>
+        <!-- Remove GET variable when refresh -->
+        <script>    
+        if(typeof window.history.pushState === 'function') {
+            window.history.pushState({}, "Hide", "http://localhost:8080/FYPDev/CourseCreation.jsp");
         }
         </script>
     </body>

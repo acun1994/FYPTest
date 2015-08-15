@@ -6,6 +6,8 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%@page import="java.sql.*"%>
+<%@page import="java.util.*"%>
 <html>
     <head>
         <%@include file="resources.jsp" %>
@@ -13,6 +15,9 @@
        <title>Form02 : Lecturer Selection</title>
     </head>
     <body>
+        <% Connection connection = null; %> <!-- This variable must be declared above dbCon.jsp -->
+        <%@include file="dbCon.jsp"%>
+        <% Statement st = connection.createStatement(); %>
         <%@include file = "checkLogin.jsp" %>
         <%@include file="navbar_session.jsp" %>
         <% String[] str1; String[] str2;%>
@@ -83,21 +88,21 @@
 
                         <td>
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
-                            <input  class="mdl-textfield__input" id="name_penyelaras" name="Penyelaras_Name" type="text" >
-                            <div class="mdl-tooltip mdl-tooltip--large">Enter Coordinator name here</div>
+                                <input autocomplete="off" class="mdl-textfield__input" id="name_penyelaras" name="Penyelaras_Name" type="text" list="userInfoData">
+                            <span class="mdl-tooltip mdl-tooltip--large">Enter Coordinator name here</span>
                             </div>
                         </td>
 
                     </tr>
                     <tr>
-                            <td><label>Lecturer Details : </label></td>
-                            <td id="kids">
-                                <%-- See java script for detail --%>
-                                <input autocomplete="off" type="text" name="lecturerID" placeholder="Enter lecturer ID" >
-                                <input autocomplete="off" type="text" name="lecturerSection" placeholder="Enter distinct section" >
-                                <button type="button" onclick="addKid(this)"><span class="glyphicon glyphicon-plus"></span></button><br><br>
-                            </td>
-                        </tr>
+                        <td><label>Lecturer Details : </label></td>
+                        <td id="kids">
+                            <%-- See java script for detail --%>
+                            <input autocomplete="off" type="text" name="lecturerID" placeholder="Enter lecturer ID" list="userInfoData">
+                            <input autocomplete="off" type="text" name="lecturerSection" placeholder="Enter distinct section" >
+                            <button type="button" onclick="addKid(this)"><span class="glyphicon glyphicon-plus"></span></button><br><br>
+                        </td>
+                    </tr>
                 </table>
                             
                 <label>Total Lecturer : </label>
@@ -158,5 +163,33 @@
             i--;
         }
         </script>
+        <!-- Remove GET variable when refresh -->
+        <script>    
+        if(typeof window.history.pushState === 'function') {
+            window.history.pushState({}, "Hide", "http://localhost:8080/FYPDev/Lecturer Selection.jsp");
+        }
+        </script>
+        
+        <!-- DROPDOWN DATA FOR SUBJECT -->
+        <%
+            ResultSet subjectRS = st.executeQuery("SELECT subjectID,subjectName FROM subject");
+        %>
+            <datalist id="subjectData">
+        <%
+            while(subjectRS.next()){
+        %>  <option value="<%=subjectRS.getString(1)+"  -  "+subjectRS.getString(2)%>"><%}%>
+            </datalist>
+            
+        <!-- DROPDOWN DATA FOR PENYELARAS AND LECTURER -->    
+        <%
+            ResultSet penyelarasRS = st.executeQuery("SELECT userID,name FROM userinfo");
+        %>
+            <datalist id="userInfoData">
+        <%
+            while(penyelarasRS.next()){
+        %>  <option value="<%=penyelarasRS.getString(1) + "  -  " + penyelarasRS.getString(2)%>"><%}%>
+            </datalist>
     </body>
+    
+    
 </html>

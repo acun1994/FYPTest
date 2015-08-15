@@ -32,6 +32,7 @@
                     session.setAttribute("userid",theResult.getString("userID"));
                     session.setAttribute("username",theResult.getString("userName"));
                     session.setAttribute("usertype",theResult.getString("userType"));
+                    session.setAttribute("name",theResult.getString("name"));
                     response.sendRedirect(redirect);
                 }   
                 else

@@ -18,14 +18,11 @@
         <% 
             
            try {
-               String sN[]= null;
                String sID[] = null;
                String Section[] = null;
 
-                sN = request.getParameterValues("subjectname");
                 sID = request.getParameterValues("subjectID");
                 Section = request.getParameterValues("section");
-
                
                 String sM = request.getParameter("semester");
                 String cID = request.getParameter("COURSEID");
