@@ -22,6 +22,7 @@ and open the template in the editor.
                     <span class="icon-bar"></span>                        
                 </button>
               <a class="navbar-brand" href="#">CFMS</a>
+              <button class="navbar-toggle collapse in" data-toggle="collapse" id="menu-toggle-2"> <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span></button>
             </div>
             <div class="collapse navbar-collapse" id="navbar">
             <ul class="nav navbar-nav">
@@ -57,9 +58,6 @@ and open the template in the editor.
                       }
                   }
             %>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-              <li><a href="#menu-toggle" id="menu-toggle"><span class="glyphicon glyphicon-minus-sign"></span> Toggle</a></li>
             </ul>
           </div>
         </div>

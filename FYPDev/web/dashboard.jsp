@@ -14,15 +14,26 @@
         <%@include file="checkLogin.jsp" %>
         <% Connection connection = null; %>
         <%@ include file="dbCon.jsp"%>
-        <%@page import="java.util.Date"%>
-        
+
+        <%@include file="resources.jsp" %>
+        <%@include file="navbar_session.jsp" %>
+    
     </head>
+
     <body>
+        <div id="wrapper">
         <%
             //Getting attributes from sessions
             String name = session.getAttribute("name").toString();
             String userid = session.getAttribute("userid").toString();
-            
+            String usertype = session.getAttribute("usertype").toString();
+        %>
+        <%@include file="sidebar.jsp" %>
+        <div id="page-content-wrapper">
+        <h1>Welcome <%= name %> </h1>
+        <%@include file="dash_coordView.jsp" %>
+
+        <%
             PreparedStatement getCourseEntryID = connection.prepareStatement("select * from courseentry where semYear=?");
             PreparedStatement getCoordinating = connection.prepareStatement("select * from coordinatorlist where coordinatorID=? and semYear=?");
             PreparedStatement getTeaching = connection.prepareStatement("select * from lectlist where lecturerid=? and courseEntryID=?");
@@ -34,11 +45,10 @@
             String year = request.getParameter("year");
         %>
         <%@include file="getDate.jsp" %>
-        <h1>Welcome <%= name %> </h1>
-       
+
         <%//Listing all coordinating subject for the semYear
             ResultSet Coordinating = getCoordinating.executeQuery();
-            if(Coordinating != null)
+            if(!Coordinating.equals(null))
             {
         %>
         <label>Subjects You Coordinate</label>
@@ -75,7 +85,7 @@
                getTeaching.setString(2, courseEntryID.getString("courseEntryID"));
             
             ResultSet teaching = getTeaching.executeQuery();
-            if(teaching != null)
+            if(!teaching.equals(null))
             {
         %>
         <label>Subjects You Teach</label>
@@ -88,6 +98,7 @@
                 <th>View</th>
             </tr>
         <%
+            
             while(teaching.next())
                 {
                     getSubjectName.setString(1,teaching.getString("subjectid"));
@@ -108,5 +119,11 @@
             }
         %>
         
+        
+        
+        </div>
+
+        
+        </div>
     </body>
 </html>
