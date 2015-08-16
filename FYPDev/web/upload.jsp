@@ -47,6 +47,8 @@
     String dir = "";
     String folderPathName ="";
     String fileType = "";
+    String subject = "";
+    int section = 0;
 
    // Verify the content type
    String contentType = request.getContentType();
@@ -150,7 +152,12 @@
                     folder.mkdirs();
                 }
             }
-            
+            else if (fieldName.equals("subject")){
+                subject = fi.getString();
+            }
+            else if (fieldName.equals("section")){
+                section = Integer.parseInt(fi.getString());
+            }
             }
          }
          out.println("</body>");
@@ -168,4 +175,6 @@
       out.println("</body>");
       out.println("</html>");
    }
+   
+   response.sendRedirect("./integrated_subjectFile.jsp?class="+subject+"-"+section);
 %>

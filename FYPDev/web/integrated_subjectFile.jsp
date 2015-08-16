@@ -13,6 +13,9 @@
         <%@ include file="resources.jsp"%>
         <%@ include file="dbCon.jsp"%>
         <%@ include file="checkLogin.jsp"%>
+        <%@ include file="navbar_session.jsp"%>
+        
+        <% if (!checkAccess(session,4)) response.sendRedirect("index.jsp"); %>
         
         <SCRIPT language="javascript">
         var i = 0;
@@ -149,7 +152,7 @@
             Select a file to upload: <br />
             <form action="upload.jsp" method="post" enctype="multipart/form-data">
                 <input hidden name="lectID" value="<%= lecturerID %>">
-                <input hidden name="subject" value=" <%= subject %>">
+                <input hidden name="subject" value="<%= subject %>">
                 <input hidden name="section" value="<%= section %>">
                 <table class="text-center">
                 <tr>
