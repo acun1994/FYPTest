@@ -26,4 +26,5 @@
         <!--style-->
         <link href="resources/css/style.css" rel="stylesheet" type="text/css"/>
         
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         
