@@ -15,27 +15,35 @@
         <%Connection connection = null;%>
         <%@ include file="dbCon.jsp"%>
         <%
-            if(request.getParameter("saveValue") == null){
-                out.println("This is save value");
+            String buttonValue = request.getParameter("SUBMITION");
+            if(buttonValue.equals("SAVE")){
+                try{
+                  Statement st = connection.createStatement();
+                  String courseID = request.getParameter("courseID");
+                  String courseName = request.getParameter("courseName");
+                  String courseCount = request.getParameter("courseCount"); 
+                  st.executeUpdate("UPDATE subject SET subjectID='"+courseID+"',subjectName='"+courseName+"' WHERE subjectCount='"+courseCount+"'");
+                  response.sendRedirect("presetCourseView.jsp?insert=true");
+
+                }catch(Exception e){
+                    out.println(e.toString());
+                    //response.sendRedirect("presetSubjectView.jsp?insert=false");
+                }
             }
-            else if(request.getParameter("deleteValue") != null){
-                out.println("This is save value");
+            else{
+                try{
+                    Statement st = connection.createStatement();
+                    String[] valueHolder = buttonValue.split("-");
+                    String courseCount = valueHolder[0];
+                    st.executeUpdate("DELETE FROM course WHERE courseCount='"+courseCount+"'");
+                    response.sendRedirect("presetCourseView.jsp?insert=delete");
+                    
+                }catch(Exception e){
+                    out.println(e.toString());
+                    //response.sendRedirect("presetSubjectView.jsp?insert=false");
+                }
+
             }
-          /*try{
-            Statement st = connection.createStatement();
-            ResultSet rs = null;
-            
-            String subjectID = request.getParameter("subjectID");
-            String subjectName = request.getParameter("subjectName");
-            String subjectCount = request.getParameter("subjectCount"); 
-            st.executeUpdate("UPDATE subject SET subjectID='"+subjectID+"',subjectName='"+subjectName+"' WHERE subjectCount='"+subjectCount+"'");
-            
-            response.sendRedirect("presetSubjectView.jsp?insert=true");
-            
-          }catch(Exception e){
-              out.println(e.toString());
-              //response.sendRedirect("presetSubjectView.jsp?insert=false");
-          }*/
         %>
     </body>
 </html>

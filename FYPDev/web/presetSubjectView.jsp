@@ -49,12 +49,12 @@
             <thead>
                 <th>No.</th>
                 <th>Subject ID</th>
-                <th>Subject Name</th><th>Action</th>
+                <th>Subject Name</th>
+                <th colspan="2">Action</th>
             </thead>
             <tbody>
                 
-                <% 
-                    Statement st = connection.createStatement();
+                <%  Statement st = connection.createStatement();
                     ResultSet rs = st.executeQuery("SELECT * FROM subject");
                     int count = 0;
                     while(rs.next()){
@@ -63,9 +63,8 @@
                     <td><% out.print(++count);%></td>
                     <td><% out.print(rs.getString(2));%></td>
                     <td><% out.print(rs.getString(3));%></td>
-                    <td>
-                        <button  value="<%= rs.getString(1)+"-"+rs.getString(2) + "-" + rs.getString(3) %>" class="btn btn-info" data-toggle="modal" data-target="#myModal" onclick="setValue(this.value)">EDIT</button>
-                        <button name="deleteValue" value="<%= rs.getString(1)+"-"+rs.getString(2) + "-" + rs.getString(3) %>" class="btn btn-danger" onClick="ConfirmDelete()">DELETE</button>
+                    <td><button  value="<%= rs.getString(1)+"-"+rs.getString(2) + "-" + rs.getString(3) %>" class="btn btn-info" data-toggle="modal" data-target="#myModal" onclick="setValue(this.value)">EDIT</button></td>
+                    <td><button type="submit" name="SUBMITION"  value="<%= rs.getString(1)+" - "+rs.getString(2) + "- " + rs.getString(3) %>" class="btn btn-danger" onClick="ConfirmDelete(this.value)" form="myForm">DELETE</button>
                     </td>
                 </tr>
                 <% }%>
@@ -82,20 +81,20 @@
                     <h4 class="modal-title">Edit Information</h4>
                   </div>
                   <div class="modal-body">
-                    <form role="form" name="form" method="post" action="presetSubjectViewDB.jsp">
-                      <table>
+                    <form role="form" name="form" method="post" action="presetSubjectViewDB.jsp" id="myForm">
+                      <table class="table-hover table-condensed">
                           <tr>
-                              <td><label>Subject ID : </label><input id="subID" type="text" name="subjectID"/><br></td>
+                              <td align="right"><label> ID : </label></td>
+                              <td><input id="subID" type="text" name="subjectID"/><br></td>
                           </tr>
                           <tr>
-                              <td>
-                                  <label>Subject Name :</label><input id="subName" type="text" name="subjectName"/>
-                                  <input id="subCount" name="subjectCount" type="hidden"/>
-                              </td>
-
+                              <td align="right"><label> Name :</label></td>
+                              <td><input id="subName" type="text" name="subjectName"/></td>
                           </tr>
                       </table>
-                            <input type="submit" class="btn btn-success"  value="Save">
+                            <!-- THE HIDDEN INPUT IS JUST FOR GETTING COUNT FOR THE ROW IN THE SERVER -->
+                            <input id="subCount" name="subjectCount" type="hidden"/>
+                            <button name="SUBMITION" type="submit" class="btn btn-success" value="SAVE">Save </button>
                             <button class="btn btn-default" data-dismiss="modal">Cancel</button>
                     </form>
 
@@ -113,19 +112,12 @@
         }
         </script>
         <script>
-        function ConfirmDelete()
-        {
-          var x = confirm("Are you sure you want to delete?");
-          if (x)
-              {
-                <%
-                    String subjectCount = request.getParameter("subjectCount2");
-                    st.executeUpdate("DELETE FROM subject WHERE subjectCount='"+subjectCount+"'");
-                %>
-                        
-              }
-          else
-            return false;
+        function ConfirmDelete() {
+            var x = confirm("Are you sure you want to delete this data?");
+            if (x){
+                return true;
+            }
+            else return false;
         }
         </script>
     </body>
