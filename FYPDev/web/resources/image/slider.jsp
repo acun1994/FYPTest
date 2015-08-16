@@ -9,7 +9,7 @@
 <%@include file="../../resources.jsp" %>
 <style>
     img{
-        height:100px;
+        height:10000px;
     }
 </style>
 
@@ -24,7 +24,7 @@
             </ol>
             <div class="carousel-inner" role="listbox">
                 <div class="item active">
-                    <img src="Eid-Mubarak-2013-Background.png" alt="Gambar lama"/>
+                    <img src="Eid-Mubarak-2013-Background.png" alt="Gambar 2013"/>
                 </div>
                 <div class="item">
                     <img src="Banner-Anugerah-Kualiti-2015.jpg" alt="Anugerah Kualiti 2015"/>
