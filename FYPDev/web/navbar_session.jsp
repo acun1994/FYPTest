@@ -42,7 +42,7 @@ and open the template in the editor.
                      {
                         case 0:
             %>
-                <li><button class="mdl-button mdl-js-button"><a align="left" href="login.jsp">Log In</a></button></li>
+                    
             <%
                         break;
                         case 1:

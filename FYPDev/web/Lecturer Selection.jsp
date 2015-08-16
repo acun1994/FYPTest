@@ -52,7 +52,7 @@
         %>
         
         <div class="container" align="center">
-            <% if (request.getParameter("insert")!=null){
+        <% if (request.getParameter("insert")!=null){
             if (request.getParameter("insert").equals("false"))
                 {%><div class="text-center alert-danger alert">Error in saving data.</div><%}
             else if (request.getParameter("insert").equals("true"))
@@ -84,7 +84,7 @@
                 </div>
                 <table>
                     <tr>
-                        <td><label>Penyelaras : </label></td>
+                        <td><label>Coordinator : </label></td>
 
                         <td>
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
@@ -170,7 +170,7 @@
         }
         </script>
         
-        <!-- DROPDOWN DATA FOR SUBJECT -->
+        <!-- DROP DOWN DATA FOR SUBJECT -->
         <%
             ResultSet subjectRS = st.executeQuery("SELECT subjectID,subjectName FROM subject");
         %>
@@ -180,7 +180,7 @@
         %>  <option value="<%=subjectRS.getString(1)+"  -  "+subjectRS.getString(2)%>"><%}%>
             </datalist>
             
-        <!-- DROPDOWN DATA FOR PENYELARAS AND LECTURER -->    
+        <!-- DROP DOWN DATA FOR coordinator AND LECTURER -->    
         <%
             ResultSet penyelarasRS = st.executeQuery("SELECT userID,name FROM userinfo");
         %>
