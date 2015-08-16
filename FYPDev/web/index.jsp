@@ -19,7 +19,7 @@ and open the template in the editor.
         <style>
             #container{
                 margin-top:30px;
-                width:1300px;
+                width:1305px;
                 align:center;
             }
             #contain{

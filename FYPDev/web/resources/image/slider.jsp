@@ -24,22 +24,22 @@
             </ol>
             <div class="carousel-inner" role="listbox">
                 <div class="item active">
-                    <img src="164607_407106632704056_1591502594_n.jpg" alt=""/>
+                    <img src="Eid-Mubarak-2013-Background.png" alt="Gambar lama"/>
                 </div>
                 <div class="item">
-                    <img src="164607_407106632704056_1591502594_n.jpg" alt=""/>
-                </div>
-            
-                <div class="item">
-                   <img src="164607_407106632704056_1591502594_n.jpg" alt=""/>
+                    <img src="Banner-Anugerah-Kualiti-2015.jpg" alt="Anugerah Kualiti 2015"/>
                 </div>
             
                 <div class="item">
-                    <img src="164607_407106632704056_1591502594_n.jpg" alt=""/>
+                    <img src="Program-bazar-ramadan.png" alt="Program Bazar Ramadhan"/>
                 </div>
             
                 <div class="item">
-                    <img src="164607_407106632704056_1591502594_n.jpg" alt=""/>
+                    <img src="RAYANC.png" alt=""/>
+                </div>
+            
+                <div class="item">
+                    <img src="iftar-ramadhan.png" alt=""/>
                 </div>
             </div>
             
