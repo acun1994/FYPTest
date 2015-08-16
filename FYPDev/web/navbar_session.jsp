@@ -13,7 +13,6 @@ and open the template in the editor.
 -->
 <%@include file="resources.jsp" %>
 <div>
-    
     <nav class="navbar navbar-default navbar-top">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -47,14 +46,14 @@ and open the template in the editor.
                         break;
                         case 1:
             %>
-                <li><button class="mdl-button mdl-js-button"><a href="CourseCreation.jsp"><div>Create Course</div></a></button></li>
+                <li><button id="btnnavbar" class="mdl-button mdl-js-button"><a href="CourseCreation.jsp"><div>Create Course</div></a></button></li>
           <%          case 2:%>
-                <li><button class="mdl-button mdl-js-button"><a href="courseview.jsp"><div>Course View</div></a></button></li>
+                <li><button id="btnnavbar" class="mdl-button mdl-js-button"><a href="courseview.jsp"><div>Course View</div></a></button></li>
           <%          case 3:%>
-                <li><button class="mdl-button mdl-js-button"><a href="subjectview.jsp"><div>Subject View</div></a></button></li>
+                <li><button id="btnnavbar" class="mdl-button mdl-js-button"><a href="subjectview.jsp"><div>Subject View</div></a></button></li>
           <%
                         default:%>
-                <li><button class="mdl-button mdl-js-button"><a href="logout.jsp"><div>Log Out</div></a></button></li><%;
+                <li><button id="btnnavbar" class="mdl-button mdl-js-button"><a href="logout.jsp"><div>Log Out</div></a></button></li><%;
                       }
                   }
             %>
