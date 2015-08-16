@@ -47,14 +47,14 @@ and open the template in the editor.
                         break;
                         case 1:
             %>
-                <li><button id="btnnavbar" class="mdl-button mdl-js-button"><a href="CourseCreation.jsp"><div>Create Course</div></a></button></li>
+                <li><button id="btnnavbar" class="mdl-button mdl-js-button"><a href="CourseCreation.jsp">Create Course</a></button></li>
           <%          case 2:%>
-                <li><button id="btnnavbar" class="mdl-button mdl-js-button"><a href="courseview.jsp"><div>Course View</div></a></button></li>
+                <li><button id="btnnavbar" class="mdl-button mdl-js-button"><a href="courseview.jsp">Course View</a></button></li>
           <%          case 3:%>
-                <li><button id="btnnavbar" class="mdl-button mdl-js-button"><a href="subjectview.jsp"><div>Subject View</div></a></button></li>
+                <li><button id="btnnavbar" class="mdl-button mdl-js-button"><a href="subjectview.jsp">Subject View</a></button></li>
           <%
                         default:%>
-                <li><button id="btnnavbar" class="mdl-button mdl-js-button"><a href="logout.jsp"><div>Log Out</div></a></button></li><%;
+                <li><button id="btnnavbar" class="mdl-button mdl-js-button"><a href="logout.jsp">Log Out</a></button></li><%;
                       }
                   }
             %>
