@@ -22,3 +22,7 @@
         
         <!--side bar-->
         <link href="resources/sidebar sources/css/simple-sidebar.css" rel="stylesheet" type="text/css"/>
+        
+        <!--style-->
+        <link href="resources/css/style.css" rel="stylesheet" type="text/css"/>
+        
