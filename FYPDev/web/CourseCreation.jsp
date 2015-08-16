@@ -15,29 +15,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <%@include file="resources.jsp"%>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <script language="javascript">
-        var i = 0;
-        function addKid()
-        {
-		i++;	
-        	var div = document.createElement('div');
-		
-                                   //Details for subject information
-                                   //Input from admin to be inserted into the database
-        	div.innerHTML = '<input autocomplete="off" type="text" name="subjectname" placeholder="Enter subject name">\n\
-                                 <input autocomplete="off" type="text" name="subjectID" placeholder="Enter subject ID">\n\
-                                 <input autocomplete="off" type="text" name="section" placeholder="Enter number of section">\n\
-                                 <input type="button" value="-" onclick="removeKid(this)">\n\
-                                 <br>';
-                document.getElementById('kids').appendChild(div);
-         }
-
-        function removeKid(div)
-        {	
-         document.getElementById('kids').removeChild( div.parentNode );
-	i--;
-        }
-        </script>
         <link rel="stylesheet" href="./resources/css/bootstrap.min.css">
         <script src="./resources/js/jquery.min.js"></script>
         <script src="./resources/js/bootstrap.min.js"></script>
@@ -110,7 +87,7 @@
                             <td><label>Subject : </label></td>
                             <td id="kids">
                                 <%-- See java script for detail --%>
-                                <input autocomplete="on" type="text" name="subjectname" placeholder="Enter subject name">
+                                <input autocomplete="off" type="text" name="subjectname" placeholder="Enter subject name" list="subjectData">
                                 <input autocomplete="off" type="text" name="subjectID" placeholder="Enter subject ID">
                                 <input autocomplete="off" type="text" name="section" placeholder="Enter number of section">
                                 <input type="button" value="+" onclick="addKid(this)">
@@ -131,7 +108,7 @@
 		
                                    //Details for subject information
                                    //Input from admin to be inserted into the database
-        	div.innerHTML = '<input autocomplete="off" type="text" name="subjectname" placeholder="Enter subject name">\n\
+        	div.innerHTML = '<input autocomplete="off" type="text" name="subjectname" placeholder="Enter subject name" list="subjectData">\n\
                                  <input autocomplete="off" type="text" name="subjectID" placeholder="Enter subject ID">\n\
                                  <input autocomplete="off" type="text" name="section" placeholder="Enter number of section">\n\
                                  <input type="button" value="+" onclick="addKid(this)">\n\
@@ -154,5 +131,15 @@
             window.history.pushState({}, "Hide", "http://localhost:8080/FYPDev/CourseCreation.jsp");
         }
         </script>
+        
+        <!-- DROP DOWN DATA FOR SUBJECT -->
+        <%
+            ResultSet subjectRS = st.executeQuery("SELECT subjectID,subjectName FROM subject");
+        %>
+            <datalist id="subjectData">
+        <%
+            while(subjectRS.next()){
+        %>  <option value="<%=subjectRS.getString(1)+"  -  "+subjectRS.getString(2)%>"><%}%>
+            </datalist>
     </body>
 </html>
