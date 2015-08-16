@@ -37,7 +37,7 @@
                 }   
                 else
                 {
-                    redirect = "./login.jsp?login=failed";
+                    redirect = "./index.jsp?login=failed";
                     response.sendRedirect(redirect);
                 }
                }

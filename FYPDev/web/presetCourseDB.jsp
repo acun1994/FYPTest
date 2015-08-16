@@ -34,8 +34,8 @@
                 try{
                     Statement st = connection.createStatement();
                     String[] valueHolder = buttonValue.split("-");
-                    String courseCount = valueHolder[0];
-                    st.executeUpdate("DELETE FROM course WHERE courseCount='"+courseCount+"'");
+                    String courseID = valueHolder[0];
+                    st.executeUpdate("DELETE FROM course WHERE courseID='"+courseID+"'");
                     response.sendRedirect("presetCourseView.jsp?insert=delete");
                     
                 }catch(Exception e){
