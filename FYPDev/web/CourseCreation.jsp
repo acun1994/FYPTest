@@ -93,7 +93,6 @@
                                       --%>
                                       <%
                                             try{
-                                                Statement st = connection.createStatement();
                                                 ResultSet rs = st.executeQuery("SELECT courseID FROM courseentry");
                                                 while(rs.next()){
                                       %> <option value="<%=rs.getString(1)%>"><% out.print(rs.getString(1)); %></option>

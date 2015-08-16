@@ -3,7 +3,6 @@
     Created on : 12-Aug-2015, 15:29:38
     Author     : pheni
 --%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
 //Setting the semYear
@@ -33,7 +32,6 @@
                     
                         getCourseEntryID.setString(1,semYear);
                         getCoordinating.setString(2,semYear);
-
                     }
                 }
                 else
