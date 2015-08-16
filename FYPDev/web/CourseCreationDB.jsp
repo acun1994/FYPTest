@@ -23,7 +23,10 @@
 
                 sID = request.getParameterValues("subjectID");
                 Section = request.getParameterValues("section");
-               
+                
+                String[] valueHolder = null;
+                String subNameHolder = null;
+                String subIDHolder = null;
                 String sM = request.getParameter("semester");
                 String cID = request.getParameter("COURSEID");
                 String courseYear = request.getParameter("CourseYear");
@@ -54,11 +57,18 @@
 
                    query = "INSERT INTO subject(subjectID, subjectName) VALUES('"+sID[i]+"','"+sN[i]+"')";
                    st.executeUpdate(query);*/
-                   query = "INSERT INTO coordinatorlist(subjectID,sectionCount,semYear) VALUES('"+listSubject+"','"+Section[i]+"','"+semesterYear+"')";
+                    
+                    valueHolder = sID[i].split("  -  ");
+                    subIDHolder = valueHolder[0];
+                    subNameHolder = valueHolder[1];
+                    
+                    out.println(subNameHolder+subIDHolder);
+                    
+                   query = "INSERT INTO coordinatorlist(subjectID,sectionCount,semYear) VALUES('"+subIDHolder+"','"+Section[i]+"','"+semesterYear+"')";
                    st.execute(query); 
                    i++;  
                 }
-             response.sendRedirect("CourseCreation.jsp?insert=true");
+             response.sendRedirect("CourseCreation.jsp?insert=true"); 
         }
           catch(Exception e){
               out.println("Unsuccessful insertion" + "<br/>" + e.toString());

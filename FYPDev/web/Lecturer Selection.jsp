@@ -19,35 +19,6 @@
         <% Statement st = connection.createStatement(); %>
         <%@include file = "checkLogin.jsp" %>
         <%@include file="navbar_session.jsp" %>
-        <% String[] str1; String[] str2;%>
-        <%@include file="LecturerSelectionDB.jsp" %>
-        <% 
-                ResultSet rs = st.executeQuery("SELECT * FROM subject");
-                int i = 0;
-                List li = new ArrayList();
-                List li2 = new ArrayList();
-                //Add data to the arraylist 
-                while(rs.next()){
-                    li.add(rs.getString(1));
-                    li2.add(rs.getString(2));
-                }
-                
-                str1 = new String[li.size()];
-                str2 = new String[li2.size()];
-                
-                Iterator it = li.iterator();
-                Iterator it2 = li2.iterator();
-                
-                String subIDCol,subNameCol;
-                //Assign value from arrayList to local array for use of jQuery 
-                while(it.hasNext()){
-                    subIDCol = (String)it.next();
-                    str1[i] = subIDCol;
-                    subNameCol = (String)it2.next();
-                    str2[i] = subNameCol;
-                    i++;
-                }
-        %>
         
         <div class="container" align="center">
         <% if (request.getParameter("insert")!=null){
@@ -61,7 +32,7 @@
         %>
             <form role="form" class="form-group" method="post" action = "LecturerSelectionDB.jsp" name="Lecturer_Selection">
                 <div class="mdl-textfield mdl-js-textfield">
-                    <input class="mdl-textfield__input" name="Subject_ID" type="text" id="tags" autocomplete="on">
+                    <input class="mdl-textfield__input" name="Subject_ID" type="text" id="tags" autocomplete="off" list="subjectData">
                     <label for="sub_id" class="mdl-textfield__label">Subject ID</label>
                 </div>
                 <div class="input-field col s12" >
@@ -111,7 +82,7 @@
             </form>
         </div>
         <script>
-            
+            //FORM SUBMITION ACTION
             function submitForm() {
             // Get the first form with the name
             // Hopefully there is only one, but there are more, select the correct index
@@ -120,23 +91,9 @@
             frm.reset();  // Reset
             return false; // Prevent page refresh
             }
-            
-            
-            $(function() {
-                var availableTags = [<% 
-                int arrayLength = str1.length;            
-                for (int curr=0; curr<arrayLength-1; curr++){
-                    out.println('"' + str1[curr]+ "  -  " + str2[curr] +'"' + ",");
-                }
-                out.println('"' + str1[arrayLength-1] + "  -  " +str2[arrayLength-1] +'"');
-               %>];
-                $( "#tags" ).autocomplete({
-                  source: availableTags
-                });
-               });
-               
         </script>
-        <script language="javascript">
+        <script>
+        //ADD A ROW EVERYTIME USER CLICKS THE "+" SYMBOL
         var i = 0;
         function addKid()
         {
@@ -154,7 +111,8 @@
                     document.getElementById('kids').appendChild(div);
                 
          }
-
+        
+        //REMOVE A ROW EVERYTIME USER CLICKS THE "-" SYMBOL
         function removeKid(div){	
             document.getElementById('kids').removeChild( div.parentNode );
             i--;
@@ -167,15 +125,17 @@
         }
         </script>
         
-        <!-- DROP DOWN DATA FOR SUBJECT -->
+        <!-- DROPDOWN DATA FOR SUBJECT TEXTBOX -->
         <%
-            ResultSet subjectRS = st.executeQuery("SELECT subjectID,subjectName FROM subject");
+            ResultSet subID = st.executeQuery("SELECT cl.subjectID, subjectName FROM coordinatorlist as cl, subject as sub WHERE cl.subjectID = sub.subjectID");
         %>
-            <datalist id="subjectData">
+        <datalist id="subjectData">
         <%
-            while(subjectRS.next()){
-        %>  <option value="<%=subjectRS.getString(1)+"  -  "+subjectRS.getString(2)%>"><%}%>
-            </datalist>
+            while(subID.next()){
+        %>  <option value="<%=subID.getString("subjectID") + "  -  " + subID.getString("subjectName") %>"><%}%>
+        </datalist>
+            
+            
             
         <!-- DROP DOWN DATA FOR coordinator AND LECTURER -->    
         <%

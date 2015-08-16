@@ -16,9 +16,12 @@
         <title>JSP Page</title>
     </head>  
     <body>
-        <% if(request.getParameter("Subject_ID") != null){
+        <% Connection connection = null; %> <!-- This variable must be declared above dbCon.jsp -->
+        <%@include file="dbCon.jsp"%>
+        <%  
+            Statement st = connection.createStatement();
             String subjectIn = request.getParameter("Subject_ID");
-            String[] str = subjectIn.split("  -  ");
+            String[] str = subjectIn.split("  -  "); //split the value of ID and Name
             String subID = str[0];  //hold value of subjectID
             String subName = str[1];//value of second subjectName
             String courseID = subID.substring(4,5) + subID.substring(0,4); //contain value of courseID
@@ -84,7 +87,7 @@
                     out.println("ERROR!!" + "<br>" + e.toString());
                 } 
             } 
-        }if(request.getParameter("Subject_ID") == ""){
+        if(request.getParameter("Subject_ID") == ""){
             out.println("Pick something lol");
         }    
             %>
