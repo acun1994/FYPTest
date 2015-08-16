@@ -5,17 +5,13 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         <title>Preset Subject View</title>
         <script>
             function setValue(value) {
                 var valueHolder = value.split("-");
-                var courseCount = valueHolder[0];
-                var courseID = valueHolder[1];
-                var courseName = valueHolder[2];
+                var courseID = valueHolder[0];
+                var courseName = valueHolder[1];
 
-                $("#courseCount").val(courseCount);
                 $("#courseID").val(courseID);
                 $("#courseName").val(courseName);
             }
@@ -64,7 +60,8 @@
                                     <% }%>
                             </tbody>
                         </table>
-                        <!-- Modal -->
+                            <button class="btn btn-submit" data-toggle="modal" data-target="#newModal">CREATE NEW COURSE</button>
+                        <!-- MODAL FOR EDITING COURSE -->
                         <div class="modal fade" id="myModal" role="dialog">
                             <div class="modal-dialog">
                                 <!-- Modal content-->
@@ -79,7 +76,7 @@
                                             <table class="table-condensed table-hover">
                                                 <tr>
                                                     <td><label>Course ID :</label></td>
-                                                    <td><input id="courseID" type="text" name="courseID" /></td>
+                                                    <td><input id="courseID" type="text" name="courseID" disabled/></td>
                                                 </tr>
                                                 <tr>
                                                     <td><label>Course Name :</label></td>
@@ -87,6 +84,36 @@
                                             </table>
                                             <input id="subCount" name="courseCount" type="hidden" />
                                             <button name="SUBMITION" type="submit" class="btn btn-success" value="SAVE">Save </button>
+                                            <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- MODAL FOR CREATION OF NEW COURSE -->
+                        <div class="modal fade" id="newModal" role="dialog">
+                            <div class="modal-dialog">
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                         <h4 class="modal-title">Create New Course</h4>
+
+                                    </div>
+                                    <div class="modal-body">
+                                        <form role="form" name="form" method="post" action="presetCourseDB.jsp" id="newForm">
+                                            <table class="table-condensed table-hover">
+                                                <tr>
+                                                    <td><label>Course ID :</label></td>
+                                                    <td><input type="text" name="newCourseID" disabled /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label>Course Name :</label></td>
+                                                    <td><input  type="text" name="newCourseName" required/></td>
+                                            </table>
+                                            <button name="SUBMITION" type="submit" class="btn btn-success" value="NEW COURSE">Save </button>
                                             <button class="btn btn-default" data-dismiss="modal">Cancel</button>
                                         </form>
                                     </div>

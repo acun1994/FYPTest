@@ -10,8 +10,6 @@
     <head>
          <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         <title>Preset Subject View</title>
         
         <script> 
@@ -67,6 +65,7 @@
                 <% }%>
             </tbody>
         </table>
+        <button class="btn btn-submit" data-toggle="modal" data-target="#newModal">CREATE NEW SUBJECT</button>
         <!-- Modal -->
         <div class="modal fade" id="myModal" role="dialog">
           <div class="modal-dialog">
@@ -82,14 +81,13 @@
                       <table class="table-hover table-condensed">
                           <tr>
                               <td align="right"><label> ID : </label></td>
-                              <td><input id="subID" type="text" name="subjectID"/><br></td>
+                              <td><input id="subID" type="text" name="subjectID" disabled/><br></td>
                           </tr>
                           <tr>
                               <td align="right"><label> Name :</label></td>
-                              <td><input id="subName" type="text" name="subjectName"/></td>
+                              <td><input id="subName" type="text" name="subjectName" required/></td>
                           </tr>
                       </table>
-                            <!-- THE HIDDEN INPUT IS JUST FOR GETTING COUNT FOR THE ROW IN THE SERVER -->
                             <button name="SUBMITION" type="submit" class="btn btn-success" value="SAVE">Save </button>
                             <button class="btn btn-default" data-dismiss="modal">Cancel</button>
                     </form>
@@ -101,6 +99,35 @@
             </div>
             
           </div>
+        </div>
+        <!-- MODAL FOR CREATION OF NEW COURSE -->
+        <div class="modal fade" id="newModal" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                         <h4 class="modal-title">Create New Subject</h4>
+
+                    </div>
+                    <div class="modal-body">
+                        <form role="form" name="form" method="post" action="presetSubjectViewDB.jsp" id="newForm">
+                            <table class="table-condensed table-hover">
+                                <tr>
+                                    <td><label>Subject ID :</label></td>
+                                    <td><input type="text" name="newSubjectID" autocomplete="off" required/></td>
+                                </tr>
+                                <tr>
+                                    <td><label>Subject Name :</label></td>
+                                    <td><input  type="text" name="newSubjectName" required/></td>
+                            </table>
+                            <button name="SUBMITION" type="submit" class="btn btn-success" value="NEW SUBJECT">Save </button>
+                            <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer"></div>
+                </div>
+            </div>
         </div>
         <script>    
         if(typeof window.history.pushState === 'function') {

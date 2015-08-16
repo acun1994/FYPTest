@@ -21,8 +21,22 @@
                   Statement st = connection.createStatement();
                   String courseID = request.getParameter("courseID");
                   String courseName = request.getParameter("courseName");
-                  String courseCount = request.getParameter("courseCount"); 
-                  st.executeUpdate("UPDATE subject SET subjectID='"+courseID+"',subjectName='"+courseName+"' WHERE subjectCount='"+courseCount+"'");
+                  ResultSet rs = st.executeQuery("SELECT courseID FROM course WHERE courseID='"+courseID+"'");
+                  rs.next();
+                  st.executeUpdate("UPDATE course SET courseID='"+courseID+"',courseName='"+courseName+"' WHERE courseID='"+rs.getString(1)+"'");
+                  response.sendRedirect("presetCourseView.jsp?insert=true");
+
+                }catch(Exception e){
+                    out.println(e.toString());
+                    //response.sendRedirect("presetSubjectView.jsp?insert=false");
+                }
+            }
+            else if(buttonValue.equals("NEW COURSE")){
+                try{
+                  Statement st = connection.createStatement();
+                  String courseID = request.getParameter("newCourseID");
+                  String courseName = request.getParameter("newCourseName");
+                  st.execute("INSERT INTO course(courseID,courseName) VALUES('"+courseID+"','"+courseName+"')");
                   response.sendRedirect("presetCourseView.jsp?insert=true");
 
                 }catch(Exception e){
