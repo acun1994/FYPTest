@@ -46,20 +46,19 @@
                     query = "INSERT INTO courseentry(courseID,semYear) VALUES('"+cID+"','"+semesterYear+"')";
                     st.executeUpdate(query);
                 }
-                else{
-                     for(String listSubject : sID){
-                       /* ResultSet  rs = st.executeQuery("SELECT courseEntryID FROM courseentry WHERE courseID = '"+cID+"' AND semYear = '"+semesterYear+"'");
-                        rs.next();
-                        int courseEntryID = rs.getInt("courseEntryID");
+               
+                for(String listSubject : sID){
+                  /* ResultSet  rs = st.executeQuery("SELECT courseEntryID FROM courseentry WHERE courseID = '"+cID+"' AND semYear = '"+semesterYear+"'");
+                   rs.next();
+                   int courseEntryID = rs.getInt("courseEntryID");
 
-                        query = "INSERT INTO subject(subjectID, subjectName) VALUES('"+sID[i]+"','"+sN[i]+"')";
-                        st.executeUpdate(query);*/
-                        query = "INSERT INTO coordinatorlist(subjectID,sectionCount,semYear) VALUES('"+listSubject+"','"+Section[i]+"','"+semesterYear+"')";
-                        st.execute(query); 
-                        i++;  
-                    
+                   query = "INSERT INTO subject(subjectID, subjectName) VALUES('"+sID[i]+"','"+sN[i]+"')";
+                   st.executeUpdate(query);*/
+                   query = "INSERT INTO coordinatorlist(subjectID,sectionCount,semYear) VALUES('"+listSubject+"','"+Section[i]+"','"+semesterYear+"')";
+                   st.execute(query); 
+                   i++;  
                 }
-            } response.sendRedirect("CourseCreation.jsp?insert=true");
+             response.sendRedirect("CourseCreation.jsp?insert=true");
         }
           catch(Exception e){
               out.println("Unsuccessful insertion" + "<br/>" + e.toString());

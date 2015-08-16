@@ -84,9 +84,6 @@
                     out.println("ERROR!!" + "<br>" + e.toString());
                 } 
             } 
-        }if(request.getParameter("Subject_ID") == ""){
-            out.println("Pick something lol");
-        }    
             %>
     </body>
 </html>
