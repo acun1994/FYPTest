@@ -185,7 +185,7 @@
                     PreparedStatement getSubjectID = connection.prepareStatement("select * from coordinatorlist where semYear=?");
                     
                     //Getting subject id
-                    getSubjectID.setString(1, semYear.getString("courseentryid"));
+                    getSubjectID.setString(1, semYear.getString("semYear"));
                         
                     //Result storing for subject id
                     ResultSet subjectID = getSubjectID.executeQuery();

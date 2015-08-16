@@ -28,7 +28,7 @@
                     }
                     else
                     {
-                        semYear = "1-" + setYear;
+                        semYear = "3-" + setYear;
                     
                         getCourseEntryID.setString(1,semYear);
                         getCoordinating.setString(2,semYear);

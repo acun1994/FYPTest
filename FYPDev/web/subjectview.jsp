@@ -31,7 +31,7 @@
         
         PreparedStatement getUserName = connection.prepareStatement("select * from userinfo where userid=? ");
         PreparedStatement getSubjectName = connection.prepareStatement("select * from subject where subjectid=?");
-        
+
         //Getting coordinator name
         getUserName.setString(1, courseid);
         ResultSet coordiName = getUserName.executeQuery();
@@ -43,13 +43,13 @@
         %>
         
         <div align="center">
-            Coordinator Name : <% if(coordiName.next()){coordiName.getString("userName");}%>
+            Coordinator Name : <% if(coordiName.next()){out.println(coordiName.getString("name"));}%>
             Coordinator Id   : <%= coordinatorid %>
             Course Entry Id  : <%= courseid      %>
         </div>
         
         <div align="center">
-            Subject Name : <% if(subjectName.next()){subjectName.getString("subjectName");}%>
+            Subject Name : <% if(subjectName.next()){out.println(subjectName.getString("subjectName"));}%>
             Subject Id   : <%= subid %>
         </div>
         

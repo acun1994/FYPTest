@@ -12,52 +12,17 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <%@include file="resources.jsp" %>
+<%@include file="sidebar.jsp" %>
 <div>
     <nav class="navbar navbar-default navbar-top">
         <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>                        
-                </button>
+            <div class="navbar-header fixed-brand">
               <a class="navbar-brand" href="#">CFMS</a>
               <button class="navbar-toggle collapse in" data-toggle="collapse" id="menu-toggle-2"> <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span></button>
             </div>
             <div class="collapse navbar-collapse" id="navbar">
             <ul class="nav navbar-nav">
-            <%
-              //Getting usertype from session
- 
-                session = request.getSession(false);
-                 if(session != null)
-                {
-                    session = request.getSession();
-                    int type = 0; 
-                    if(session.getAttribute("usertype") != null )
-                    {  
-                     type = Integer.parseInt(session.getAttribute("usertype").toString());
-                    }
-                     switch(type)
-                     {
-                        case 0:
-            %>
-              
-            <%
-                        break;
-                        case 1:
-            %>
-                <li><button id="btnnavbar" class="mdl-button mdl-js-button"><a href="CourseCreation.jsp">Create Course</a></button></li>
-          <%          case 2:%>
-                <li><button id="btnnavbar" class="mdl-button mdl-js-button"><a href="courseview.jsp">Course View</a></button></li>
-          <%          case 3:%>
-                <li><button id="btnnavbar" class="mdl-button mdl-js-button"><a href="subjectview.jsp">Subject View</a></button></li>
-          <%
-                        default:%>
-                <li><button id="btnnavbar" class="mdl-button mdl-js-button"><a href="logout.jsp">Log Out</a></button></li><%;
-                      }
-                  }
-            %>
+            
             </ul>
           </div>
         </div>

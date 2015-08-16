@@ -14,7 +14,6 @@
         <%@include file="checkLogin.jsp" %>
         <% Connection connection = null; %>
         <%@ include file="dbCon.jsp"%>
-
         <%@include file="resources.jsp" %>
         <%@include file="navbar_session.jsp" %>
     
@@ -28,11 +27,11 @@
             String userid = session.getAttribute("userid").toString();
             String usertype = session.getAttribute("usertype").toString();
         %>
+        
         <%@include file="sidebar.jsp" %>
         <div id="page-content-wrapper">
         <h1>Welcome <%= name %> </h1>
-        <%@include file="dash_coordView.jsp" %>
-
+        
         <%
             PreparedStatement getCourseEntryID = connection.prepareStatement("select * from courseentry where semYear=?");
             PreparedStatement getCoordinating = connection.prepareStatement("select * from coordinatorlist where coordinatorID=? and semYear=?");
@@ -47,8 +46,10 @@
         <%@include file="getDate.jsp" %>
 
         <%//Listing all coordinating subject for the semYear
-            ResultSet Coordinating = getCoordinating.executeQuery();
-            if(!Coordinating.equals(null))
+            try{
+                ResultSet Coordinating = getCoordinating.executeQuery();
+            
+            if(Coordinating.isBeforeFirst())
             {
         %>
         <label>Subjects You Coordinate</label>
@@ -77,46 +78,54 @@
         </table>
         <%
             }//Done listing all coordinating subject   
+            }
+            catch(Exception e)
+                    {out.println("Failed");
+                    out.println("Exception occured! "+e.getMessage()+" "+e.getStackTrace());};
         %>
         
         <%//Listing all teaching subject for the semYear
-            ResultSet courseEntryID = getCourseEntryID.executeQuery();
-            if(courseEntryID.next())    
+             ResultSet courseEntryID = getCourseEntryID.executeQuery();
+            
+            if(courseEntryID.next())
+            {
                getTeaching.setString(2, courseEntryID.getString("courseEntryID"));
             
-            ResultSet teaching = getTeaching.executeQuery();
-            if(!teaching.equals(null))
-            {
-        %>
-        <label>Subjects You Teach</label>
-        <table>
-            <tr>
-                <th>Subject ID</th>
-                <th>Subject Name</th>
-                <th>Section No</th>
-                <th>Status</th>
-                <th>View</th>
-            </tr>
-        <%
-            
-            while(teaching.next())
+                ResultSet teaching = getTeaching.executeQuery();
+                if(teaching.isBeforeFirst())
                 {
-                    getSubjectName.setString(1,teaching.getString("subjectid"));
-                    ResultSet subjectName = getSubjectName.executeQuery();   
         %>
+            <label>Subjects You Teach</label>
+            <table>
                 <tr>
-                    <td><%= teaching.getString("subjectid") %></td>
-                    <td><% if(subjectName.next()){out.println(subjectName.getString("subjectName"));}%></td>
-                    <td><%= teaching.getString("sectionNo") %></td>
-                    <td><%= teaching.getString("status") %></td>
-                    <td> <span class="glyphicon glyphicon-search"></span> </td>
+                    <th>Subject ID</th>
+                    <th>Subject Name</th>
+                    <th>Section No</th>
+                    <th>Status</th>
+                    <th>View</th>
                 </tr>
         <%
-                }
+            
+                while(teaching.next())
+                    {
+                        getSubjectName.setString(1,teaching.getString("subjectid"));
+                        ResultSet subjectName = getSubjectName.executeQuery();   
         %>
-        </table>
+                    <tr>
+                        <td><%= teaching.getString("subjectid") %></td>
+                        <td><% if(subjectName.next()){out.println(subjectName.getString("subjectName"));}%></td>
+                        <td><%= teaching.getString("sectionNo") %></td>
+                        <td><%= teaching.getString("status") %></td>
+                        <td> <span class="glyphicon glyphicon-search"></span> </td>
+                    </tr>
         <%
-            }
+                    }//End While
+        %>
+            </table>
+        <%
+                }//End If
+            }//End If
+         
         %>
         
         
