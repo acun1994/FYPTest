@@ -148,7 +148,9 @@
         </div><div style="float: left; padding-left: 10px">
             Select a file to upload: <br />
             <form action="upload.jsp" method="post" enctype="multipart/form-data">
-                
+                <input hidden name="lectID" value="<%= lecturerID %>">
+                <input hidden name="subject" value=" <%= subject %>">
+                <input hidden name="section" value="<%= section %>">
                 <table class="text-center">
                 <tr>
                     <td id="kids"></td>
