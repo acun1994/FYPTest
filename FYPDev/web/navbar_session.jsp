@@ -21,7 +21,7 @@ and open the template in the editor.
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>                        
                 </button>
-              <a class="navbar-brand" href="#">CFMS</a>
+              <a class="navbar-brand">CFMS</a>
               <button class="navbar-toggle collapse in" data-toggle="collapse" id="menu-toggle-2"> <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span></button>
             </div>
             <div class="collapse navbar-collapse" id="navbar">
@@ -51,7 +51,7 @@ and open the template in the editor.
           <%          case 2:%>
                 <li><button id="btnnavbar" class="mdl-button mdl-js-button"><a href="courseview.jsp">Course View</a></button></li>
           <%          case 3:%>
-                <li><button id="btnnavbar" class="mdl-button mdl-js-button"><a href="subjectview.jsp">Subject View</a></button></li>
+                <li><button id="btnnavbar" class="mdl-button mdl-js-button"><a href="dashboard.jsp">Home</a></button></li>
           <%
                         default:%>
                 <li><button id="btnnavbar" class="mdl-button mdl-js-button"><a href="logout.jsp">Log Out</a></button></li><%;
