@@ -11,7 +11,6 @@
          <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         <title>Preset Subject View</title>
         
@@ -19,11 +18,9 @@
         function setValue(value)
         {
             var valueHolder = value.split("-");
-            var subjectCount = valueHolder[0];
-            var subjectID = valueHolder[1];
-            var subjectName = valueHolder[2];
+            var subjectID = valueHolder[0];
+            var subjectName = valueHolder[1];
             
-            $("#subCount").val(subjectCount);
             $("#subID").val(subjectID);
             $("#subName").val(subjectName);
         }
@@ -61,10 +58,10 @@
                 %>
                 <tr>
                     <td><% out.print(++count);%></td>
+                    <td><% out.print(rs.getString(1));%></td>
                     <td><% out.print(rs.getString(2));%></td>
-                    <td><% out.print(rs.getString(3));%></td>
-                    <td><button  value="<%= rs.getString(1)+"-"+rs.getString(2) + "-" + rs.getString(3) %>" class="btn btn-info" data-toggle="modal" data-target="#myModal" onclick="setValue(this.value)">EDIT</button></td>
-                    <td><button type="submit" name="SUBMITION"  value="<%= rs.getString(1)+" - "+rs.getString(2) + "- " + rs.getString(3) %>" class="btn btn-danger" onClick="ConfirmDelete(this.value)" form="myForm">DELETE</button>
+                    <td><button  value="<%= rs.getString(1)+"-"+rs.getString(2) %>" class="btn btn-info" data-toggle="modal" data-target="#myModal" onclick="setValue(this.value)">EDIT</button></td>
+                    <td><button type="submit" name="SUBMITION"  value="<%= rs.getString(1)+" - "+rs.getString(2)%>" class="btn btn-danger" onClick="ConfirmDelete(this.value)" form="myForm">DELETE</button>
                     </td>
                 </tr>
                 <% }%>
@@ -93,7 +90,6 @@
                           </tr>
                       </table>
                             <!-- THE HIDDEN INPUT IS JUST FOR GETTING COUNT FOR THE ROW IN THE SERVER -->
-                            <input id="subCount" name="subjectCount" type="hidden"/>
                             <button name="SUBMITION" type="submit" class="btn btn-success" value="SAVE">Save </button>
                             <button class="btn btn-default" data-dismiss="modal">Cancel</button>
                     </form>

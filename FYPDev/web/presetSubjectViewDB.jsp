@@ -34,8 +34,8 @@
                 try{
                     Statement st = connection.createStatement();
                     String[] valueHolder = buttonValue.split("-");
-                    String subjectCount = valueHolder[0];
-                    st.executeUpdate("DELETE FROM subject WHERE subjectCount='"+subjectCount+"'");
+                    String subjectID = valueHolder[0];
+                    st.executeUpdate("DELETE FROM subject WHERE subjectID='"+subjectID+"'");
                     response.sendRedirect("presetSubjectView.jsp?insert=delete");
                     
                 }catch(Exception e){

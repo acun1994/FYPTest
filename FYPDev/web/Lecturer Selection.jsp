@@ -11,7 +11,6 @@
 <html>
     <head>
         <%@include file="resources.jsp" %>
-        <%@include file="reqHeader.jsp" %>
        <title>Form02 : Lecturer Selection</title>
     </head>
     <body>
@@ -23,7 +22,6 @@
         <% String[] str1; String[] str2;%>
         <%@include file="LecturerSelectionDB.jsp" %>
         <% 
-                Statement st = connection.createStatement();
                 ResultSet rs = st.executeQuery("SELECT * FROM subject");
                 int i = 0;
                 List li = new ArrayList();
@@ -131,7 +129,7 @@
                     out.println('"' + str1[curr]+ "  -  " + str2[curr] +'"' + ",");
                 }
                 out.println('"' + str1[arrayLength-1] + "  -  " +str2[arrayLength-1] +'"');
-               %>]
+               %>];
                 $( "#tags" ).autocomplete({
                   source: availableTags
                 });
@@ -157,8 +155,7 @@
                 
          }
 
-        function removeKid(div)
-        {	
+        function removeKid(div){	
             document.getElementById('kids').removeChild( div.parentNode );
             i--;
         }
