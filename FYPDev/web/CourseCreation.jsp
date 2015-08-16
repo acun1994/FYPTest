@@ -14,7 +14,6 @@
         <title>Course creation</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <%@include file="resources.jsp"%>
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <script language="javascript">
         var i = 0;
         function addKid()
@@ -38,15 +37,6 @@
 	i--;
         }
         </script>
-        <link rel="stylesheet" href="./resources/css/bootstrap.min.css">
-        <script src="./resources/js/jquery.min.js"></script>
-        <script src="./resources/js/bootstrap.min.js"></script>
-        <!--mdl-->
-        <script src="resources/mdl/material.min.js" type="text/javascript"></script>
-        <link href="resources/mdl/material.light_blue-indigo.min.css" rel="stylesheet" type="text/css"/>
-        <!--Materialize-->
-        <script src="./resources/js/materialize.min.js"></script>
-        <link rel="stylesheet" href="./resources/css/materialize.min/css">
     </head>
     
     <body>
@@ -65,7 +55,7 @@
                                 <label>Year : </label>
                             </td>
                             <td class="mdl-textfield mdl-js-textfield textfield-demo">
-                                <input class="mdl-textfield__input" type="text" name="CourseYear" id="courseyear" autocomplete="off">
+                                <input class="mdl-textfield__input" type="text" name="CourseYear" id="courseyear" autocomplete="off" required>
                                 <label class="mdl-textfield__label" for="courseyear">Example 13/14</label>
                             </td>
                         </tr>
@@ -110,8 +100,7 @@
                             <td><label>Subject : </label></td>
                             <td id="kids">
                                 <%-- See java script for detail --%>
-                                <input autocomplete="on" type="text" name="subjectname" placeholder="Enter subject name">
-                                <input autocomplete="off" type="text" name="subjectID" placeholder="Enter subject ID">
+                                <input autocomplete="off" type="text" name="subjectID" placeholder="Enter subject ID" list="subjectData" size="40">
                                 <input autocomplete="off" type="text" name="section" placeholder="Enter number of section">
                                 <input type="button" value="+" onclick="addKid(this)">
                             </td>
@@ -131,8 +120,7 @@
 		
                                    //Details for subject information
                                    //Input from admin to be inserted into the database
-        	div.innerHTML = '<input autocomplete="off" type="text" name="subjectname" placeholder="Enter subject name">\n\
-                                 <input autocomplete="off" type="text" name="subjectID" placeholder="Enter subject ID">\n\
+        	div.innerHTML = '<input autocomplete="off" type="text" name="subjectID" placeholder="Enter subject name" list="subjectData" size="40">\n\
                                  <input autocomplete="off" type="text" name="section" placeholder="Enter number of section">\n\
                                  <input type="button" value="+" onclick="addKid(this)">\n\
                                  <input type="button" value="-" onclick="removeKid(this)">\n\
@@ -154,5 +142,15 @@
             window.history.pushState({}, "Hide", "http://localhost:8080/FYPDev/CourseCreation.jsp");
         }
         </script>
+        
+        <!-- DROP DOWN DATA FOR SUBJECT -->
+        <%
+            ResultSet subjectRS = st.executeQuery("SELECT subjectID,subjectName FROM subject");
+        %>
+            <datalist id="subjectData">
+        <%
+            while(subjectRS.next()){
+        %>  <option value="<%=subjectRS.getString(1)+"  -  "+subjectRS.getString(2)%>"><%}%>
+            </datalist>
     </body>
 </html>
