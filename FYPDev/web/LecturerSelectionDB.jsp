@@ -16,8 +16,6 @@
         <title>JSP Page</title>
     </head>  
     <body>
-        <%Connection connection = null;%>
-        <%@ include file="dbCon.jsp"%>
         <% if(request.getParameter("Subject_ID") != null){
             String subjectIn = request.getParameter("Subject_ID");
             String[] str = subjectIn.split("  -  ");
@@ -27,7 +25,6 @@
             String tempSubID = null;
             boolean check = false; 
             
-            Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery("SELECT subjectID FROM subject");
             
             //check whether database has same data as user input
