@@ -10,8 +10,42 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <% Connection connection = null; %>
+        <%@ include file="resources.jsp"%>
         <%@ include file="dbCon.jsp"%>
         <%@ include file="checkLogin.jsp"%>
+        
+        <SCRIPT language="javascript">
+        var i = 0;
+        
+        function addKid()
+        {
+		i++;	
+        	var div = document.createElement('div');
+
+        	div.innerHTML = '<table class="text-center"><tr><td style="padding:10px"><select name="filetype">\n\
+                                 <option value ="Appointment Letter"> Appointment Letter </option>\n\
+                                 <option value ="Course Outline"> Course Outline </option>\n\
+                                 <option value ="Student List"> Student List </option>\n\
+                                 <option value ="Notes"> Notes/Slides </option>\n\
+                                 <option value ="Student Work"> Assignment/Tutorial/Lab </option>\n\
+                                 <option value ="Quiz MidTerm"> Quiz/Mid Term </option>\n\
+                                 <option value ="Final Exam"> Final Exam </option>\n\
+                                 <option value ="Course Work Grade"> Course Work Grades </option>\n\
+                                 <option value ="Grade Sheet"> Grade Sheet & Report </option>\n\
+                                 <option value ="Attendance"> Attendance List </option>\n\
+                                 <option value ="E-Learning"> E-Learning Snapshot </option>\n\
+                                 <option value ="Survey"> Course Survey </option>\n\
+                                 <option value ="Other Material"> Other Teaching Materials </option>\n\
+                                 <option value ="Coordinator Report"> Course Coordinator Report </option>\n\
+                                 <option value ="Review Report"> Course Review Report </option>\n\
+                                 </select></td>\n\
+                                 <td style="padding:10px"><input type="file" name="file"/></td>\n\
+                                 </tr></table>';
+                document.getElementById('kids').appendChild(div);
+         }
+
+        </SCRIPT>
+        
         
         <title>Subject File View</title>
     </head>
@@ -74,7 +108,7 @@
         %>
         
         <label> Lecturer :  </label> <%= lecturerID %> - <%= lecturerName %>
-        <form action="./integrated_subjectFile.jsp" method="POST">
+        <form class="form" action="./integrated_subjectFile.jsp" method="POST">
             <label> Class : </label>
             <% // So that form remembers lectID %>
             <input hidden name="lecturerID" value=<%= quote(lecturerID) %>></input>
@@ -88,20 +122,41 @@
                 }%>        
             </select>
         </form>
-
+        
+            <br/>
+            
+    <div style="padding-left: 10px">
         <% if (fileListRS!= null){ %>
-            <table class="table-bordered table">
+            <table class="table-bordered table" style="width:50%; float:left;">
                 <thead>
-                    <th>Type</th><th>Filename</th><th>Status</th>
+                <th>Type</th><th>Filename</th><th>Status</th><th>Action</th>
                 </thead>
                 <% while (fileListRS.next()){%>
                     <tr>
                         <td><%= fileListRS.getString("fileType") %></td>
                         <td><%= fileListRS.getString("fileName") %></td>
                         <td><%= fileListRS.getString("status") %></td>
+                        <td></td>
                     </tr>
                 <% } %>
             </table>
-        <% } }%>
+        <% }
+            else{
+                %><div class="text-center">No files uploaded yet</div><%
+            }
+        }%>
+        </div><div style="float: left; padding-left: 10px">
+            Select a file to upload: <br />
+            <form action="upload.jsp" method="post" enctype="multipart/form-data">
+                
+                <table class="text-center">
+                <tr>
+                    <td id="kids"></td>
+                </tr>
+                </table>
+                <input type="button" onClick="addKid()" value="Add File" /> &nbsp;
+                <input type="submit" value="Upload File(s)" />
+            </form>
+                </div>
     </body>
 </html>
