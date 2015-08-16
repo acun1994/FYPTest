@@ -25,7 +25,7 @@
 		i++;	
         	var div = document.createElement('div');
 
-        	div.innerHTML = '<table class="text-center"><tr><td style="padding:10px"><select name="filetype">\n\
+        	div.innerHTML = '<table class="text-center"><tr><td style="padding:10px"><select class="form-control" name="filetype">\n\
                                  <option value ="Appointment Letter"> Appointment Letter </option>\n\
                                  <option value ="Course Outline"> Course Outline </option>\n\
                                  <option value ="Student List"> Student List </option>\n\
@@ -42,7 +42,7 @@
                                  <option value ="Coordinator Report"> Course Coordinator Report </option>\n\
                                  <option value ="Review Report"> Course Review Report </option>\n\
                                  </select></td>\n\
-                                 <td style="padding:10px"><input type="file" name="file"/></td>\n\
+                                 <td style="padding:10px"><input class = "btn btn-default" type="file" name="file"/></td>\n\
                                  </tr></table>';
                 document.getElementById('kids').appendChild(div);
          }
@@ -110,12 +110,13 @@
             }
         %>
         
-        <label> Lecturer :  </label> <%= lecturerID %> - <%= lecturerName %>
-        <form class="form" action="./integrated_subjectFile.jsp" method="POST">
-            <label> Class : </label>
+        
+        <form class="form text-center" action="./integrated_subjectFile.jsp" method="POST">
+            <label> Lecturer :  </label> <%= lecturerID %> - <%= lecturerName %> <br/>
             <% // So that form remembers lectID %>
             <input hidden name="lecturerID" value=<%= quote(lecturerID) %>></input>
-            <select name = "class" onchange="this.form.submit()">
+            <div class="col-sm-2 col-sm-offset-5">
+            <select class="form-control text-center" name = "class" onchange="this.form.submit()">
                 <option disabled <% if (section == 0){ %>selected<% } %>>Choose a class</option>
                 <% while (classListRS.next()) {
                     String className = classListRS.getString("subjectID") + "-" + classListRS.getInt("sectionNo");
@@ -124,13 +125,13 @@
                     <%
                 }%>        
             </select>
+            </div>
         </form>
-        
-            <br/>
+    <br/><br/><br/>
             
     <div style="padding-left: 10px">
         <% if (fileListRS!= null){ %>
-            <table class="table-bordered table" style="width:50%; float:left;">
+            <table class="table-bordered table text-center" style="width:50%; float:left;">
                 <thead>
                 <th>Type</th><th>Filename</th><th>Status</th><th>Action</th>
                 </thead>
@@ -139,17 +140,16 @@
                         <td><%= fileListRS.getString("fileType") %></td>
                         <td><%= fileListRS.getString("fileName") %></td>
                         <td><%= fileListRS.getString("status") %></td>
-                        <td></td>
+                        <td><a href="#" class="btn btn-success">View</a> &nbsp;
+                            <a href="#" class="btn btn-success">Download</a> &nbsp;
+                            <a href="#" class="btn btn-danger">Delete</a> &nbsp;
+                        </td>
                     </tr>
                 <% } %>
             </table>
-        <% }
-            else{
-                %><div class="text-center">No files uploaded yet</div><%
-            }
-        }%>
-        </div><div style="float: left; padding-left: 10px">
-            Select a file to upload: <br />
+            
+            </div><div class="text-center col-sm-5" style="float: left; padding-left: 10px">
+            Select a file to upload: <br/>
             <form action="upload.jsp" method="post" enctype="multipart/form-data">
                 <input hidden name="lectID" value="<%= lecturerID %>">
                 <input hidden name="subject" value="<%= subject %>">
@@ -159,9 +159,12 @@
                     <td id="kids"></td>
                 </tr>
                 </table>
-                <input type="button" onClick="addKid()" value="Add File" /> &nbsp;
-                <input type="submit" value="Upload File(s)" />
+                <input class = "btn btn-default" type="button" onClick="addKid()" value="Add File" /> &nbsp;
+                <input class = "btn btn-success" type="submit" value="Upload File(s)" />
             </form>
                 </div>
+        <% }
+        }%>
+        
     </body>
 </html>
