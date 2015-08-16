@@ -101,7 +101,7 @@
                             <td><label>Subject : </label></td>
                             <td id="kids">
                                 <%-- See java script for detail --%>
-                                <input autocomplete="on" type="text" name="subjectname" placeholder="Enter subject name">
+                                <input autocomplete="off" type="text" name="subjectname" placeholder="Enter subject name" list="subjectData">
                                 <input autocomplete="off" type="text" name="subjectID" placeholder="Enter subject ID">
                                 <input autocomplete="off" type="text" name="section" placeholder="Enter number of section">
                                 <input type="button" value="+" onclick="addKid(this)">
@@ -122,7 +122,7 @@
 		
                                    //Details for subject information
                                    //Input from admin to be inserted into the database
-        	div.innerHTML = '<input autocomplete="off" type="text" name="subjectname" placeholder="Enter subject name">\n\
+        	div.innerHTML = '<input autocomplete="off" type="text" name="subjectname" placeholder="Enter subject name" list="subjectData">\n\
                                  <input autocomplete="off" type="text" name="subjectID" placeholder="Enter subject ID">\n\
                                  <input autocomplete="off" type="text" name="section" placeholder="Enter number of section">\n\
                                  <input type="button" value="+" onclick="addKid(this)">\n\
@@ -145,5 +145,15 @@
             window.history.pushState({}, "Hide", "http://localhost:8080/FYPDev/CourseCreation.jsp");
         }
         </script>
+        
+        <!-- DROP DOWN DATA FOR SUBJECT -->
+        <%
+            ResultSet subjectRS = st.executeQuery("SELECT subjectID,subjectName FROM subject");
+        %>
+            <datalist id="subjectData">
+        <%
+            while(subjectRS.next()){
+        %>  <option value="<%=subjectRS.getString(1)+"  -  "+subjectRS.getString(2)%>"><%}%>
+            </datalist>
     </body>
 </html>

@@ -51,14 +51,14 @@
                                             <% out.print(++count);%>
                                         </td>
                                         <td>
+                                            <% out.print(rs.getString(1));%>
+                                        </td>
+                                        <td>
                                             <% out.print(rs.getString(2));%>
                                         </td>
                                         <td>
-                                            <% out.print(rs.getString(3));%>
-                                        </td>
-                                        <td>
-                                            <button value="<%= rs.getString(1)+" - "+rs.getString(2) + "- " + rs.getString(3) %>" class="btn btn-info" data-toggle="modal" data-target="#myModal" onclick="setValue(this.value)">EDIT</button>
-                                            <button type="submit" name="SUBMITION"  value="<%= rs.getString(1)+" - "+rs.getString(2) + "- " + rs.getString(3) %>" class="btn btn-danger" onClick="ConfirmDelete(this.value)" form="myForm">DELETE</button>
+                                            <button value="<%= rs.getString(1)+" - "+rs.getString(2) %>" class="btn btn-info" data-toggle="modal" data-target="#myModal" onclick="setValue(this.value)">EDIT</button>
+                                            <button type="submit" name="SUBMITION"  value="<%= rs.getString(1)+" - "+rs.getString(2)%>" class="btn btn-danger" onClick="ConfirmDelete(this.value)" form="myForm">DELETE</button>
                                         </td>
                                     </tr>
                                     <% }%>
