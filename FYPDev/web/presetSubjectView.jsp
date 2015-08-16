@@ -30,6 +30,9 @@
         <%@include file="dbCon.jsp"%>
         <%@include file="checkLogin.jsp" %>
         <%@include file="navbar_session.jsp" %>
+        <div id="wrapper">
+        <%@include file="sidebar.jsp" %>
+        <div id="page-content-wrapper">
         
         <% if (request.getParameter("insert")!=null){
             if (request.getParameter("insert").equals("false"))
@@ -143,5 +146,7 @@
             else return false;
         }
         </script>
+        </div>
+        </div>
     </body>
 </html>

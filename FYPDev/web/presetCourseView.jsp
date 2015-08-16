@@ -24,17 +24,22 @@
         <%@include file="dbCon.jsp" %>
         <%@include file="checkLogin.jsp" %>
         <%@include file="navbar_session.jsp" %>
+        <div id="wrapper">
+        <%@include file="sidebar.jsp" %>
+        <div id="page-content-wrapper">
         <% if (request.getParameter( "insert")!=null){ 
             if (request.getParameter( "insert").equals( "false")) {%><span class="text-center alert-danger alert">Error in saving data.</span>
             <%} else if (request.getParameter( "insert").equals( "true")) {%><span class="text-center alert-success success">Data has been successfully saved.</span>
                 <%} else if (request.getParameter( "insert").equals( "delete")) {%><span class="text-center alert-warning warning">Data has been succesfully deleted.</span>
                     <%} } %>
-                        <table class="the-table table-bordered">
-                            <thead>
-                                <th>No.</th>
-                                <th>Course ID</th>
-                                <th>Course Name</th>
-                                <th>Action</th>
+                        <table class="the-table table-bordered" align="center">
+                            <thead align="center">
+                            <tr>
+                                <th style="text-align:center" >No.</th>
+                                <th style="text-align:center" width="80">Course ID</th>
+                                <th style="text-align:center" width="120">Course Name</th>
+                                <th style="text-align:center" width="160">Action</th>
+                            </tr>
                             </thead>
                             <tbody>
                                 <%  Statement st=connection.createStatement(); 
@@ -43,7 +48,7 @@
                                     while(rs.next()){ 
                                 %>
                                     <tr>
-                                        <td>
+                                        <td align="center">
                                             <% out.print(++count);%>
                                         </td>
                                         <td>
@@ -53,14 +58,16 @@
                                             <% out.print(rs.getString(2));%>
                                         </td>
                                         <td>
-                                            <button value="<%= rs.getString(1)+" - "+rs.getString(2) %>" class="btn btn-info" data-toggle="modal" data-target="#myModal" onclick="setValue(this.value)">EDIT</button>
+                                            <button value="<%= rs.getString(1)+" - "+rs.getString(2) %>" class="btn btn-info" data-toggle="modal" data-target="#myModal" onclick="setValue(this.value)">EDIT</button>&nbsp;&nbsp;&nbsp;&nbsp;
                                             <button type="submit" name="SUBMITION"  value="<%= rs.getString(1)+" - "+rs.getString(2)%>" class="btn btn-danger" onClick="ConfirmDelete(this.value)" form="myForm">DELETE</button>
                                         </td>
                                     </tr>
                                     <% }%>
+                                    <tr>
+                                        <td colspan="5"><button class="btn bg-primary" data-toggle="modal" data-target="#newModal" style="width:100%">CREATE NEW COURSE</button></td>
+                                    </tr>
                             </tbody>
                         </table>
-                            <button class="btn btn-submit" data-toggle="modal" data-target="#newModal">CREATE NEW COURSE</button>
                         <!-- MODAL FOR EDITING COURSE -->
                         <div class="modal fade" id="myModal" role="dialog">
                             <div class="modal-dialog">
@@ -136,6 +143,8 @@
                                 else return false;
                             }
                         </script>
+        </div>
+    </div>
     </body>
 
 </html>
