@@ -41,7 +41,7 @@ and open the template in the editor.
                      {
                         case 0:
             %>
-                    
+              
             <%
                         break;
                         case 1:
