@@ -12,9 +12,16 @@
         <title>Overall Course View</title>
         
         <link rel="stylesheet" type="text/css" href="./resources/css/bootstrap.css"/>
-        <script src="./resources/js/jquery.min.js"></script>
-        <script src="./resources/js/bootstrap.min.js"></script>
+        <script src="resources/jquery-1.11.3.min.js" type="text/javascript"></script>
+        <script src="resources/js/bootstrap.min.js" type="text/javascript"></script>
+        <!--mdl-->
+        <script src="resources/mdl/material.min.js" type="text/javascript"></script>
+        <link href="resources/mdl/material.min.css" rel="stylesheet" type="text/css"/>
+        <link href="resources/mdl/material.light_blue-indigo.min.css" rel="stylesheet" type="text/css"/>
+        <link href="resources/mdl/icon.css" rel="stylesheet" type="text/css"/>
+        
         <script src="./resources/js/gen_validatorv4.js"></script>
+        
         
     </head>
         <body>

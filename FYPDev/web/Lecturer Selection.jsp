@@ -10,11 +10,9 @@
 <%@page import="java.util.*"%>
 <html>
     <head>
-            <%@include file="reqHeader.jsp" %>
-            <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-            <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-            <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-            <title>Form02 : Lecturer Selection</title>
+        <%@include file="resources.jsp" %>
+        <%@include file="reqHeader.jsp" %>
+       <title>Form02 : Lecturer Selection</title>
     </head>
     <body>
         <% Connection connection = null; %> <!-- This variable must be declared above dbCon.jsp -->
@@ -22,8 +20,39 @@
         <% Statement st = connection.createStatement(); %>
         <%@include file = "checkLogin.jsp" %>
         <%@include file="navbar_session.jsp" %>
+        <% String[] str1; String[] str2;%>
+        <%@include file="LecturerSelectionDB.jsp" %>
+        <% 
+                Statement st = connection.createStatement();
+                ResultSet rs = st.executeQuery("SELECT * FROM subject");
+                int i = 0;
+                List li = new ArrayList();
+                List li2 = new ArrayList();
+                //Add data to the arraylist 
+                while(rs.next()){
+                    li.add(rs.getString(1));
+                    li2.add(rs.getString(2));
+                }
+                
+                str1 = new String[li.size()];
+                str2 = new String[li2.size()];
+                
+                Iterator it = li.iterator();
+                Iterator it2 = li2.iterator();
+                
+                String subIDCol,subNameCol;
+                //Assign value from arrayList to local array for use of jQuery 
+                while(it.hasNext()){
+                    subIDCol = (String)it.next();
+                    str1[i] = subIDCol;
+                    subNameCol = (String)it2.next();
+                    str2[i] = subNameCol;
+                    i++;
+                }
+        %>
+        
         <div class="container" align="center">
-            <% if (request.getParameter("insert")!=null){
+        <% if (request.getParameter("insert")!=null){
             if (request.getParameter("insert").equals("false"))
                 {%><div class="text-center alert-danger alert">Error in saving data.</div><%}
             else if (request.getParameter("insert").equals("true"))
@@ -34,28 +63,28 @@
         %>
             <form role="form" class="form-group" method="post" action = "LecturerSelectionDB.jsp" name="Lecturer_Selection">
                 <div class="mdl-textfield mdl-js-textfield">
-                    <input class="mdl-textfield__input" name="Subject_ID" type="text" list="subjectData">
+                    <input class="mdl-textfield__input" name="Subject_ID" type="text" id="tags" autocomplete="on">
                     <label for="sub_id" class="mdl-textfield__label">Subject ID</label>
                 </div>
                 <div class="input-field col s12" >
-                    
-                            
-                                
-                    <select name="semesterYear">  
-                      <%try{
-                            ResultSet rs = null;
-                            rs = st.executeQuery("SELECT courseID FROM courseentry");
-                            while(rs.next()){
-                      %> <option value="<%=rs.getString(1)%>"><% out.print(rs.getString(1)); %></option>
-                            <%}
-                        }catch(Exception e) {
-                            out.println(e.toString());
-                        }%>
+                    <select name="semesteYear">
+                      <%
+                            try{
+                                Statement state = connection.createStatement();
+                                ResultSet result = state.executeQuery("SELECT DISTINCT semYear FROM courseentry");
+                                while(result.next()){
+                      %> <option value="<%=result.getString(1)%>"><% out.print(result.getString(1)); %></option>
+                                <%}
+                            }catch(Exception e) {
+                                out.println(e.toString());
+                            }
+
+                      %>
                     </select>
                 </div>
                 <table>
                     <tr>
-                        <td><label>Penyelaras : </label></td>
+                        <td><label>Coordinator : </label></td>
 
                         <td>
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
@@ -93,6 +122,23 @@
             frm.reset();  // Reset
             return false; // Prevent page refresh
             }
+            
+            
+            $(function() {
+                var availableTags = [<% 
+                int arrayLength = str1.length;            
+                for (int curr=0; curr<arrayLength-1; curr++){
+                    out.println('"' + str1[curr]+ "  -  " + str2[curr] +'"' + ",");
+                }
+                out.println('"' + str1[arrayLength-1] + "  -  " +str2[arrayLength-1] +'"');
+               %>]
+                $( "#tags" ).autocomplete({
+                  source: availableTags
+                });
+               });
+               
+        </script>
+        <script language="javascript">
         var i = 0;
         function addKid()
         {
@@ -101,7 +147,7 @@
 		
                                    //Details for subject information
                                    //Input from admin to be inserted into the database
-        	div.innerHTML = '<input autocomplete="off" type="text" name="lecturerID" placeholder="Enter lecturer ID" list="userInfoData">\n\
+        	div.innerHTML = '<input autocomplete="off" type="text" name="lecturerID" placeholder="Enter lecturer ID" >\n\
                                  <input autocomplete="off" type="text" name="lecturerSection" placeholder="Enter distinct section" >\n\
                                  <button type="button" onclick="addKid(this)"><span class="glyphicon glyphicon-plus"></span></button>\n\
                                  <button type="button" onclick="removeKid(this)"><span class="glyphicon glyphicon-minus"></span></button>\n\
@@ -124,7 +170,7 @@
         }
         </script>
         
-        <!-- DROPDOWN DATA FOR SUBJECT -->
+        <!-- DROP DOWN DATA FOR SUBJECT -->
         <%
             ResultSet subjectRS = st.executeQuery("SELECT subjectID,subjectName FROM subject");
         %>
@@ -134,7 +180,7 @@
         %>  <option value="<%=subjectRS.getString(1)+"  -  "+subjectRS.getString(2)%>"><%}%>
             </datalist>
             
-        <!-- DROPDOWN DATA FOR PENYELARAS AND LECTURER -->    
+        <!-- DROP DOWN DATA FOR coordinator AND LECTURER -->    
         <%
             ResultSet penyelarasRS = st.executeQuery("SELECT userID,name FROM userinfo");
         %>

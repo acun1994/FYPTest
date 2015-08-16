@@ -8,14 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="./resources/css/bootstrap.min.css">
-        <script src="./resources/js/jquery.min.js"></script>
-        <script src="./resources/js/bootstrap.min.js"></script>
-        <!--Material Design-->
-        <script src="./resources/mdl/material.min.js"></script>
-        <link rel="stylesheet" href="./resources/mdl/material.indigo-pink.min.css">
-        <link rel="stylesheet" href="./resources/mdl/material.light_blue-indigo.min.css">
+        <%@include file="resources.jsp" %>
         <style>
             td{
                 align:center;

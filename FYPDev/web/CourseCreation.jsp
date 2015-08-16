@@ -13,13 +13,34 @@
     <head>
         <title>Course creation</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <%@include file="resources.jsp"%>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <script language="javascript">
+        var i = 0;
+        function addKid()
+        {
+		i++;	
+        	var div = document.createElement('div');
+		
+                                   //Details for subject information
+                                   //Input from admin to be inserted into the database
+        	div.innerHTML = '<input autocomplete="off" type="text" name="subjectname" placeholder="Enter subject name">\n\
+                                 <input autocomplete="off" type="text" name="subjectID" placeholder="Enter subject ID">\n\
+                                 <input autocomplete="off" type="text" name="section" placeholder="Enter number of section">\n\
+                                 <input type="button" value="-" onclick="removeKid(this)">\n\
+                                 <br>';
+                document.getElementById('kids').appendChild(div);
+         }
+
+        function removeKid(div)
+        {	
+         document.getElementById('kids').removeChild( div.parentNode );
+	i--;
+        }
+        </script>
         <link rel="stylesheet" href="./resources/css/bootstrap.min.css">
         <script src="./resources/js/jquery.min.js"></script>
         <script src="./resources/js/bootstrap.min.js"></script>
-        
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-        <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
         <!--mdl-->
         <script src="resources/mdl/material.min.js" type="text/javascript"></script>
         <link href="resources/mdl/material.light_blue-indigo.min.css" rel="stylesheet" type="text/css"/>
@@ -72,9 +93,8 @@
                                       --%>
                                       <%
                                             try{
-                                                ResultSet rs = null;
-                                                st = connection.createStatement();
-                                                rs = st.executeQuery("SELECT courseID FROM courseentry");
+                                                Statement st = connection.createStatement();
+                                                ResultSet rs = st.executeQuery("SELECT courseID FROM courseentry");
                                                 while(rs.next()){
                                       %> <option value="<%=rs.getString(1)%>"><% out.print(rs.getString(1)); %></option>
                                                 <%}

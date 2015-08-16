@@ -15,6 +15,7 @@ and open the template in the editor.
         <!--Material Design-->
         <script src="./resources/mdl/material.min.js"></script>
         <link rel="stylesheet" href="./resources/mdl/material.light_blue-indigo.min.css">
+        <link href="resources/mdl/icon.css" rel="stylesheet" type="text/css"/>
         <style>
         #center {
             position:absolute;

@@ -4,24 +4,27 @@
     Author     : pheni
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+ <%@page contentType="text/html" pageEncoding="UTF-8"%>
+ 
 <!--
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
--->     
-    <nav class="navbar navbar-default">
+-->
+<%@include file="resources.jsp" %>
+<div>
+    <nav class="navbar navbar-default navbar-top">
         <div class="container-fluid">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>   
-                <a class="navbar-brand" href="index.jsp">CFMS</a>
+                    <span class="icon-bar"></span>                        
+                </button>
+              <a class="navbar-brand" href="#">CFMS</a>
             </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav">      
+            <div class="collapse navbar-collapse" id="navbar">
+            <ul class="nav navbar-nav">
             <%
               //Getting usertype from session
  
@@ -38,26 +41,27 @@ and open the template in the editor.
                      {
                         case 0:
             %>
-                        <li><a href="login.jsp">Log In</a></li>
+                    
             <%
                         break;
                         case 1:
             %>
-                        <li><a href="CourseCreation.jsp">Create Course</a></li>
-           <%          case 2:%>
-                        <li><a href="courseview.jsp">Course View</a></li>
-           <%          case 3:%>
-                        <li><a href="subjectview.jsp">Subject View</a></li>
-                        <li><a href="presetSubjectView.jsp">Preset Subject View</a></li>
-                        <li><a href="presetCourseView.jsp">Preset Course View</a></li>
-           <%
+                <li><button id="btnnavbar" class="mdl-button mdl-js-button"><a href="CourseCreation.jsp"><div>Create Course</div></a></button></li>
+          <%          case 2:%>
+                <li><button id="btnnavbar" class="mdl-button mdl-js-button"><a href="courseview.jsp"><div>Course View</div></a></button></li>
+          <%          case 3:%>
+                <li><button id="btnnavbar" class="mdl-button mdl-js-button"><a href="subjectview.jsp"><div>Subject View</div></a></button></li>
+          <%
                         default:%>
-                        <li><a href="logout.jsp">Log Out</a></li><%;
+                <li><button id="btnnavbar" class="mdl-button mdl-js-button"><a href="logout.jsp"><div>Log Out</div></a></button></li><%;
                       }
                   }
-            %>    
-              
+            %>
             </ul>
-        </div>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="#menu-toggle" id="menu-toggle"><span class="glyphicon glyphicon-minus-sign"></span> Toggle</a></li>
+            </ul>
+          </div>
         </div>
     </nav>
+</div>
