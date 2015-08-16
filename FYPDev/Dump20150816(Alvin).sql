@@ -23,13 +23,14 @@ DROP TABLE IF EXISTS `coordinatorlist`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `coordinatorlist` (
-  `listID` varchar(45) NOT NULL,
+  `listID` int(11) NOT NULL AUTO_INCREMENT,
   `semYear` varchar(7) NOT NULL,
   `subjectID` varchar(45) NOT NULL,
   `sectionCount` varchar(45) NOT NULL,
   `coordinatorID` varchar(45) DEFAULT NULL,
   `status` varchar(45) NOT NULL DEFAULT 'Incomplete',
   PRIMARY KEY (`listID`),
+  UNIQUE KEY `listID_UNIQUE` (`listID`),
   KEY `coorList_subID_idx` (`subjectID`),
   KEY `coorList_coorID_idx` (`coordinatorID`),
   KEY `coorList_entryID` (`semYear`),
@@ -79,14 +80,14 @@ DROP TABLE IF EXISTS `courseentry`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `courseentry` (
-  `courseEntryID` int(11) NOT NULL,
+  `courseEntryID` int(11) NOT NULL AUTO_INCREMENT,
   `courseID` varchar(5) NOT NULL,
   `semYear` varchar(45) NOT NULL,
   PRIMARY KEY (`courseEntryID`),
   UNIQUE KEY `courseentry` (`courseID`,`semYear`),
   KEY `courseEntry_courseID_idx` (`courseID`),
   CONSTRAINT `courseEntry_courseID` FOREIGN KEY (`courseID`) REFERENCES `course` (`courseID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -282,4 +283,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-08-16 11:10:59
+-- Dump completed on 2015-08-16 14:04:59

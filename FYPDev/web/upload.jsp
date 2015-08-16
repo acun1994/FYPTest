@@ -137,27 +137,27 @@
                 }
             }
             else {
-            String fieldName = fi.getFieldName();
-            if (fieldName.equals("folder")){
-                folderPathName = fi.getString();
-            }
-            else if (fieldName.equals("filetype")){
-                fileType = fi.getString();
-                
-                //Create folder if it doesn't exist
-                dir=filePath+"downloadFiles\\"+folderPathName+"\\"+fileType+"\\";
-
-                File folder = new File(dir);
-                if (!folder.exists()){
-                    folder.mkdirs();
+                String fieldName = fi.getFieldName();
+                if (fieldName.equals("folder")){
+                    folderPathName = fi.getString();
                 }
-            }
-            else if (fieldName.equals("subject")){
-                subject = fi.getString();
-            }
-            else if (fieldName.equals("section")){
-                section = Integer.parseInt(fi.getString());
-            }
+                else if (fieldName.equals("filetype")){
+                    fileType = fi.getString();
+
+                    //Create folder if it doesn't exist
+                    dir=filePath+"downloadFiles\\"+folderPathName+"\\"+fileType+"\\";
+
+                    File folder = new File(dir);
+                    if (!folder.exists()){
+                        folder.mkdirs();
+                    }
+                }
+                else if (fieldName.equals("subject")){
+                    subject = fi.getString();
+                }
+                else if (fieldName.equals("section")){
+                    section = Integer.parseInt(fi.getString());
+                }
             }
          }
          out.println("</body>");
