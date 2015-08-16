@@ -224,14 +224,14 @@ DROP TABLE IF EXISTS `subjectfile`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `subjectfile` (
   `fileID` int(11) NOT NULL AUTO_INCREMENT,
-  `sub_sectionID` int(11) NOT NULL,
+  `sub_sectionID` int(11) DEFAULT NULL,
   `fileType` varchar(45) NOT NULL,
   `fileName` varchar(45) NOT NULL,
   `status` varchar(45) NOT NULL DEFAULT 'Pending',
   `fileLocation` varchar(100) NOT NULL,
   PRIMARY KEY (`fileID`),
   KEY `subjectFile_subID_idx` (`sub_sectionID`),
-  CONSTRAINT `subjectFile_subID` FOREIGN KEY (`sub_sectionID`) REFERENCES `lectlist` (`listID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `subjectFile_subID` FOREIGN KEY (`sub_sectionID`) REFERENCES `lectlist` (`listID`) ON DELETE SET NULL ON UPDATE SET NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -282,4 +282,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-08-16 10:29:25
+-- Dump completed on 2015-08-16 11:10:59
