@@ -18,11 +18,8 @@
         <% if (!checkAccess(session,4)) response.sendRedirect("index.jsp"); %>
         
         <SCRIPT language="javascript">
-        var i = 0;
-        
         function addKid()
         {
-		i++;	
         	var div = document.createElement('div');
 
         	div.innerHTML = '<table class="text-center"><tr><td style="padding:10px"><select class="form-control" name="filetype">\n\
@@ -148,8 +145,8 @@
                 <% } %>
             </table>
             
-            </div><div class="text-center col-sm-5" style="float: left; padding-left: 10px">
-            Select a file to upload: <br/>
+            </div><div class="text-center col-sm-5" style="width:45%; float:left;">
+                <label> File Upload </label> <br/>
             <form action="upload.jsp" method="post" enctype="multipart/form-data">
                 <input hidden name="lectID" value="<%= lecturerID %>">
                 <input hidden name="subject" value="<%= subject %>">
