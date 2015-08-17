@@ -54,7 +54,7 @@
             <li class="dropdown"><button id="btnnavbar" class="mdl-button mdl-js-button mdl-color-text--white dropdown-toggle" data-toggle="dropdown"><a>Course<span class="caret"></span></a></button>
                     <ul class="dropdown-menu">
                         <li><a href="CourseCreation.jsp">Create Course</a></li>
-                        <li><a href="#"<!--New Course file address here-->New Course</a></li>
+                        <li><a href="presetCourseView.jsp">New Course</a></li>
                     </ul></li>
           <%          case 2:%>
                 <li><button id="btnnavbar" class="mdl-button mdl-js-button mdl-color-text--white"><a href="courseview.jsp">Course View</a></button></li>

@@ -5,6 +5,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <%@include file="resources.jsp"%>
         <title>Preset Subject View</title>
         <script>
             function setValue(value) {
@@ -32,10 +33,10 @@
             <%} else if (request.getParameter( "insert").equals( "true")) {%><span class="text-center alert-success success">Data has been successfully saved.</span>
                 <%} else if (request.getParameter( "insert").equals( "delete")) {%><span class="text-center alert-warning warning">Data has been succesfully deleted.</span>
                     <%} } %>
-                        <table class="the-table table-bordered" align="center">
+                        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" align="center">
                             <thead align="center">
                             <tr>
-                                <th style="text-align:center" >No.</th>
+                                <th class="mdl-data-table__cell--numeric" style="text-align:center" >No.</th>
                                 <th style="text-align:center" width="80">Course ID</th>
                                 <th style="text-align:center" width="120">Course Name</th>
                                 <th style="text-align:center" width="160">Action</th>
@@ -48,7 +49,7 @@
                                     while(rs.next()){ 
                                 %>
                                     <tr>
-                                        <td align="center">
+                                        <td class="mdl-data-table__cell--non-numeric" align="center">
                                             <% out.print(++count);%>
                                         </td>
                                         <td>
@@ -64,7 +65,7 @@
                                     </tr>
                                     <% }%>
                                     <tr>
-                                        <td colspan="5"><button class="btn bg-primary" data-toggle="modal" data-target="#newModal" style="width:100%">CREATE NEW COURSE</button></td>
+                                        <td class="mdl-data-table__cell--numeric" colspan="5"><button class="btn bg-primary" data-toggle="modal" data-target="#newModal" style="width:100%">CREATE NEW COURSE</button></td>
                                     </tr>
                             </tbody>
                         </table>
