@@ -30,7 +30,7 @@
         
         <%@include file="sidebar.jsp" %>
         
-        <div id="page-content-wrapper">
+        <div class="mdl-card-actions"  left="100px" align="center" id="page-content-wrapper">
             
             <h1>Welcome <%= name %> </h1>
             <%
