@@ -10,7 +10,6 @@
 <%@page import="java.util.*"%>
 <html>
     <head>
-        <%@include file="resources.jsp" %>
        <title>Form02 : Lecturer Selection</title>
     </head>
     <body>
@@ -33,7 +32,8 @@
             }
         %>
             <form role="form" class="form-group" method="post" action = "LecturerSelectionDB.jsp" name="Lecturer_Selection">
-                <div class="mdl-textfield mdl-js-textfield">
+                <div class="mdl-card-actions" align="center">
+                <div align="center" class="mdl-textfield mdl-js-textfield">
                     <input class="mdl-textfield__input" name="Subject_ID" type="text" id="tags" autocomplete="off" list="subjectData">
                     <label for="sub_id" class="mdl-textfield__label">Subject ID</label>
                 </div>
@@ -52,6 +52,7 @@
 
                       %>
                     </select>
+                </div>
                 </div>
                 <table align="center">
                     <tr>

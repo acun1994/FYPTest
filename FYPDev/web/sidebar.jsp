@@ -6,6 +6,9 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <link href="resources/sidebar sources/simple-sidebar.css" rel="stylesheet" type="text/css"/>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <!-- Menu Toggle Script -->
     <script>
 
@@ -48,7 +51,11 @@
                         break;
                         case 1:
             %>
-                <li><button id="btnnavbar" class="mdl-button mdl-js-button"><a href="CourseCreation.jsp">Create Course</a></button></li>
+            <li class="dropdown"><button id="btnnavbar" class="mdl-button mdl-js-button mdl-color-text--white dropdown-toggle" data-toggle="dropdown"><a>Course<span class="caret"></span></a></button>
+                    <ul class="dropdown-menu">
+                        <li><a href="CourseCreation.jsp">Create Course</a></li>
+                        <li><a href="#"<!--New Course address here-->>New Course</a></li>
+                    </ul></li>
           <%          case 2:%>
                 <li><button id="btnnavbar" class="mdl-button mdl-js-button"><a href="courseview.jsp">Course View</a></button></li>
           <%          case 3:%>

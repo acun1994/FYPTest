@@ -19,7 +19,7 @@
         <% Connection connection = null; %> <!-- This variable must be declared above dbCon.jsp -->
         <%@include file="dbCon.jsp"%>
         <%  
-            Statement st = connection.createStatement();
+            //Statement st = connection.createStatement();
             String subjectIn = request.getParameter("Subject_ID");
             String[] str = subjectIn.split("  -  "); //split the value of ID and Name
             String subID = str[0];  //hold value of subjectID
