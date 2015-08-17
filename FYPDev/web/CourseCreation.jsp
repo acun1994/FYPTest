@@ -45,7 +45,9 @@
         <% Statement st = connection.createStatement(); %>
         <%@include file = "checkLogin.jsp" %>
         <%@include file="navbar_session.jsp" %>
-        <div class="container">
+        <div id="wrapper">
+        <%@include file="sidebar.jsp" %>
+        <div id="page-content-wrapper">
             <%-- Form for course creation --%>
             <form role="form" name="form" method="post" action="CourseCreationDB.jsp">
                 <div class="form-group">
@@ -100,9 +102,13 @@
                             <td><label>Subject : </label></td>
                             <td id="kids">
                                 <%-- See java script for detail --%>
-                                <input autocomplete="off" type="text" name="subjectID" placeholder="Enter subject ID" list="subjectData" size="40">
-                                <input autocomplete="off" type="text" name="section" placeholder="Enter number of section">
-                                <input type="button" value="+" onclick="addKid(this)">
+                                <table>
+                                    <tr>
+                                        <td><input autocomplete="off" type="text" name="subjectID" placeholder="Enter subject ID" list="subjectData" size="60"> &Tab;</td>
+                                        <td align="right"><input autocomplete="off" type="text" name="section" placeholder="Enter number of section"> &thinsp;</td>
+                                        <td><input type="button" value="+" onclick="addKid(this)"></td>
+                                    </tr>
+                                </table>
                             </td>
                         </tr>
                     </table>
@@ -111,6 +117,7 @@
                     <i class="material-icons"></i></button>
             </form>
         </div>
+    </div>
         <script language="javascript">
         var i = 0;
         function addKid()
@@ -120,8 +127,6 @@
 		
                                    //Details for subject information
                                    //Input from admin to be inserted into the database
-        	div.innerHTML = '<input autocomplete="off" type="text" name="subjectID" placeholder="Enter subject name" list="subjectData" size="40">\n\
-                                 <input autocomplete="off" type="text" name="section" placeholder="Enter number of section">\n\
                                  <input type="button" value="+" onclick="addKid(this)">\n\
                                  <input type="button" value="-" onclick="removeKid(this)">\n\
                                  <br>';
@@ -154,3 +159,5 @@
             </datalist>
     </body>
 </html>
+        	div.innerHTML = '<input autocomplete="off" type="text" name="subjectID" placeholder="Enter subject name" list="subjectData" size="60">&Tab;\n\
+                                 <input autocomplete="off" type="text" name="section" placeholder="Enter number of section">&thinsp;\n\

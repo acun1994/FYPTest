@@ -30,7 +30,7 @@
         
         <%@include file="sidebar.jsp" %>
         <div id="page-content-wrapper">
-        <h1 align="center">Welcome <%= name %> </h1>
+        <h1>Welcome <%= name %> </h1>
         
         <%
             PreparedStatement getCourseEntryID = connection.prepareStatement("select * from courseentry where semYear=?");
@@ -53,9 +53,9 @@
             {
         %>
         <label>Subjects You Coordinate</label>
-        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+        <table>
             <tr>
-                <th class="mdl-data-table__cell--non-numeric">Subject ID</th>
+                <th>Subject ID</th>
                 <th>Subject Name</th>
                 <th>Status</th>
                 <th>View</th>
@@ -67,7 +67,7 @@
                     ResultSet subjectName = getSubjectName.executeQuery();
         %>
                 <tr>
-                    <td class="mdl-data-table__cell--non-numeric"><%= Coordinating.getString("subjectid") %></td>
+                    <td><%= Coordinating.getString("subjectid") %></td>
                     <td><% if(subjectName.next()){out.println(subjectName.getString("subjectName"));}%></td>
                     <td><%= Coordinating.getString("status") %></td>
                     <td> <span class="glyphicon glyphicon-search"></span> </td>
@@ -96,9 +96,9 @@
                 {
         %>
             <label>Subjects You Teach</label>
-            <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+            <table>
                 <tr>
-                    <th class="mdl-data-table__cell--non-numeric">Subject ID</th>
+                    <th>Subject ID</th>
                     <th>Subject Name</th>
                     <th>Section No</th>
                     <th>Status</th>
@@ -112,7 +112,7 @@
                         ResultSet subjectName = getSubjectName.executeQuery();   
         %>
                     <tr>
-                        <td class="mdl-data-table__cell--non-numeric"><%= teaching.getString("subjectid") %></td>
+                        <td><%= teaching.getString("subjectid") %></td>
                         <td><% if(subjectName.next()){out.println(subjectName.getString("subjectName"));}%></td>
                         <td><%= teaching.getString("sectionNo") %></td>
                         <td><%= teaching.getString("status") %></td>
