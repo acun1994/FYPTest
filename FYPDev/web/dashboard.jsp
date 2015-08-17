@@ -14,7 +14,6 @@
         <%@include file="checkLogin.jsp" %>
         <% Connection connection = null; %>
         <%@ include file="dbCon.jsp"%>
-
         <%@include file="resources.jsp" %>
         <%@include file="navbar_session.jsp" %>
     
@@ -28,11 +27,11 @@
             String userid = session.getAttribute("userid").toString();
             String usertype = session.getAttribute("usertype").toString();
         %>
+        
         <%@include file="sidebar.jsp" %>
         <div id="page-content-wrapper">
         <h1 align="center">Welcome <%= name %> </h1>
-        <%@include file="dash_coordView.jsp" %>
-
+        
         <%
             PreparedStatement getCourseEntryID = connection.prepareStatement("select * from courseentry where semYear=?");
             PreparedStatement getCoordinating = connection.prepareStatement("select * from coordinatorlist where coordinatorID=? and semYear=?");
@@ -47,19 +46,20 @@
         <%@include file="getDate.jsp" %>
 
         <%//Listing all coordinating subject for the semYear
-            ResultSet Coordinating = getCoordinating.executeQuery();
-            if(!Coordinating.equals(null))
+            try{
+                ResultSet Coordinating = getCoordinating.executeQuery();
+            
+            if(Coordinating.isBeforeFirst())
             {
         %>
-        <div align="center">
-            <label>Subjects You Coordinate</label>
-            <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-                <tr>
-                    <th class="mdl-data-table__cell--non-numeric">Subject ID</th>
-                    <th>Subject Name</th>
-                    <th>Status</th>
-                    <th>View</th>
-                </tr>
+        <label>Subjects You Coordinate</label>
+        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+            <tr>
+                <th class="mdl-data-table__cell--non-numeric">Subject ID</th>
+                <th>Subject Name</th>
+                <th>Status</th>
+                <th>View</th>
+            </tr>
         <%
                 while(Coordinating.next())
                 {
@@ -70,24 +70,30 @@
                     <td class="mdl-data-table__cell--non-numeric"><%= Coordinating.getString("subjectid") %></td>
                     <td><% if(subjectName.next()){out.println(subjectName.getString("subjectName"));}%></td>
                     <td><%= Coordinating.getString("status") %></td>
-                    <td> <span class="glyphicon glyphicon-search"><button></button></span></td>
+                    <td> <span class="glyphicon glyphicon-search"></span> </td>
                 </tr>
         <%
                 }
         %>
-            </table>
+        </table>
         <%
             }//Done listing all coordinating subject   
+            }
+            catch(Exception e)
+                    {out.println("Failed");
+                    out.println("Exception occured! "+e.getMessage()+" "+e.getStackTrace());};
         %>
         
         <%//Listing all teaching subject for the semYear
-            ResultSet courseEntryID = getCourseEntryID.executeQuery();
-            if(courseEntryID.next())    
+             ResultSet courseEntryID = getCourseEntryID.executeQuery();
+            
+            if(courseEntryID.next())
+            {
                getTeaching.setString(2, courseEntryID.getString("courseEntryID"));
             
-            ResultSet teaching = getTeaching.executeQuery();
-            if(!teaching.equals(null))
-            {
+                ResultSet teaching = getTeaching.executeQuery();
+                if(teaching.isBeforeFirst())
+                {
         %>
             <label>Subjects You Teach</label>
             <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
@@ -100,25 +106,26 @@
                 </tr>
         <%
             
-            while(teaching.next())
-                {
-                    getSubjectName.setString(1,teaching.getString("subjectid"));
-                    ResultSet subjectName = getSubjectName.executeQuery();   
+                while(teaching.next())
+                    {
+                        getSubjectName.setString(1,teaching.getString("subjectid"));
+                        ResultSet subjectName = getSubjectName.executeQuery();   
         %>
-                <tr>
-                    <td class="mdl-data-table__cell--non-numeric"><%= teaching.getString("subjectid") %></td>
-                    <td><% if(subjectName.next()){out.println(subjectName.getString("subjectName"));}%></td>
-                    <td><%= teaching.getString("sectionNo") %></td>
-                    <td><%= teaching.getString("status") %></td>
-                    <td> <span class="glyphicon glyphicon-search"><button></button></span> </td>
-                </tr>
+                    <tr>
+                        <td class="mdl-data-table__cell--non-numeric"><%= teaching.getString("subjectid") %></td>
+                        <td><% if(subjectName.next()){out.println(subjectName.getString("subjectName"));}%></td>
+                        <td><%= teaching.getString("sectionNo") %></td>
+                        <td><%= teaching.getString("status") %></td>
+                        <td> <span class="glyphicon glyphicon-search"></span> </td>
+                    </tr>
         <%
-                }
+                    }//End While
         %>
             </table>
-        </div>
         <%
-            }
+                }//End If
+            }//End If
+         
         %>
         
         
