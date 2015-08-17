@@ -14,29 +14,6 @@
         <title>Course creation</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <%@include file="resources.jsp"%>
-        <script language="javascript">
-        var i = 0;
-        function addKid()
-        {
-		i++;	
-        	var div = document.createElement('div');
-		
-                                   //Details for subject information
-                                   //Input from admin to be inserted into the database
-        	div.innerHTML = '<input autocomplete="off" type="text" name="subjectname" placeholder="Enter subject name">\n\
-                                 <input autocomplete="off" type="text" name="subjectID" placeholder="Enter subject ID">\n\
-                                 <input autocomplete="off" type="text" name="section" placeholder="Enter number of section">\n\
-                                 <input type="button" value="-" onclick="removeKid(this)">\n\
-                                 <br><br>';
-                document.getElementById('kids').appendChild(div);
-         }
-
-        function removeKid(div)
-        {	
-         document.getElementById('kids').removeChild( div.parentNode );
-	i--;
-        }
-        </script>
     </head>
     
     <body>
@@ -106,7 +83,7 @@
                                     <tr>
                                         <td><input autocomplete="off" type="text" name="subjectID" placeholder="Enter subject ID" list="subjectData" size="60"> &Tab;</td>
                                         <td align="right"><input autocomplete="off" type="text" name="section" placeholder="Enter number of section"> &thinsp;</td>
-                                        <td><input type="button" value="+" onclick="addKid(this)"><br></td>
+                                        <td><input type="button" value="+" onclick="addKid(this)"></td>
                                     </tr>
                                 </table>
                             </td>

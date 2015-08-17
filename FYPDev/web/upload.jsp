@@ -12,43 +12,25 @@
 
 <%
     //Prep statement defaults
-        PreparedStatement addtoList = connection.prepareStatement("INSERT INTO subjectfile(fileType, fileName, sectionNo, "
-                       + " subjectID, courseEntryID) VALUES(?,?,?,?,?)");
-                
-        addtoList.setInt(3, 0);
-        addtoList.setString(4, "SCCC202");
-        addtoList.setInt(5, 1);
         
-        PreparedStatement getID = connection.prepareStatement("SELECT fileID FROM subjectfile WHERE fileType=? AND fileName = ? AND "
-                       + "sectionNo = ? AND subjectID = ? AND courseEntryID = ?");
-        
-        getID.setInt(3, 0);
-        getID.setString(4, "SCCC202");
-        getID.setInt(5, 1);
-        
-        
-        PreparedStatement addtoLog = connection.prepareStatement("INSERT INTO filechangelog(fileID, userID, action, timestamp) VALUES(?, ?, ?, ?)");
-        
-        addtoLog.setString(2, session.getAttribute("userid").toString());
-        addtoLog.setString(3, "ADD");
-        addtoLog.setTimestamp(4, new Timestamp(new java.util.Date().getTime()));
 %>
 
 <%
    File file ;
    
-   int maxFileSize = 5000 * 1024;
-   int maxMemSize = 5000 * 1024;
+   int maxFileSize = 20000 * 1024;
+   int maxMemSize = 20000 * 1024;
    
    String filePath = request.getSession().getServletContext().getRealPath(request.getServletPath());
 
    filePath=filePath.substring(0, filePath.lastIndexOf("\\")+1);
    
     String dir = "";
-    String folderPathName ="";
     String fileType = "";
     String subject = "";
-    int section = 0;
+    String semYear="";
+    String section = "";
+    String[] formData = new String[3];
 
    // Verify the content type
    String contentType = request.getContentType();
@@ -71,11 +53,6 @@
          // Process the uploaded file items
          Iterator i = fileItems.iterator();
 
-         out.println("<html>");
-         out.println("<head>");
-         out.println("<title>JSP File upload</title>");  
-         out.println("</head>");
-         out.println("<body>");
          while ( i.hasNext () ) 
          {
             FileItem fi = (FileItem)i.next();
@@ -114,22 +91,7 @@
                 //Update file changelog
                 
                 try{
-                    addtoList.setString(1, fileType);
-                    addtoList.setString(2, fileName);
-                    addtoList.execute();
                     
-                    out.println("Add to list");
-                    
-                    getID.setString(1, fileType);
-                    getID.setString(2, fileName);
-                    
-                    ResultSet rs = getID.executeQuery();
-                    rs.next();
-                    
-                    int fileID = rs.getInt("fileID");
-                    
-                    addtoLog.setInt(1, fileID);
-                    addtoLog.execute();
                 }
                 catch (Exception ex){
                     out.println("File failed to upload");
@@ -138,25 +100,31 @@
             }
             else {
                 String fieldName = fi.getFieldName();
-                if (fieldName.equals("folder")){
-                    folderPathName = fi.getString();
+                if (fieldName.equals("subject")){
+                    formData[0] = fi.getString();
+                    subject = fi.getString();
+                }
+                else if (fieldName.equals("section")){
+                    formData[1] = fi.getString();
+                    section = "Section 0" + fi.getString();
+                }
+                else if (fieldName.equals("semYear")){
+                    formData[2] = fi.getString();
+                    String[] semYearArr = fi.getString().split("-");
+                    String[] semYearArr2 = semYearArr[1].split("/");
+                    
+                    semYear = "Sem " + semYearArr[0] + " Year 20" + semYearArr2[0] + "-20" + semYearArr2[1];
                 }
                 else if (fieldName.equals("filetype")){
                     fileType = fi.getString();
 
                     //Create folder if it doesn't exist
-                    dir=filePath+"downloadFiles\\"+folderPathName+"\\"+fileType+"\\";
+                    dir=filePath+"downloadFiles\\"+semYear+"\\"+subject+"\\"+section+"\\"+fileType+"\\";
 
                     File folder = new File(dir);
                     if (!folder.exists()){
                         folder.mkdirs();
                     }
-                }
-                else if (fieldName.equals("subject")){
-                    subject = fi.getString();
-                }
-                else if (fieldName.equals("section")){
-                    section = Integer.parseInt(fi.getString());
                 }
             }
          }
@@ -166,15 +134,8 @@
          System.out.println(ex);
       }
    }else{
-      out.println("<html>");
-      out.println("<head>");
-      out.println("<title>Servlet upload</title>");  
-      out.println("</head>");
-      out.println("<body>");
-      out.println("<p>No file uploaded</p>"); 
-      out.println("</body>");
-      out.println("</html>");
+      // Failed to upload file
    }
    
-   response.sendRedirect("./integrated_subjectFile.jsp?class="+subject+"-"+section);
+   response.sendRedirect("./integrated_subjectFile.jsp?semYear="+formData[2]+"&class="+formData[0] + "-"+ formData[1]);
 %>

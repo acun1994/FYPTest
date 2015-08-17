@@ -55,11 +55,11 @@
             String lecturerID ="";
             String lecturerName;
             ResultSet fileListRS = null;
-            int section = 0;
+            String section = "";
             String subject = "";
             String curSemYear = "";
             
-            String getSemYearSQL = "SELECT DISTINCT semYear from courseentry ORDER BY semYear DESC";
+            String getSemYearSQL = "SELECT DISTINCT semYear from courseentry ORDER BY courseEntryID DESC";
             PreparedStatement getSemYear = connection.prepareStatement(getSemYearSQL);
             ResultSet semYearRS = getSemYear.executeQuery();
             
@@ -103,11 +103,11 @@
             if (request.getParameter("class")!=null && !request.getParameter("class").equals("")){
                 String[] splitText = request.getParameter("class").toString().split("-");
                 subject = splitText[0];
-                section = Integer.parseInt(splitText[1]);
+                section = splitText[1];
                 int classID = 0;
                 
                 while (classListRS.next()){
-                    if (classListRS.getString("subjectID").equals(subject) && classListRS.getInt("sectionNo")==section){
+                    if (classListRS.getString("subjectID").equals(subject) && classListRS.getInt("sectionNo")==Integer.parseInt(section)){
                         classID = classListRS.getInt("listID");
                     }
                 }
@@ -122,31 +122,28 @@
             }
         %>
         
-        
         <form class="form text-center" action="./integrated_subjectFile.jsp" method="POST">
             <label> Lecturer :  </label> <%= lecturerID %> - <%= lecturerName %> <br/>
             <% // So that form remembers lectID %>
             <input hidden name="lecturerID" value=<%= quote(lecturerID) %>></input>
             <div class="col-sm-2 col-sm-offset-5">
-            <select class="form-control text-center" name = "semYear" onchange="this.form.submit()">
+                <select class="form-control text-center" name = "semYear" onchange="this.form.submit()">
                 <% while (semYearRS.next()) {
                     %>
                     <option <%if(semYearRS.getString(1).equals(curSemYear)){%>selected<%}%> <%= quote(semYearRS.getString(1)) %>> <%= semYearRS.getString(1) %></option>
                     <%
                 }%>        
-            </select>
+                </select>
             </div>
         </form><form class="form text-center" action="./integrated_subjectFile.jsp" method="POST">
             <div class="col-sm-2 col-sm-offset-5">
                 <input type="text" hidden name="semYear" value="<%= curSemYear %>">
             <select class="form-control text-center" name = "class" onchange="this.form.submit()">
-                <option disabled <% if (section == 0){ %>selected<% } %>>Choose a class</option>
+                <option disabled <% if (section == ""){ %>selected<% } %>>Choose a class</option>
                 <% while (classListRS.next()) {
-                    String className = classListRS.getString("subjectID") + "-" + classListRS.getInt("sectionNo");
-                    %>
+                    String className = classListRS.getString("subjectID") + "-" + classListRS.getInt("sectionNo"); %>
                     <option <%if((subject + "-" + section).equals(className)){%>selected<%}%> value = <%= quote(className) %>> <%= className %></option>
-                    <%
-                }%>        
+                <% } %>        
             </select>
             </div>
         </form>
@@ -178,21 +175,21 @@
         <%} %>
             </div><div class="text-center col-sm-5" style="width:45%; float:left;">
                 <label> File Upload </label> <br/>
-            <form action="upload.jsp" method="post" enctype="multipart/form-data">
-                <input hidden name="lectID" value="<%= lecturerID %>">
-                <input hidden name="subject" value="<%= subject %>">
-                <input hidden name="section" value="<%= section %>">
-                <table class="text-center">
-                <tr>
-                    <td id="kids"></td>
-                </tr>
-                </table>
-                <input class = "btn btn-default" type="button" onClick="addKid()" value="Add File" /> &nbsp;
-                <input class = "btn btn-success" type="submit" value="Upload File(s)" />
-            </form>
-                </div>
-                
+                Max File Size : 20MB
+                <form action="upload.jsp" method="post" enctype="multipart/form-data">
+                    <input hidden name="semYear" value="<%= curSemYear %>" >
+                    <input hidden name="subject" value="<%= subject %>">
+                    <input hidden name="section" value="<%= section %>">
+                    <input hidden name="lectID" value="<%= lecturerID %>">
+                    <table class="text-center">
+                    <tr>
+                        <td id="kids"></td>
+                    </tr>
+                    </table>
+                    <input class = "btn btn-default" type="button" onClick="addKid()" value="Add File" /> &nbsp;
+                    <input class = "btn btn-success" type="submit" value="Upload File(s)" />
+                </form>
+            </div>
         <% } %>
-        
     </body>
 </html>

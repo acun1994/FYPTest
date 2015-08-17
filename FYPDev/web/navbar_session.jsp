@@ -12,7 +12,6 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <%@include file="resources.jsp" %>
-
 <div>
     <nav class="navbar navbar-inverse navbar-top">
         <div class="container-fluid">
@@ -22,7 +21,6 @@ and open the template in the editor.
             </div>
             <div class="collapse navbar-collapse" id="navbar">
             <ul class="nav navbar-nav">
-            
             </ul>
           </div>
         </div>
