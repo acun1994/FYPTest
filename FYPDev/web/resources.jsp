@@ -11,7 +11,6 @@
         <script src="./resources/js/jquery.js" type="text/javascript"></script>
         <script src="./resources/js/bootstrap.js" type="text/javascript"></script>
         <script src="./resources/jquery-1.11.3.min.js"></script>
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
         
         <!--Material Design-->
         <link href="resources/mdl/material.light_blue-indigo.min.css" rel="stylesheet" type="text/css"/>

@@ -20,7 +20,9 @@
         <%@include file = "checkLogin.jsp" %>
         <%@include file="navbar_session.jsp" %>
         
-        <div class="container" align="center">
+        <div id="wrapper">
+        <%@include file="sidebar.jsp" %>
+        <div id="page-content-wrapper">
         <% if (request.getParameter("insert")!=null){
             if (request.getParameter("insert").equals("false"))
                 {%><div class="text-center alert-danger alert">Error in saving data.</div><%}
@@ -31,11 +33,8 @@
             }
         %>
             <form role="form" class="form-group" method="post" action = "LecturerSelectionDB.jsp" name="Lecturer_Selection">
-                <div class="mdl-textfield mdl-js-textfield">
-                    <input class="mdl-textfield__input" name="Subject_ID" type="text" id="tags" autocomplete="off" list="subjectData">
-                    <label for="sub_id" class="mdl-textfield__label">Subject ID</label>
-                </div>
-                <div class="input-field col s12" >
+                <div align="center">
+                    <input name="Subject_ID" type="text" autocomplete="off" list="subjectData" placeholder="Subject ID">
                     <select name="semesteYear">
                       <%
                             try{
@@ -51,7 +50,7 @@
                       %>
                     </select>
                 </div>
-                <table>
+                <table align="center">
                     <tr>
                         <td><label>Coordinator : </label></td>
 
@@ -66,20 +65,23 @@
                     <tr>
                         <td><label>Lecturer Details : </label></td>
                         <td id="kids">
-                            <%-- See java script for detail --%>
-                            <input autocomplete="off" type="text" name="lecturerID" placeholder="Enter lecturer ID" list="userInfoData">
-                            <input autocomplete="off" type="text" name="lecturerSection" placeholder="Enter distinct section" >
-                            <button type="button" onclick="addKid(this)"><span class="glyphicon glyphicon-plus"></span></button><br><br>
+                            <div>
+                                <%-- See java script for detail --%>
+                                <input autocomplete="off" type="text" name="lecturerID" placeholder="Enter lecturer ID" list="userInfoData">
+                                <input autocomplete="off" type="text" name="lecturerSection" placeholder="Enter distinct section" >
+                                <button type="button" onclick="addKid(this)"><span class="glyphicon glyphicon-plus"></span></button><br><br>
+                            </div>
                         </td>
                     </tr>
                 </table>
-                            
-                <label>Total Lecturer : </label>
-                <br>
-                <label>Total Section : </label>
-                <br>
-                <input type="button" value="Submit" id="btnSubmit" onClick="submitForm()" class="mdl-button md-js-button mdl-button--raised mdl-button--colored">
-            </form>
+                <div align="center">           
+                    <label>Total Lecturer : </label>
+                    <br>
+                    <label>Total Section : </label>
+                    <br>
+                    <input type="button" value="Submit" id="btnSubmit" onClick="submitForm()" class="mdl-button md-js-button mdl-button--raised mdl-button--colored">
+                </div>
+                </form>
         </div>
         <script>
             //FORM SUBMITION ACTION
@@ -102,7 +104,7 @@
 		
                                    //Details for subject information
                                    //Input from admin to be inserted into the database
-        	div.innerHTML = '<input autocomplete="off" type="text" name="lecturerID" placeholder="Enter lecturer ID" >\n\
+        	div.innerHTML = '<input autocomplete="off" type="text" name="lecturerID" placeholder="Enter lecturer ID" list="userInfoData" >\n\
                                  <input autocomplete="off" type="text" name="lecturerSection" placeholder="Enter distinct section" >\n\
                                  <button type="button" onclick="addKid(this)"><span class="glyphicon glyphicon-plus"></span></button>\n\
                                  <button type="button" onclick="removeKid(this)"><span class="glyphicon glyphicon-minus"></span></button>\n\
@@ -146,6 +148,7 @@
             while(penyelarasRS.next()){
         %>  <option value="<%=penyelarasRS.getString(1) + "  -  " + penyelarasRS.getString(2)%>"><%}%>
             </datalist>
+        </div>
     </body>
     
     

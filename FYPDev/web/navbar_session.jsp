@@ -14,11 +14,10 @@ and open the template in the editor.
 <%@include file="resources.jsp" %>
 
 <div>
-    <nav class="navbar navbar-default navbar-top">
+    <nav class="navbar navbar-inverse navbar-top">
         <div class="container-fluid">
             <div class="navbar-header fixed-brand">
-           
-              <a class="navbar-brand" href="#">CFMS</a>
+              <a class="navbar-brand" href="dashboard.jsp">CFMS</a>
               <button class="navbar-toggle collapse in" data-toggle="collapse" id="menu-toggle-2"> <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span></button>
             </div>
             <div class="collapse navbar-collapse" id="navbar">
