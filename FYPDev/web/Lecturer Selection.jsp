@@ -8,9 +8,10 @@
 <!DOCTYPE html>
 <%@page import="java.sql.*"%>
 <%@page import="java.util.*"%>
+<%@include file="resources.jsp" %>
 <html>
     <head>
-       <title>Form02 : Lecturer Selection</title>
+       <title>Lecturer Selection</title>
     </head>
     <body>
         <% Connection connection = null; %> <!-- This variable must be declared above dbCon.jsp -->
@@ -61,7 +62,6 @@
                         <td>
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
                                 <input autocomplete="off" class="mdl-textfield__input" id="name_penyelaras" name="Penyelaras_Name" type="text" list="userInfoData">
-                            <span class="mdl-tooltip mdl-tooltip--large">Enter Coordinator name here</span>
                             </div>
                         </td>
 

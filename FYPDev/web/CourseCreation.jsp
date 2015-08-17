@@ -27,7 +27,7 @@
                                  <input autocomplete="off" type="text" name="subjectID" placeholder="Enter subject ID">\n\
                                  <input autocomplete="off" type="text" name="section" placeholder="Enter number of section">\n\
                                  <input type="button" value="-" onclick="removeKid(this)">\n\
-                                 <br>';
+                                 <br><br>';
                 document.getElementById('kids').appendChild(div);
          }
 
@@ -50,7 +50,7 @@
         <div id="page-content-wrapper">
             <%-- Form for course creation --%>
             <form role="form" name="form" method="post" action="CourseCreationDB.jsp">
-                <div class="form-group">
+                <div class="form-group mdl-card-actions" align="center">
                     <table>
                         <tr>
                             <td class="col-md-2">
@@ -106,15 +106,15 @@
                                     <tr>
                                         <td><input autocomplete="off" type="text" name="subjectID" placeholder="Enter subject ID" list="subjectData" size="60"> &Tab;</td>
                                         <td align="right"><input autocomplete="off" type="text" name="section" placeholder="Enter number of section"> &thinsp;</td>
-                                        <td><input type="button" value="+" onclick="addKid(this)"></td>
+                                        <td><input type="button" value="+" onclick="addKid(this)"><br></td>
                                     </tr>
                                 </table>
                             </td>
                         </tr>
                     </table>
-                </div>
-                <button type="submit" class="btn waves-effect waves-light" name="action">Submit
+                <button type="submit" class="btn waves-effect waves-light" name="action" align="center">Submit
                     <i class="material-icons"></i></button>
+                </div>
             </form>
         </div>
     </div>
@@ -127,6 +127,8 @@
 		
                                    //Details for subject information
                                    //Input from admin to be inserted into the database
+        	div.innerHTML = '<input autocomplete="off" type="text" name="subjectID" placeholder="Enter subject name" list="subjectData" size="60">&Tab;\n\
+                                 <input autocomplete="off" type="text" name="section" placeholder="Enter number of section">&thinsp;\n\
                                  <input type="button" value="+" onclick="addKid(this)">\n\
                                  <input type="button" value="-" onclick="removeKid(this)">\n\
                                  <br>';
@@ -159,5 +161,3 @@
             </datalist>
     </body>
 </html>
-        	div.innerHTML = '<input autocomplete="off" type="text" name="subjectID" placeholder="Enter subject name" list="subjectData" size="60">&Tab;\n\
-                                 <input autocomplete="off" type="text" name="section" placeholder="Enter number of section">&thinsp;\n\

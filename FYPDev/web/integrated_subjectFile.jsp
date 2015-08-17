@@ -57,6 +57,20 @@
             ResultSet fileListRS = null;
             int section = 0;
             String subject = "";
+            String curSemYear = "";
+            
+            String getSemYearSQL = "SELECT DISTINCT semYear from courseentry ORDER BY semYear DESC";
+            PreparedStatement getSemYear = connection.prepareStatement(getSemYearSQL);
+            ResultSet semYearRS = getSemYear.executeQuery();
+            
+            if (request.getParameter("semYear")!=null){
+                curSemYear = request.getParameter("semYear");
+            }
+            else{
+                semYearRS.next();
+                curSemYear = semYearRS.getString(1);
+                semYearRS.beforeFirst();
+            }
             
             if (session.getAttribute("userid")!=null){
                 if (checkAccess(session, 4)){
@@ -80,9 +94,10 @@
                     lectNameRS.next();
                 lecturerName = lectNameRS.getString("userName");
             
-            String getClassesSQL = "SELECT listID, subjectID, sectionNo FROM lectlist WHERE lecturerID = ?";
+            String getClassesSQL = "SELECT DISTINCT listID, subjectID, sectionNo FROM lectlist JOIN courseentry ON lectlist.courseEntryID=courseentry.courseEntryID WHERE lecturerID = ? AND semYear = ?";
                 PreparedStatement getClasses = connection.prepareStatement(getClassesSQL);
                     getClasses.setString(1, lecturerID);
+                    getClasses.setString(2, curSemYear);
                 ResultSet classListRS = getClasses.executeQuery();
            
             if (request.getParameter("class")!=null && !request.getParameter("class").equals("")){
@@ -113,6 +128,17 @@
             <% // So that form remembers lectID %>
             <input hidden name="lecturerID" value=<%= quote(lecturerID) %>></input>
             <div class="col-sm-2 col-sm-offset-5">
+            <select class="form-control text-center" name = "semYear" onchange="this.form.submit()">
+                <% while (semYearRS.next()) {
+                    %>
+                    <option <%if(semYearRS.getString(1).equals(curSemYear)){%>selected<%}%> <%= quote(semYearRS.getString(1)) %>> <%= semYearRS.getString(1) %></option>
+                    <%
+                }%>        
+            </select>
+            </div>
+        </form><form class="form text-center" action="./integrated_subjectFile.jsp" method="POST">
+            <div class="col-sm-2 col-sm-offset-5">
+                <input type="text" hidden name="semYear" value="<%= curSemYear %>">
             <select class="form-control text-center" name = "class" onchange="this.form.submit()">
                 <option disabled <% if (section == 0){ %>selected<% } %>>Choose a class</option>
                 <% while (classListRS.next()) {
@@ -124,19 +150,19 @@
             </select>
             </div>
         </form>
-    <br/><br/><br/>
+    
             
     <div style="padding-left: 10px">
-        <% if (fileListRS!= null){ %>
+        <% if (fileListRS!=null && fileListRS.next()){ fileListRS.beforeFirst(); %>
             <table class="table-bordered table text-center" style="width:50%; float:left;">
                 <thead>
                 <th>Type</th><th>Filename</th><th>Status</th><th>Action</th>
                 </thead>
                 <% while (fileListRS.next()){%>
                     <tr>
-                        <td><%= fileListRS.getString("fileType") %></td>
-                        <td><%= fileListRS.getString("fileName") %></td>
-                        <td><%= fileListRS.getString("status") %></td>
+                        <td style="padding-top:16px" ><%= fileListRS.getString("fileType") %></td>
+                        <td style="padding-top:16px" ><%= fileListRS.getString("fileName") %></td>
+                        <td style="padding-top:16px" ><%= fileListRS.getString("status") %></td>
                         <td><a href="#" class="btn btn-success">View</a> &nbsp;
                             <a href="#" class="btn btn-success">Download</a> &nbsp;
                             <a href="#" class="btn btn-danger">Delete</a> &nbsp;
@@ -144,7 +170,12 @@
                     </tr>
                 <% } %>
             </table>
-            
+            <% }
+        else{%>
+        <table class="table-bordered table text-center" style="width:50%; float:left;">
+            <tr><td>No files found</td></tr>
+        </table>
+        <%} %>
             </div><div class="text-center col-sm-5" style="width:45%; float:left;">
                 <label> File Upload </label> <br/>
             <form action="upload.jsp" method="post" enctype="multipart/form-data">
@@ -160,8 +191,8 @@
                 <input class = "btn btn-success" type="submit" value="Upload File(s)" />
             </form>
                 </div>
-        <% }
-        }%>
+                
+        <% } %>
         
     </body>
 </html>

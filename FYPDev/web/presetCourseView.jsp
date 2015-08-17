@@ -55,9 +55,6 @@
                                             <% out.print(rs.getString(1));%>
                                         </td>
                                         <td>
-                                            <% out.print(rs.getString(1));%>
-                                        </td>
-                                        <td>
                                             <% out.print(rs.getString(2));%>
                                         </td>
                                         <td>
