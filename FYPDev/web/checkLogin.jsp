@@ -14,8 +14,10 @@
 
 <%!
 public boolean checkAccess(HttpSession session, int level){
-    if (Integer.parseInt(session.getAttribute("usertype").toString())==(level)) return true;
-    else return false;
+    if (session.getAttribute("usertype")!=null){
+        if (Integer.parseInt(session.getAttribute("usertype").toString())==(level)) return true;
+    }
+    return false;
 }
 
 public String quote(String text){

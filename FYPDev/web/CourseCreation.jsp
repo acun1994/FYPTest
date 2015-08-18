@@ -27,7 +27,7 @@
         <div id="page-content-wrapper">
             <%-- Form for course creation --%>
             <form role="form" name="form" method="post" action="CourseCreationDB.jsp">
-                <div class="form-group">
+                <div class="form-group mdl-card-actions" align="center">
                     <table>
                         <tr>
                             <td class="col-md-2">
@@ -89,9 +89,9 @@
                             </td>
                         </tr>
                     </table>
-                </div>
-                <button type="submit" class="btn waves-effect waves-light" name="action">Submit
+                <button type="submit" class="btn waves-effect waves-light" name="action" align="center">Submit
                     <i class="material-icons"></i></button>
+                </div>
             </form>
         </div>
     </div>

@@ -5,17 +5,8 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <%@include file="resources.jsp"%>
         <title>Preset Subject View</title>
-        <script>
-            function setValue(value) {
-                var valueHolder = value.split("-");
-                var courseID = valueHolder[0];
-                var courseName = valueHolder[1];
-
-                $("#courseID").val(courseID);
-                $("#courseName").val(courseName);
-            }
-        </script>
     </head>
 
     <body>
@@ -32,10 +23,10 @@
             <%} else if (request.getParameter( "insert").equals( "true")) {%><span class="text-center alert-success success">Data has been successfully saved.</span>
                 <%} else if (request.getParameter( "insert").equals( "delete")) {%><span class="text-center alert-warning warning">Data has been succesfully deleted.</span>
                     <%} } %>
-                        <table class="the-table table-bordered" align="center">
+                        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" align="center">
                             <thead align="center">
                             <tr>
-                                <th style="text-align:center" >No.</th>
+                                <th class="mdl-data-table__cell--numeric" style="text-align:center" >No.</th>
                                 <th style="text-align:center" width="80">Course ID</th>
                                 <th style="text-align:center" width="120">Course Name</th>
                                 <th style="text-align:center" width="160">Action</th>
@@ -48,23 +39,23 @@
                                     while(rs.next()){ 
                                 %>
                                     <tr>
-                                        <td align="center">
+                                        <td class="mdl-data-table__cell--non-numeric" align="center">
                                             <% out.print(++count);%>
                                         </td>
                                         <td>
-                                            <% out.print(rs.getString(1));%>
+                                            <% out.print(rs.getString("courseID"));%>
                                         </td>
                                         <td>
-                                            <% out.print(rs.getString(2));%>
+                                            <% out.print(rs.getString("courseName"));%>
                                         </td>
                                         <td>
-                                            <button value="<%= rs.getString(1)+" - "+rs.getString(2) %>" class="btn btn-info" data-toggle="modal" data-target="#myModal" onclick="setValue(this.value)">EDIT</button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <button type="submit" name="SUBMITION"  value="<%= rs.getString(1)+" - "+rs.getString(2)%>" class="btn btn-danger" onClick="ConfirmDelete(this.value)" form="myForm">DELETE</button>
+                                            <button value="<%= rs.getString("courseID")+" - "+rs.getString("courseName") %>" class="btn btn-info" data-toggle="modal" data-target="#myModal" onclick="setValue(this.value)">EDIT</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <button type="submit" name="SUBMITION"  value="<%= rs.getString("courseID")+" - "+rs.getString("courseName")%>" class="btn btn-danger" onClick="ConfirmDelete(this.value)" form="myForm">DELETE</button>
                                         </td>
                                     </tr>
                                     <% }%>
                                     <tr>
-                                        <td colspan="5"><button class="btn bg-primary" data-toggle="modal" data-target="#newModal" style="width:100%">CREATE NEW COURSE</button></td>
+                                        <td class="mdl-data-table__cell--numeric" colspan="5"><button class="btn bg-primary" data-toggle="modal" data-target="#newModal" style="width:100%">CREATE NEW COURSE</button></td>
                                     </tr>
                             </tbody>
                         </table>
@@ -89,7 +80,6 @@
                                                     <td><label>Course Name :</label></td>
                                                     <td><input id="courseName" type="text" name="courseName" /></td>
                                             </table>
-                                            <input id="subCount" name="courseCount" type="hidden" />
                                             <button name="SUBMITION" type="submit" class="btn btn-success" value="SAVE">Save </button>
                                             <button class="btn btn-default" data-dismiss="modal">Cancel</button>
                                         </form>
@@ -129,19 +119,30 @@
                             </div>
                         </div>
                         <!-- Remove GET variable when refresh -->
-                        <script>
-                            if (typeof window.history.pushState === 'function') {
-                                window.history.pushState({}, "Hide", "http://localhost:8080/FYPDev/presetCourseView.jsp");
-                            }
-                        </script>
-                        <script>
-                            function ConfirmDelete() {
-                                var x = confirm("Are you sure you want to delete?");
-                                if (x){
-                                    return true;
-                                }
-                                else return false;
-                            }
+    <script>
+        if (typeof window.history.pushState === 'function') {
+            window.history.pushState({}, "Hide", "http://localhost:8080/FYPDev/presetCourseView.jsp");
+        }
+        
+        //RE-CONFIRM IF USER WISH TO DELETE A RECORD
+        function ConfirmDelete() {
+            var x = confirm("Are you sure you want to delete?");
+            if (x){
+                return true;
+            }
+            else return false;
+        }
+        
+        //RETRIEVE VALUE FROM EDIT BUTTON THEN ADD TO EDIT INFORMATION MODAL
+        function setValue(value)
+        {
+            var valueHolder = value.split("-");
+            var subjectID = valueHolder[0];
+            var subjectName = valueHolder[1];
+            
+            $("#courseID").val(subjectID);
+            $("#courseName").val(subjectName);
+        }
                         </script>
         </div>
     </div>

@@ -18,7 +18,6 @@
                 <li data-target="#image-slider" data-slide-to="0" class="active"></li>
                 <li data-target="#image-slider" data-slide-to="1"></li>
                 <li data-target="#image-slider" data-slide-to="2"></li>
-                <img src="164607_407106632704056_1591502594_n.jpg" alt=""/>
                 <li data-target="#image-slider" data-slide-to="3"></li>
                 <li data-target="#image-slider" data-slide-to="4"></li>
             </ol>
