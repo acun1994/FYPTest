@@ -39,7 +39,7 @@
                     PreparedStatement sidebar_getLectInfo = connection.prepareStatement("select * from lectlist where lecturerID=?");
                        sidebar_getLectInfo.setString(1, sidebar_id);
                     ResultSet sidebar_LectInfo = sidebar_getLectInfo.executeQuery();
-    
+                    out.println("watakoyo");
                     PreparedStatement sidebar_getSemYearLecturer = connection.prepareStatement("select * from courseentry where courseentryid=?");
                         while(sidebar_LectInfo.next())
                         {
@@ -61,6 +61,7 @@
                         }//End While
                     %>
                     </form>
+                
           <%            default:%>
                 <li><button id="btnnavbar" class="mdl-button mdl-js-button"><a href="logout.jsp">Log Out</a></button></li>
           <%
