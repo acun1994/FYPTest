@@ -32,6 +32,9 @@
     String section = "";
     String lecturerID = "";
     String[] formData = new String[3];
+    //SemYear = formData[2]
+    //Subject = formData[1]
+    //Section = formData[0]
     int fileUploadSuccess = 0;
 
    // Verify the content type
