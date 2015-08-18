@@ -30,9 +30,9 @@
                 {%><span class="text-center alert-warning warning">Data has been succesfully deleted.</span><%}
             }
         %>
-        <table class="the-table table-bordered" align="center">
+        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" align="center">
             <thead>
-                <th>No.</th>
+                <th class="mdl-data-table__cell--non-numeric">No.</th>
                 <th>Subject ID</th>
                 <th>Subject Name</th>
                 <th colspan="2">Action</th>
@@ -44,7 +44,7 @@
                     while(rs.next()){
                 %>
                 <tr>
-                    <td><% out.print(++count);%></td>
+                    <td class="mdl-data-table__cell--non-numeric"><% out.print(++count);%></td>
                     <td><% out.print(rs.getString(1));%></td>
                     <td><% out.print(rs.getString(2));%></td>
                     <td><button  value="<%= rs.getString(1)+"-"+rs.getString(2) %>" class="btn btn-info" data-toggle="modal" data-target="#myModal" onclick="setValue(this.value)">EDIT</button></td>

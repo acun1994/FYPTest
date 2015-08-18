@@ -11,6 +11,9 @@
         <script src="./resources/js/jquery.js" type="text/javascript"></script>
         <script src="./resources/js/bootstrap.js" type="text/javascript"></script>
         <script src="./resources/jquery-1.11.3.min.js"></script>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         
         <!--Material Design-->
         <link href="resources/mdl/material.light_blue-indigo.min.css" rel="stylesheet" type="text/css"/>
