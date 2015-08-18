@@ -33,10 +33,13 @@
             
             <h1>Welcome <%= name %> </h1>
             <%
-                if(usertype == 3)
-                {
+                if(usertype == 2){ %>
+                <%@include file="Dashboard/KJ_View.jsp" %>
+            <%    
+                }
+                if(usertype == 3){
             %>
-                 <%@include file="dash_coordView.jsp" %>
+                 <%@include file="Dashboard/Coord_View.jsp" %>
             <%
                 }    
             %>     
