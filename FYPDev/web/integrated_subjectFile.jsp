@@ -171,10 +171,14 @@
                         <% } %>
                     </table>
                     <% }
-                else{%>
-                    <table class="table-bordered table text-center">
-                        <tr><td>No files found</td></tr>
-                    </table>
+                else if (curSemYear == "" || section == ""){%>
+                    <div class="alert alert-warning text-center">
+                           Please select a class and semester
+                    </div>
+                <%} else{ %>
+                    <div class="alert alert-warning text-center">
+                        No files found for that class
+                    </div>
                 <%} %>
             </div>
 
