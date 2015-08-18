@@ -5,19 +5,6 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%
-                    PreparedStatement getCourseEntryID = connection.prepareStatement("select * from courseentry where semYear=?");
-                    PreparedStatement getCoordinating = connection.prepareStatement("select * from coordinatorlist where coordinatorID=? and semYear=?");
-                    PreparedStatement getTeaching = connection.prepareStatement("select * from lectlist where lecturerid=? and courseEntryID=?");
-                    PreparedStatement getSubjectName = connection.prepareStatement("select * from subject where subjectid=?");
-
-                    getCoordinating.setString(1, userid);
-                    getTeaching.setString(1, userid);
-
-                    String year = request.getParameter("year");
-%>
-            
-<%@include file="getDate.jsp" %>
 
 <%//Listing all coordinating subject for the semYear
                     try{
