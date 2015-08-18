@@ -28,7 +28,7 @@
                 String subNameHolder = null;
                 String subIDHolder = null;
                 String sM = request.getParameter("semester");
-                String cID = request.getParameter("COURSEID");
+                String cID = request.getParameter("courseID");
                 String courseYear = request.getParameter("CourseYear");
                 String semesterYear = sM + "-" + courseYear;
                 //String userID = (String)session.getAttribute("userid");

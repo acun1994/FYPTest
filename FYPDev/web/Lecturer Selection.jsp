@@ -8,10 +8,10 @@
 <!DOCTYPE html>
 <%@page import="java.sql.*"%>
 <%@page import="java.util.*"%>
+<%@include file="resources.jsp" %>
 <html>
     <head>
-        <%@include file="resources.jsp" %>
-       <title>Form02 : Lecturer Selection</title>
+       <title>Lecturer Selection</title>
     </head>
     <body>
         <% Connection connection = null; %> <!-- This variable must be declared above dbCon.jsp -->
@@ -33,8 +33,12 @@
             }
         %>
             <form role="form" class="form-group" method="post" action = "LecturerSelectionDB.jsp" name="Lecturer_Selection">
-                <div align="center">
-                    <input name="Subject_ID" type="text" autocomplete="off" list="subjectData" placeholder="Subject ID">
+                <div class="mdl-card-actions" align="center">
+                <div align="center" class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" name="Subject_ID" type="text" id="tags" autocomplete="off" list="subjectData">
+                    <label for="sub_id" class="mdl-textfield__label">Subject ID</label>
+                </div>
+                <div class="input-field col s12" >
                     <select name="semesteYear">
                       <%
                             try{
@@ -50,6 +54,7 @@
                       %>
                     </select>
                 </div>
+                </div>
                 <table align="center">
                     <tr>
                         <td><label>Coordinator : </label></td>
@@ -57,7 +62,6 @@
                         <td>
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
                                 <input autocomplete="off" class="mdl-textfield__input" id="name_penyelaras" name="Penyelaras_Name" type="text" list="userInfoData">
-                            <span class="mdl-tooltip mdl-tooltip--large">Enter Coordinator name here</span>
                             </div>
                         </td>
 
