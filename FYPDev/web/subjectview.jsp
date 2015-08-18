@@ -25,7 +25,7 @@
                 <%@include file="sidebar.jsp" %>
             </div>
             <div id="page-content-wrapper">
-                <%@include file="SubjectView_controllers/controller.jsp" %>
+                <%@include file="SubjectView/controller.jsp" %>
             </div>
         </div>
     </body>
