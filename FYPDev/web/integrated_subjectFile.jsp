@@ -120,11 +120,11 @@
             }
         %>
         
-        <form class="form text-center" action="./integrated_subjectFile.jsp" method="POST">
-            <label> Lecturer :  </label> <%= lecturerID %> - <%= lecturerName %> <br/>
-            <% // So that form remembers lectID %>
-            <input hidden name="lecturerID" value=<%= quote(lecturerID) %>></input>
-            <div class="col-sm-2 col-sm-offset-5">
+        <div class="col-sm-2 col-sm-offset-5">
+            <form class="form text-center" action="./integrated_subjectFile.jsp" method="POST">
+                <label> Lecturer :  </label> <%= lecturerID %> - <%= lecturerName %> <br/>
+                <% // So that form remembers lectID %>
+                <input hidden name="lecturerID" value=<%= quote(lecturerID) %>></input>
                 <select class="form-control text-center" name = "semYear" onchange="this.form.submit()">
                 <% while (semYearRS.next()) {
                     %>
@@ -132,22 +132,23 @@
                     <%
                 }%>        
                 </select>
-            </div>
-        </form><form class="form text-center" action="./integrated_subjectFile.jsp" method="POST">
-            <div class="col-sm-2 col-sm-offset-5">
+            </form>
+        </div>
+        
+        <div class="col-sm-2 col-sm-offset-5">
+            <form class="form text-center" action="./integrated_subjectFile.jsp" method="POST">
                 <input type="text" hidden name="semYear" value="<%= curSemYear %>">
-            <select class="form-control text-center" name = "class" onchange="this.form.submit()">
-                <option disabled <% if (section == ""){ %>selected<% } %>>Choose a class</option>
-                <% while (classListRS.next()) {
-                    String className = classListRS.getString("subjectID") + "-" + classListRS.getInt("sectionNo"); %>
-                    <option <%if((subject + "-" + section).equals(className)){%>selected<%}%> value = <%= quote(className) %>> <%= className %></option>
-                <% } %>        
-            </select>
-            </div>
-        </form>
-    
+                <select class="form-control text-center" name = "class" onchange="this.form.submit()">
+                    <option disabled <% if (section == ""){ %>selected<% } %>>Choose a class</option>
+                    <% while (classListRS.next()) {
+                        String className = classListRS.getString("subjectID") + "-" + classListRS.getInt("sectionNo"); %>
+                        <option <%if((subject + "-" + section).equals(className)){%>selected<%}%> value = <%= quote(className) %>> <%= className %></option>
+                    <% } %>        
+                </select>
+            </form>
+        </div>
             
-    <div style="padding-left: 10px">
+    <div style="padding-left:10px">
         <% if (fileListRS!=null && fileListRS.next()){ fileListRS.beforeFirst(); %>
             <table class="table-bordered table text-center" style="width:50%; float:left;">
                 <thead>
@@ -172,8 +173,16 @@
         </table>
         <%} %>
             </div><div class="text-center col-sm-5" style="width:45%; float:left;">
+                
+                <% if (request.getParameter("success")!=null){ %>
+                    <div class="text-center alert-success alert">
+                        <%= request.getParameter("success") %> file<% if(Integer.parseInt(request.getParameter("success"))>1) {%>s have<%} else{ %> has<% }%> been uploaded.
+                    </div>
+                <% } %>
+                
                 <label> File Upload </label> <br/>
                 Max File Size : 20MB
+                
                 <form action="upload.jsp" method="post" enctype="multipart/form-data">
                     <input hidden name="semYear" value="<%= curSemYear %>" >
                     <input hidden name="subject" value="<%= subject %>">

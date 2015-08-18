@@ -13,8 +13,6 @@
             
             //Initializing list for the form
             ArrayList<String> year = new ArrayList();
-            ArrayList<String> sem = new ArrayList();
-            ArrayList<String> course = new ArrayList();
             
             while(list.next())
             { //Making sure all listed result are unique
@@ -27,7 +25,6 @@
         <%-- Search form --%>
         <table align="center"> 
             <tr>
-            
                 <td>
                 <form>
                     <%-- Select for Year selection --%>

@@ -21,16 +21,16 @@
 
     <body>
         <div id="wrapper">
-        <%
+    <%
             //Getting attributes from sessions
             String name = session.getAttribute("name").toString();
             String userid = session.getAttribute("userid").toString();
             int usertype = Integer.parseInt(session.getAttribute("usertype").toString());
-        %>
-        
+    %>
+            
         <%@include file="sidebar.jsp" %>
         
-        <div class="mdl-card-actions"  left="100px" align="center" id="page-content-wrapper">
+        <div id="page-content-wrapper">
             
             <h1>Welcome <%= name %> </h1>
             <%
