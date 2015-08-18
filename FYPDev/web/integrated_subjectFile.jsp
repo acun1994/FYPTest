@@ -64,12 +64,7 @@
             if (request.getParameter("semYear")!=null){
                 curSemYear = request.getParameter("semYear");
             }
-            else{
-                semYearRS.next();
-                curSemYear = semYearRS.getString(1);
-                semYearRS.beforeFirst();
-            }
-            
+                        
             if (session.getAttribute("userid")!=null){
                 if (checkAccess(session, 4)){
                     lecturerID = (session.getAttribute("userid")).toString();
@@ -120,69 +115,80 @@
             }
         %>
         
-        <div class="col-sm-2 col-sm-offset-5">
-            <form class="form text-center" action="./integrated_subjectFile.jsp" method="POST">
-                <label> Lecturer :  </label> <%= lecturerID %> - <%= lecturerName %> <br/>
-                <% // So that form remembers lectID %>
-                <input hidden name="lecturerID" value=<%= quote(lecturerID) %>></input>
-                <select class="form-control text-center" name = "semYear" onchange="this.form.submit()">
-                <% while (semYearRS.next()) {
-                    %>
-                    <option <%if(semYearRS.getString(1).equals(curSemYear)){%>selected<%}%> <%= quote(semYearRS.getString(1)) %>> <%= semYearRS.getString(1) %></option>
-                    <%
-                }%>        
-                </select>
-            </form>
+        <div class="text-center">
+            <label> Lecturer :  </label> <%= lecturerID %> - <%= lecturerName %> <br/>
         </div>
         
-        <div class="col-sm-2 col-sm-offset-5">
-            <form class="form text-center" action="./integrated_subjectFile.jsp" method="POST">
-                <input type="text" hidden name="semYear" value="<%= curSemYear %>">
-                <select class="form-control text-center" name = "class" onchange="this.form.submit()">
-                    <option disabled <% if (section == ""){ %>selected<% } %>>Choose a class</option>
-                    <% while (classListRS.next()) {
-                        String className = classListRS.getString("subjectID") + "-" + classListRS.getInt("sectionNo"); %>
-                        <option <%if((subject + "-" + section).equals(className)){%>selected<%}%> value = <%= quote(className) %>> <%= className %></option>
-                    <% } %>        
-                </select>
-            </form>
+        <div class="row">
+            <div class="col-sm-2 col-sm-offset-4">
+                <form class="form text-center" action="./integrated_subjectFile.jsp" method="POST">
+                    <% // So that form remembers lectID %>
+                    <input hidden name="lecturerID" value=<%= quote(lecturerID) %>></input>
+                    <select class="form-control text-center" name = "semYear" onchange="this.form.submit()">
+                    <option disabled <% if (curSemYear == ""){ %>selected<% } %>>-- Semester --</option>
+                    <% while (semYearRS.next()) {
+                        %>
+                        <option <%if(semYearRS.getString(1).equals(curSemYear)){%>selected<%}%> <%= quote(semYearRS.getString(1)) %>> <%= semYearRS.getString(1) %></option>
+                        <%
+                    }%>        
+                    </select>
+                </form>
+            </div>
+
+            <div class="col-sm-2">
+                <form class="form text-center" action="./integrated_subjectFile.jsp" method="POST">
+                    <input type="text" hidden name="semYear" value="<%= curSemYear %>">
+                    <select class="form-control text-center" name = "class" onchange="this.form.submit()">
+                        <option disabled <% if (section == ""){ %>selected<% } %>>-- Class --</option>
+                        <% while (classListRS.next()) {
+                            String className = classListRS.getString("subjectID") + "-" + classListRS.getInt("sectionNo"); %>
+                            <option <%if((subject + "-" + section).equals(className)){%>selected<%}%> value = <%= quote(className) %>> <%= className %></option>
+                        <% } %>        
+                    </select>
+                </form>
+            </div>
         </div>
             
-    <div style="padding-left:10px">
-        <% if (fileListRS!=null && fileListRS.next()){ fileListRS.beforeFirst(); %>
-            <table class="table-bordered table text-center" style="width:50%; float:left;">
-                <thead>
-                <th>Type</th><th>Filename</th><th>Status</th><th>Action</th>
-                </thead>
-                <% while (fileListRS.next()){%>
-                    <tr>
-                        <td style="padding-top:16px" ><%= fileListRS.getString("fileType") %></td>
-                        <td style="padding-top:16px" ><%= fileListRS.getString("fileName") %></td>
-                        <td style="padding-top:16px" ><%= fileListRS.getString("status") %></td>
-                        <td><a href="#" class="btn btn-success">View</a> &nbsp;
-                            <a href="#" class="btn btn-success">Download</a> &nbsp;
-                            <a href="#" class="btn btn-danger">Delete</a> &nbsp;
-                        </td>
-                    </tr>
-                <% } %>
-            </table>
-            <% }
-        else{%>
-        <table class="table-bordered table text-center" style="width:50%; float:left;">
-            <tr><td>No files found</td></tr>
-        </table>
-        <%} %>
-            </div><div class="text-center col-sm-5" style="width:45%; float:left;">
-                
+        <div class="col-sm-12">&nbsp;</div><%-- Force an offset --%>
+
+        <div class="row">
+            <div class="col-sm-5 col-sm-offset-1">
+                <% if (fileListRS!=null && fileListRS.next()){ fileListRS.beforeFirst(); %>
+                    <table class="table-bordered table text-center">
+                        <thead>
+                        <th>Type</th><th>Filename</th><th>Status</th><th>Action</th>
+                        </thead>
+                        <% while (fileListRS.next()){%>
+                            <tr>
+                                <td style="padding-top:16px" ><%= fileListRS.getString("fileType") %></td>
+                                <td style="padding-top:16px" ><%= fileListRS.getString("fileName") %></td>
+                                <td style="padding-top:16px" ><%= fileListRS.getString("status") %></td>
+                                <td><a href="#" class="btn btn-success">View</a> &nbsp;
+                                    <a href="#" class="btn btn-success">Download</a> &nbsp;
+                                    <a href="#" class="btn btn-danger">Delete</a> &nbsp;
+                                </td>
+                            </tr>
+                        <% } %>
+                    </table>
+                    <% }
+                else{%>
+                    <table class="table-bordered table text-center">
+                        <tr><td>No files found</td></tr>
+                    </table>
+                <%} %>
+            </div>
+
+            <div class="text-center col-sm-5">
+
                 <% if (request.getParameter("success")!=null){ %>
                     <div class="text-center alert-success alert">
                         <%= request.getParameter("success") %> file<% if(Integer.parseInt(request.getParameter("success"))>1) {%>s have<%} else{ %> has<% }%> been uploaded.
                     </div>
                 <% } %>
-                
+
                 <label> File Upload </label> <br/>
                 Max File Size : 20MB
-                
+
                 <form action="upload.jsp" method="post" enctype="multipart/form-data">
                     <input hidden name="semYear" value="<%= curSemYear %>" >
                     <input hidden name="subject" value="<%= subject %>">
@@ -197,6 +203,7 @@
                     <input class = "btn btn-success" type="submit" value="Upload File(s)" />
                 </form>
             </div>
+        </div>
         <% } %>
     </body>
 </html>
