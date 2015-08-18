@@ -41,14 +41,16 @@
                 </li>
           <%            case 2:%>
                 <li><button id="btnnavbar" class="mdl-button mdl-js-button"><a href="courseview.jsp">Course View</a></button></li>
+          <%-- For listing all the semYear that the KJ of the Jabatan involved --%>
+                        <%@include file="Sidebar/pentadbir_controller.jsp" %>
           <%            case 3:%>
-          <%--For listing all the semYear that the lecturer involved --%>
-                <%@include file="Sidebar/lecturer_controller.jsp" %>
+          <%-- For listing all the semYear that the lecturer involved --%>
+                        <%@include  file="Sidebar/lecturer_controller.jsp" %>
           <%            default:%>
                 <li><button id="btnnavbar" class="mdl-button mdl-js-button"><a href="logout.jsp">Log Out</a></button></li>
           <%
-                      }
-                  }
+                      }//End Switch
+                  }//End If
           %>
             </ul>
         </div>

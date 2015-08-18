@@ -5,29 +5,37 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.util.ArrayList" %>
+
 <%
     PreparedStatement sidebar_getLectInfo = connection.prepareStatement("select * from lectlist where lecturerID=?");
-        sidebar_getLectInfo.setString(1, sidebar_id);
+         sidebar_getLectInfo.setString(1, sidebar_id);
     ResultSet sidebar_LectInfo = sidebar_getLectInfo.executeQuery();
-    
-    PreparedStatement sidebar_getSemYearLecturer = connection.prepareStatement("select * from courseentry where courseentryid=?");
     if(sidebar_LectInfo.next())
-    {
-    sidebar_getSemYearLecturer.setString(1, sidebar_LectInfo.getString("courseentryid"));
-    ResultSet sidebar_semYearLecturer = sidebar_getSemYearLecturer.executeQuery();
+    { 
+        PreparedStatement sidebar_getSemYearLecturer = connection.prepareStatement("select * from courseentry where courseentryid=?");
+            sidebar_getSemYearLecturer.setString(1, sidebar_LectInfo.getString("courseentryid"));
+        ResultSet sidebar_semYearLecturer = sidebar_getSemYearLecturer.executeQuery();
+        
+        ArrayList<String> Lectyear = new ArrayList();
+                      
+            while(sidebar_semYearLecturer.next())
+                {//Making sure all listed result are unique
+                    if(Lectyear.contains(sidebar_semYearLecturer.getString("semYear")) == false)
+                        Lectyear.add(sidebar_semYearLecturer.getString("semYear"));
+                }//End While
+        
 %>
 <form action="dashboard.jsp" method="get">
-<%
-        while(sidebar_semYearLecturer.next())
-        {
+<%    
+                      for(int i = 0; i< Lectyear.size(); i++)
+                      {
 %>
-            <li>
-                <button id="btnnavbar" class="mdl-button mdl-js-button" type="submit" name="year" value="<%= sidebar_semYearLecturer.getString("semYear") %>">
-                <%= sidebar_semYearLecturer.getString("semYear") %>
-                </button>
-            </li>
-<%
-        }//End While
-    }//End If
-%>
+                       <li>
+                       <button id="btnnavbar" class="mdl-button mdl-js-button" type="submit" name="year" value="<%= Lectyear.get(i) %>">
+                       <%= Lectyear.get(i) %>
+                       </button>
+                       </li>
+<%                    }//End For%>
 </form>
+<%  }//End If%>
