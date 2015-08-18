@@ -30,7 +30,9 @@
     String subject = "";
     String semYear="";
     String section = "";
+    String lecturerID = "";
     String[] formData = new String[3];
+    int fileUploadSuccess = 0;
 
    // Verify the content type
    String contentType = request.getContentType();
@@ -86,7 +88,7 @@
                 }while (file.exists());
                 
                 fi.write( file ) ;
-                out.println("Uploaded Filename: " + curFilePath.substring(curFilePath.lastIndexOf("\\")+1) + "<br>");
+                fileUploadSuccess++;
                 
                 //Update file changelog
                 
@@ -100,7 +102,10 @@
             }
             else {
                 String fieldName = fi.getFieldName();
-                if (fieldName.equals("subject")){
+                if(fieldName.equals("lecturerID")){
+                    lecturerID = fi.getString();
+                }
+                else if (fieldName.equals("subject")){
                     formData[0] = fi.getString();
                     subject = fi.getString();
                 }
@@ -137,5 +142,5 @@
       // Failed to upload file
    }
    
-   response.sendRedirect("./integrated_subjectFile.jsp?semYear="+formData[2]+"&class="+formData[0] + "-"+ formData[1]);
+   response.sendRedirect("./integrated_subjectFile.jsp?semYear="+formData[2]+"&class="+formData[0] + "-"+ formData[1]+"&success="+ fileUploadSuccess);
 %>

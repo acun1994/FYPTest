@@ -15,8 +15,6 @@
         <%@ include file="checkLogin.jsp"%>
         <%@ include file="navbar_session.jsp"%>
         
-        <% if (!checkAccess(session,4)) response.sendRedirect("index.jsp"); %>
-        
         <SCRIPT language="javascript">
         function addKid()
         {
