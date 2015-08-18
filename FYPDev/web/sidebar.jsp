@@ -34,13 +34,38 @@
           <%            case 2:%>
                 <li><button id="btnnavbar" class="mdl-button mdl-js-button"><a href="courseview.jsp">Course View</a></button></li>
           <%            case 3:%>
-          <%--For listing all the semYear that the lecturer involved --%>
-                <%@include file="Sidebar/lecturer_controller.jsp" %>
+          <%-- For listing all the semYear that the lecturer involved --%>
+                <%
+                    PreparedStatement sidebar_getLectInfo = connection.prepareStatement("select * from lectlist where lecturerID=?");
+                       sidebar_getLectInfo.setString(1, sidebar_id);
+                    ResultSet sidebar_LectInfo = sidebar_getLectInfo.executeQuery();
+    
+                    PreparedStatement sidebar_getSemYearLecturer = connection.prepareStatement("select * from courseentry where courseentryid=?");
+                        while(sidebar_LectInfo.next())
+                        {
+                        sidebar_getSemYearLecturer.setString(1, sidebar_LectInfo.getString("courseentryid"));
+                        ResultSet sidebar_semYearLecturer = sidebar_getSemYearLecturer.executeQuery();
+                    %>
+                    <form action="dashboard.jsp" method="get">
+                    <%
+                            while(sidebar_semYearLecturer.next())
+                            {
+                    %>
+                                <li>
+                                    <button id="btnnavbar" class="mdl-button mdl-js-button" type="submit" name="year" value="<%= sidebar_semYearLecturer.getString("semYear") %>">
+                                    <%= sidebar_semYearLecturer.getString("semYear") %>
+                                    </button>
+                                </li>
+                    <%
+                            }//End While
+                        }//End While
+                    %>
+                    </form>
           <%            default:%>
                 <li><button id="btnnavbar" class="mdl-button mdl-js-button"><a href="logout.jsp">Log Out</a></button></li>
           <%
-                      }
-                  }
+                      }//End Switch
+                  }//End If
           %>
             </ul>
         </div>
