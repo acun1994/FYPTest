@@ -20,45 +20,79 @@
         <div id="wrapper">
         <%@include file="sidebar.jsp" %>
         <div id="page-content-wrapper">
+            
+        <%
+            if(request.getParameter("COURSEID")==null){
+                %><span class="text-center alert-info">PLEASE SELECT A COURSE ID </span><%
+            }
+        %>
+            
         <!-- SET GET VARIABLES BASED ON THE presetSubjectDB.jsp values -->
         <% if (request.getParameter("insert")!=null){
             if (request.getParameter("insert").equals("false"))
-                {%><span class="text-center alert-danger alert">Error in saving data.</span><%}
+            {%><script>alert("ERROR!! FAILED TO SAVE DATA");</script><%}
             else if (request.getParameter("insert").equals("true"))
-                {%><span class="text-center alert-success success">Data has been successfully saved.</span><%}
+                {%><script>alert("Data has been successfully saved.");</script><%}
             else if (request.getParameter("insert").equals("delete"))
-                {%><span class="text-center alert-warning warning">Data has been succesfully deleted.</span><%}
+                {%><script>alert("Data has been successfully deleted.");</script><%}
             }
         %>
+        
+        <form method="POST" action="presetSubjectView.jsp">
+        <%
+        try{
+            Statement st = connection.createStatement();
+            ResultSet courseRS = st.executeQuery("SELECT * FROM course");
+        %>
+        <select class="form-control text-center" name="COURSEID" onchange="this.form.submit()">
+            <%  String getFormCourseID = ""; 
+                if (request.getParameter("COURSEID")!= null) getFormCourseID = request.getParameter("COURSEID"); 
+                else %><option>Please select a course</option><%
+            %>
+            <% while(courseRS.next()){ %>
+            <option value="<%= courseRS.getString("courseID")%>" <% if(getFormCourseID.equals(courseRS.getString("courseID"))) { %> selected <%}%> ><%= courseRS.getString("courseID") %></option>
+            <%}
+        }catch(Exception e){
+            out.print(e.toString());
+        }
+            
+            %>
+        </select>
+        </form>
+        <%if(request.getParameter("COURSEID")!=null) {%>
         <table class="the-table table-bordered" align="center">
             <thead>
                 <th>No.</th>
                 <th>Subject ID</th>
                 <th>Subject Name</th>
+                <th class="text-center">Semester</th>
                 <th colspan="2">Action</th>
             </thead>
             <tbody>
                 <%  Statement st = connection.createStatement();
-                    ResultSet rs = st.executeQuery("SELECT * FROM subject");
+                    String courseID = request.getParameter("COURSEID");
+                    ResultSet rs = st.executeQuery("SELECT * FROM subject JOIN presetsubjects on subject.subjectID = presetsubjects.subjectID WHERE courseID='"+courseID+"'");
                     int count = 0;
                     while(rs.next()){
                 %>
                 <tr>
                     <td><% out.print(++count);%></td>
-                    <td><% out.print(rs.getString(1));%></td>
-                    <td><% out.print(rs.getString(2));%></td>
-                    <td><button  value="<%= rs.getString(1)+"-"+rs.getString(2) %>" class="btn btn-info" data-toggle="modal" data-target="#myModal" onclick="setValue(this.value)">EDIT</button></td>
-                    <td><button type="submit" name="SUBMITION"  value="<%= rs.getString(1)+" - "+rs.getString(2)%>" class="btn btn-danger" onClick="ConfirmDelete(this.value)" form="myForm">DELETE</button>
+                    <td><% out.print(rs.getString("subjectID"));%></td>
+                    <td><% out.print(rs.getString("subjectName"));%></td>
+                    <td><% out.print(rs.getString("semester"));%></td>
+                    <td><button  value="<%= rs.getString("subjectID")+"-"+rs.getString("subjectName") %>" class="btn btn-info" data-toggle="modal" data-target="#myModal" onclick="setValue(this.value)">EDIT</button></td>
+                    <td><button type="submit" name="SUBMITION"  value="<%= rs.getString("subjectID")+" - "+rs.getString("subjectName")%>" class="btn btn-danger" onClick="ConfirmDelete(this.value)" form="myForm">DELETE</button>
                     </td>
                 </tr>
                 <% }%>
                 <tr>
-                    <td colspan="5"><button class="btn bg-primary" data-toggle="modal" data-target="#newModal" style="width:100%">CREATE NEW SUBJECT</button><br><br>
+                    <td colspan="6"><button class="btn bg-primary" data-toggle="modal" data-target="#newModal" style="width:100%">CREATE NEW SUBJECT</button><br><br>
                 </tr>
             </tbody>
         </table>
+        <%}%>
         
-        <!-- Modal -->
+        <!-- MODAL FOR EDITING COURSE SUBJECTS -->
         <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog">
         <!-- Modal content-->
@@ -72,11 +106,11 @@
               <table class="table-hover table-condensed">
                   <tr>
                     <td align="right"><label> ID : </label></td>
-                    <td><input id="subID" type="text" name="subjectID" disabled/><br></td>
+                    <td><input id="subID" type="text" name="subjectID" readonly/><br></td>
                   </tr>
                   <tr>
                     <td align="right"><label> Name :</label></td>
-                    <td><input id="subName" type="text" name="subjectName" required/></td>
+                    <td><input id="subName" type="text" name="subjectName" autocomplete="off" required/></td>
                   </tr>
               </table>
                     <button name="SUBMITION" type="submit" class="btn btn-success" value="SAVE">Save </button>

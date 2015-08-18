@@ -62,9 +62,9 @@
                                       --%>
                                       <%
                                             try{
-                                                ResultSet rs = st.executeQuery("SELECT courseID FROM courseentry");
+                                                ResultSet rs = st.executeQuery("SELECT courseID FROM course");
                                                 while(rs.next()){
-                                      %> <option value="<%=rs.getString(1)%>"><% out.print(rs.getString(1)); %></option>
+                                      %> <option value="<%=rs.getString("courseID")%>"><% out.print(rs.getString("courseID")); %></option>
                                                 <%}
                                             }catch(Exception e) {
                                                 out.println(e.toString());
@@ -89,7 +89,7 @@
                             </td>
                         </tr>
                     </table>
-                <button type="submit" class="btn waves-effect waves-light" name="action" align="center">Submit
+                <button type="submit" class="btn waves-effect waves-light" name="action" >Submit
                     <i class="material-icons"></i></button>
                 </div>
             </form>

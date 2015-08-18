@@ -21,11 +21,10 @@
                   Statement st = connection.createStatement();
                   String subjectID = request.getParameter("subjectID");
                   String subjectName = request.getParameter("subjectName");
-                  String subjectCount = request.getParameter("subjectCount");
                   ResultSet rs = st.executeQuery("SELECT subjectName FROM subject ");
-                  st.executeUpdate("UPDATE subject SET subjectID='"+subjectID+"',subjectName='"+subjectName+"' WHERE subjectCount='"+subjectCount+"'");
+                  st.executeUpdate("UPDATE subject SET subjectName='"+subjectName+"' WHERE subjectID='"+subjectID+"'");
                   response.sendRedirect("presetSubjectView.jsp?insert=true");
-
+                  
                 }catch(Exception e){
                     out.println(e.toString());
                     //response.sendRedirect("presetSubjectView.jsp?insert=false");

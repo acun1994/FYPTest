@@ -74,11 +74,11 @@
                                             <table class="table-condensed table-hover">
                                                 <tr>
                                                     <td><label>Course ID :</label></td>
-                                                    <td><input id="courseID" type="text" name="courseID" disabled/></td>
+                                                    <td><input id="courseID" type="text" name="courseID" readonly/></td>
                                                 </tr>
                                                 <tr>
                                                     <td><label>Course Name :</label></td>
-                                                    <td><input id="courseName" type="text" name="courseName" /></td>
+                                                    <td><input id="courseName" type="text" name="courseName" autocomplete="off" /></td>
                                             </table>
                                             <button name="SUBMITION" type="submit" class="btn btn-success" value="SAVE">Save </button>
                                             <button class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -104,11 +104,11 @@
                                             <table class="table-condensed table-hover">
                                                 <tr>
                                                     <td><label>Course ID :</label></td>
-                                                    <td><input type="text" name="newCourseID" disabled /></td>
+                                                    <td><input type="text" name="newCourseID" /></td>
                                                 </tr>
                                                 <tr>
                                                     <td><label>Course Name :</label></td>
-                                                    <td><input  type="text" name="newCourseName" required/></td>
+                                                    <td><input  type="text" name="newCourseName" autocomplete="off" required/></td>
                                             </table>
                                             <button name="SUBMITION" type="submit" class="btn btn-success" value="NEW COURSE">Save </button>
                                             <button class="btn btn-default" data-dismiss="modal">Cancel</button>
