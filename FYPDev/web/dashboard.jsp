@@ -14,7 +14,6 @@
         <%@include file="checkLogin.jsp" %>
         <% Connection connection = null; %>
         <%@ include file="dbCon.jsp"%>
-        <%@include file="resources.jsp" %>
         <%@include file="navbar_session.jsp" %>
     
     </head>
@@ -30,7 +29,7 @@
             
         <%@include file="sidebar.jsp" %>
         
-        <div id="page-content-wrapper">
+        <div class="mdl-card-actions" align="center" id="page-content-wrapper">
             
             <h1>Welcome <%= name %> </h1>
             <%
