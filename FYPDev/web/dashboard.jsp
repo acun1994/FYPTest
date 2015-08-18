@@ -21,13 +21,13 @@
 
     <body>
         <div id="wrapper">
-        <%
+    <%
             //Getting attributes from sessions
             String name = session.getAttribute("name").toString();
             String userid = session.getAttribute("userid").toString();
             int usertype = Integer.parseInt(session.getAttribute("usertype").toString());
-        %>
-        
+    %>
+            
         <%@include file="sidebar.jsp" %>
         
         <div id="page-content-wrapper">

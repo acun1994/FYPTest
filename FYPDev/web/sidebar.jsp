@@ -8,25 +8,7 @@
 <%@page import="java.util.ArrayList" %>
 
     <link href="resources/sidebar sources/simple-sidebar.css" rel="stylesheet" type="text/css"/>
-    
-    <!-- Menu Toggle Script -->
-    <script>
-
-    $("#menu-toggle-2").click(function(e) {
-       e.preventDefault();
-       $("#wrapper").toggleClass("toggled");
-       $('#menu ul').hide();
-    });
-    
-    $("#menu-toggle-2").click(function(e) {
-       e.preventDefault();
-       $("#wrapper").toggleClass("toggled-2");
-       $('#menu ul').hide();
-    });
-
-    $(document).ready(function() {initMenu();});
-    </script>
-
+    <script src="Sidebar/toogleSidebar.js" type="text/javascript"></script>
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav nav-pills nav-stacked" id="menu">
@@ -46,8 +28,6 @@
                     }
                    switch(type)
                      {
-                        case 0:
-                        break;
                         case 1:
           %>
                 <li><button id="btnnavbar" class="mdl-button mdl-js-button"><a href="CourseCreation.jsp">Create Course</a></button></li>
@@ -55,7 +35,7 @@
                 <li><button id="btnnavbar" class="mdl-button mdl-js-button"><a href="courseview.jsp">Course View</a></button></li>
           <%            case 3:%>
           <%--For listing all the semYear that the lecturer involved --%>
-                <%@include file="Sidebar_controllers/lecturer_controller.jsp" %>
+                <%@include file="Sidebar/lecturer_controller.jsp" %>
           <%            default:%>
                 <li><button id="btnnavbar" class="mdl-button mdl-js-button"><a href="logout.jsp">Log Out</a></button></li>
           <%
