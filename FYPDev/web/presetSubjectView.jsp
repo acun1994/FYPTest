@@ -62,7 +62,7 @@
             <%if(request.getParameter("COURSEID")!=null && !request.getParameter("COURSEID").equals("")) {%>
         <table class="the-table table-bordered" align="center">
             <thead>
-                <th>No.</th>
+                <th class="mdl-data-table__cell--non-numeric">No.</th>
                 <th>Subject ID</th>
                 <th>Subject Name</th>
                 <th class="text-center">Semester</th>

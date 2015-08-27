@@ -51,7 +51,7 @@ and open the template in the editor.
             }
         </style>
    </head>
-    <body>
+    <body class="mdl-card-actions" align="center">
         <%@include file="resources/image/slider.jsp"%>
         <%@include file="navbar_session.jsp" %>
         <div id="container">

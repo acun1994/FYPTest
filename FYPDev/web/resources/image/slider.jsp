@@ -8,12 +8,14 @@
 <!DOCTYPE html>
 <%@include file="../../resources.jsp" %>
 <style>
-    img{
-        height:10000px;
-    }
-</style>
-
-<div id="image-slider" class="carousel slide" data-ride="carousel">
+  .carousel-inner > .item > img,
+  .carousel-inner > .item > a > img {
+      width: 70%;
+      margin: auto;
+  }
+  </style>
+  <div class="container">
+        <div id="image-slider" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
                 <li data-target="#image-slider" data-slide-to="0" class="active"></li>
                 <li data-target="#image-slider" data-slide-to="1"></li>
@@ -23,18 +25,18 @@
             </ol>
             <div class="carousel-inner" role="listbox">
                 <div class="item active">
-                    <img src="Eid-Mubarak-2013-Background.png" alt="Gambar 2013"/>
+                    <img src="Eid-Mubarak-2013-Background.png" alt="Gambar 2013" width="460" height="345"/>
                 </div>
                 <div class="item">
-                    <img src="Banner-Anugerah-Kualiti-2015.jpg" alt="Anugerah Kualiti 2015"/>
-                </div>
-            
-                <div class="item">
-                    <img src="Program-bazar-ramadan.png" alt="Program Bazar Ramadhan"/>
+                    <img src="Banner-Anugerah-Kualiti-2015.jpg" alt="Anugerah Kualiti 2015" width="460" height="345"/>
                 </div>
             
                 <div class="item">
-                    <img src="RAYANC.png" alt=""/>
+                    <img src="Program-bazar-ramadan.png" alt="Program Bazar Ramadhan" width="460" height="345"/>
+                </div>
+            
+                <div class="item">
+                    <img src="RAYANC.png" alt="" width="460" height="345"/>
                 </div>
             
                 <div class="item">
@@ -51,3 +53,5 @@
                 <span class="sr-only">Next</span>
             </a>
         </div>
+  </div>
+

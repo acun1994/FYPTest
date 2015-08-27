@@ -14,7 +14,6 @@
         <%@include file="checkLogin.jsp" %>
         <% Connection connection = null; %>
         <%@ include file="dbCon.jsp"%>
-        <%@include file="resources.jsp" %>
         <%@include file="navbar_session.jsp" %>
     
     </head>
@@ -30,14 +29,17 @@
             
         <%@include file="sidebar.jsp" %>
         
-        <div id="page-content-wrapper">
+        <div class="mdl-card-actions" align="center" id="page-content-wrapper">
             
             <h1>Welcome <%= name %> </h1>
             <%
-                if(usertype == 3)
-                {
+                if(usertype == 2){ %>
+                <%@include file="Dashboard/KJ_View.jsp" %>
+            <%    
+                }
+                if(usertype == 3){
             %>
-                 <%@include file="dash_coordView.jsp" %>
+                 <%@include file="Dashboard/Coord_View.jsp" %>
             <%
                 }    
             %>     
