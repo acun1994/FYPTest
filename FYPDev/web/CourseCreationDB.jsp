@@ -51,20 +51,7 @@
                 }
                
                 for(String listSubject : sID){
-                  /* ResultSet  rs = st.executeQuery("SELECT courseEntryID FROM courseentry WHERE courseID = '"+cID+"' AND semYear = '"+semesterYear+"'");
-                   rs.next();
-                   int courseEntryID = rs.getInt("courseEntryID");
-
-                   query = "INSERT INTO subject(subjectID, subjectName) VALUES('"+sID[i]+"','"+sN[i]+"')";
-                   st.executeUpdate(query);*/
-                    
-                    valueHolder = sID[i].split("  -  ");
-                    subIDHolder = valueHolder[0];
-                    subNameHolder = valueHolder[1];
-                    
-                    out.println(subNameHolder+subIDHolder);
-                    
-                   query = "INSERT INTO coordinatorlist(subjectID,sectionCount,semYear) VALUES('"+subIDHolder+"','"+Section[i]+"','"+semesterYear+"')";
+                   query = "INSERT INTO coordinatorlist(subjectID,sectionCount,semYear) VALUES('"+listSubject+"','"+Section[i]+"','"+semesterYear+"')";
                    st.execute(query); 
                    i++;  
                 }

@@ -97,7 +97,7 @@
                 </div>
             </div>
 
-            <!-- MODAL FOR CREATION OF NEW COURSE -->
+            <!-- MODAL FOR CREATION OF NEW FILECHANGELOG -->
             <div class="modal fade" id="newModal" role="dialog">
                 <div class="modal-dialog">
                     <!-- Modal content-->

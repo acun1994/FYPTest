@@ -25,116 +25,121 @@
         <div id="wrapper">
         <%@include file="sidebar.jsp" %>
         <div id="page-content-wrapper">
-            <%-- Form for course creation --%>
-            <form role="form" name="form" method="post" action="CourseCreationDB.jsp">
-                <div class="form-group mdl-card-actions" align="center">
-                    <table>
-                        <tr>
-                            <td class="col-md-2">
-                                <label>Year : </label>
-                            </td>
-                            <td class="mdl-textfield mdl-js-textfield textfield-demo">
-                                <input class="mdl-textfield__input" type="text" name="CourseYear" id="courseyear" autocomplete="off" required>
-                                <label class="mdl-textfield__label" for="courseyear">Example 13/14</label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label>Semester :</label>
-                            </td>
-                            <td>
-                                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="sem1">
-                                    <input class="mdl-radio__button" type="radio" name="semester" value="1" id="sem1">1
-                                </label>
-                                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="sem2">
-                                    <input class="mdl-radio__button" type="radio" name="semester" value="2" id="sem2">2 
-                                </label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><label>Course</label></td>
-                            <td>
-                                <div class="input-field col s12" >
-                                    <select name="COURSEID">
-                                      <%-- 
-                                      Course list should be taken from database 
-                                      Value not yet added to the option
-                                      --%>
-                                      <%
-                                            try{
-                                                ResultSet rs = st.executeQuery("SELECT courseID FROM course");
-                                                while(rs.next()){
-                                      %> <option value="<%=rs.getString("courseID")%>"><% out.print(rs.getString("courseID")); %></option>
-                                                <%}
-                                            }catch(Exception e) {
-                                                out.println(e.toString());
-                                            }
-                                      
-                                      %>
+        <%
+            String adminID = "";
+            if (session.getAttribute("userid")!=null){
+                if (checkAccess(session, 1)){
+                    adminID = (session.getAttribute("userid")).toString();
+                }
+            }
+            if (adminID.equals("")){
+                %><div class="alert alert-warning">No request found</div><%
+            }
+            else{%>
+        <%-- Form for course creation --%>
+            <form role="form" class="form-inline" name="thisForm" method="post" action="CourseCreation.jsp">
+                <div class='row'>
+                    <div class='col-lg-offset-4'>
+                        <table id="firstTable">
+                            <tr>
+                                <td width="100px"><label>Year : </label></td>
+                                <td><input class="form-control" type="text" placeholder="Example 13/14" name="courseYear" id="courseyear" autocomplete="off" required></td>
+                            </tr>
+                            <tr>
+                                <td><label>Semester :</label></td>
+                                <td>
+                                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="sem1">
+                                        <input class="mdl-radio__button" type="radio" name="semester" value="1" id="sem1" required>1
+                                    </label>
+                                     <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="sem2">
+                                        <input class="mdl-radio__button" type="radio" name="semester" value="2" id="sem2">2 
+                                    </label>
+                                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="sem3">
+                                        <input class="mdl-radio__button" type="radio" name="semester" value="3" id="sem3">3 
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label>Course</label></td>
+                                <td>
+                                    <select name="COURSEID" required>
+                                        <option value="" >Please select a course</option>
+                                        <%
+                                              try{
+                                                  ResultSet rs = st.executeQuery("SELECT courseID FROM course");
+                                                  while(rs.next()){%> 
+                                                  <option value="<%=rs.getString("courseID")%>"><%=rs.getString("courseID")%></option>
+                                                  <%}
+                                              }catch(Exception e) {
+                                                  out.println(e.toString());
+                                              }
+
+                                        %>
                                     </select>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><label>Subject : </label></td>
-                            <td id="kids">
-                                <%-- See java script for detail --%>
-                                <table>
-                                    <tr>
-                                        <td><input autocomplete="off" type="text" name="subjectID" placeholder="Enter subject ID" list="subjectData" size="60"> &Tab;</td>
-                                        <td align="right"><input autocomplete="off" type="text" name="section" placeholder="Enter number of section"> &thinsp;</td>
-                                        <td><input type="button" value="+" onclick="addKid(this)"></td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                    </table>
-                <button type="submit" class="btn waves-effect waves-light" name="action" >Submit
-                    <i class="material-icons"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" align="center" style="padding-top:10px"><button type="submit" class="btn btn-submit">Submit</button></td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
             </form>
-        </div>
-    </div>
-        <script language="javascript">
-        var i = 0;
-        function addKid()
-        {
-		i++;	
-        	var div = document.createElement('div');
-		
-                                   //Details for subject information
-                                   //Input from admin to be inserted into the database
-        	div.innerHTML = '<input autocomplete="off" type="text" name="subjectID" placeholder="Enter subject name" list="subjectData" size="60">&Tab;\n\
-                                 <input autocomplete="off" type="text" name="section" placeholder="Enter number of section">&thinsp;\n\
-                                 <input type="button" value="+" onclick="addKid(this)">\n\
-                                 <input type="button" value="-" onclick="removeKid(this)">\n\
-                                 <br>';
-        
-                    document.getElementById('kids').appendChild(div);
-                
-         }
 
-        function removeKid(div)
-        {	
-         document.getElementById('kids').removeChild( div.parentNode );
-	i--;
-        }
-        </script>
-        <!-- Remove GET variable when refresh -->
-        <script>    
-        if(typeof window.history.pushState === 'function') {
-            window.history.pushState({}, "Hide", "http://localhost:8080/FYPDev/CourseCreation.jsp");
-        }
-        </script>
-        
-        <!-- DROP DOWN DATA FOR SUBJECT -->
-        <%
-            ResultSet subjectRS = st.executeQuery("SELECT subjectID,subjectName FROM subject");
-        %>
-            <datalist id="subjectData">
-        <%
-            while(subjectRS.next()){
-        %>  <option value="<%=subjectRS.getString(1)+"  -  "+subjectRS.getString(2)%>"><%}%>
-            </datalist>
+            <%if(request.getParameter("COURSEID")!=null){
+                String courseID = request.getParameter("COURSEID");
+                String semester = request.getParameter("semester");
+                String year = request.getParameter("courseYear");
+                ResultSet rs = st.executeQuery("SELECT subjectID FROM presetsubjects WHERE courseID='"+courseID+"' AND semester='"+semester+"'");
+            %>
+            <form name="courseCreationForm" method="POST" action="CourseCreationDB.jsp">
+                <div class='row'>
+                    <div class='col-lg-offset-4'>
+                        <table style="margin-top:30px" class="table-responsive"> 
+                            <thead>
+                                <tr>
+                                    <th>SUBJECT</th>
+                                    <th>NO. OF SECTION</th>
+                                </tr>
+                            </thead>
+                            <%while(rs.next()){%>
+                            <tr>
+                                <td>
+                                    <input autocomplete="off" type="text" name="subjectID" placeholder="Enter subject ID" value="<%=rs.getString("subjectID")%>" readonly></td>
+                                    <td align='center'><input type="number" name="section" min="1" max="5">
+                                </td>
+                            </tr>
+                            <%}%>
+                            <tr>
+                                <td colspan="2" align='center' style="padding-top:10px"><input type='submit' value='SUBMIT' class='btn btn-success'/></td>
+                            </tr>
+                        </table>
+                        <!-- PASS VALUE TO CourseCreationDB.jsp-->
+                        <input type='hidden' value='<%=courseID%>' name='COURSEID'>
+                        <input type='hidden' value='<%=semester%>' name='semester'>
+                        <input type='hidden' value='<%=year%>' name='CourseYear'>
+                    </div>
+                </div>
+            </form>
+            <%}%>
+        <%}%>
+    </div>
+    </div>
+    <!-- Remove GET variable when refresh -->
+    <script>    
+    if(typeof window.history.pushState === 'function') {
+        window.history.pushState({}, "Hide", "http://localhost:8080/FYPDev/CourseCreation.jsp");
+    }
+    </script>
+
+    <!-- DROP DOWN DATA FOR SUBJECT -->
+    <%
+        ResultSet subjectRS = st.executeQuery("SELECT subjectID,subjectName FROM subject");
+    %>
+        <datalist id="subjectData">
+    <%
+        while(subjectRS.next()){
+    %>  <option value="<%=subjectRS.getString(1)+"  -  "+subjectRS.getString(2)%>"><%}%>
+        </datalist>
     </body>
 </html>

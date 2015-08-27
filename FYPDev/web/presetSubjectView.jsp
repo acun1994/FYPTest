@@ -45,9 +45,9 @@
             ResultSet courseRS = st.executeQuery("SELECT * FROM course");
         %>
         <select class="form-control text-center" name="COURSEID" onchange="this.form.submit()">
-            <%  String getFormCourseID = ""; 
+            <option value="">Please select a course</option>
+            <%  String getFormCourseID = "";
                 if (request.getParameter("COURSEID")!= null) getFormCourseID = request.getParameter("COURSEID"); 
-                else %><option>Please select a course</option><%
             %>
             <% while(courseRS.next()){ %>
             <option value="<%= courseRS.getString("courseID")%>" <% if(getFormCourseID.equals(courseRS.getString("courseID"))) { %> selected <%}%> ><%= courseRS.getString("courseID") %></option>
@@ -59,7 +59,7 @@
             %>
         </select>
         </form>
-        <%if(request.getParameter("COURSEID")!=null) {%>
+            <%if(request.getParameter("COURSEID")!=null && !request.getParameter("COURSEID").equals("")) {%>
         <table class="the-table table-bordered" align="center">
             <thead>
                 <th>No.</th>
