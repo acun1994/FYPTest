@@ -11,7 +11,7 @@
                 Calendar now = Calendar.getInstance();
                 int yearNow = now.get(Calendar.YEAR);
                 int monthComp = now.get(Calendar.MONTH);
-                String semYear = null;
+                
             
                 String setYear = Integer.toString(yearNow).substring(2,4);
 

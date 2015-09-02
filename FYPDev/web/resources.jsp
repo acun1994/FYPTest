@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
         <link rel="stylesheet" href="./resources/css/bootstrap.css" type="text/css"/>
         <script src="./resources/js/jquery.js" type="text/javascript"></script>
         <script src="./resources/js/bootstrap.js" type="text/javascript"></script>
@@ -25,5 +26,5 @@
         
         <!--style-->
         <link href="resources/css/style.css" rel="stylesheet" type="text/css"/>
-        
+</head>  
         
