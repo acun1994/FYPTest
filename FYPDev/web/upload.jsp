@@ -11,11 +11,6 @@
 
 
 <%
-    //Prep statement defaults
-        
-%>
-
-<%
    File file ;
    
    int maxFileSize = 20000 * 1024;
@@ -31,15 +26,23 @@
     String semYear="";
     String section = "";
     String lecturerID = "";
-    String[] formData = new String[3];
-    //SemYear = formData[2]
-    //Subject = formData[1]
-    //Section = formData[0]
+    String oriSubject = "";
+    String oriSemYear = "";
+    String oriSection = "";
+    int subSectionID = 0;
     int fileUploadSuccess = 0;
+    
+    //Prep statement defaults
+    String getListIDSQL 
+            = "SELECT listID FROM lectlist "
+            + "JOIN courseentry ON "
+            + "lectlist.courseEntryID = courseentry.courseEntryID WHERE "
+            + "lecturerID = ? AND subjectID = ? AND sectionNo = ? AND semYear = ? ";
+        PreparedStatement getListID = connection.prepareStatement(getListIDSQL);
 
-   // Verify the content type
-   String contentType = request.getContentType();
-   if ((contentType.indexOf("multipart/form-data") >= 0)) {
+    // Verify the content type
+    String contentType = request.getContentType();
+    if ((contentType.indexOf("multipart/form-data") >= 0)) {
 
       DiskFileItemFactory factory = new DiskFileItemFactory();
       // maximum size that will be stored in memory
@@ -109,15 +112,17 @@
                     lecturerID = fi.getString();
                 }
                 else if (fieldName.equals("subject")){
-                    formData[0] = fi.getString();
-                    subject = fi.getString();
+                    oriSubject = subject = fi.getString();
                 }
                 else if (fieldName.equals("section")){
-                    formData[1] = fi.getString();
-                    section = "Section 0" + fi.getString();
+                    oriSection = fi.getString();
+                    section = "Section ";
+                    if (Integer.parseInt(fi.getString())<10)
+                        section+= "0";
+                    section += fi.getString();
                 }
                 else if (fieldName.equals("semYear")){
-                    formData[2] = fi.getString();
+                    oriSemYear = fi.getString();
                     String[] semYearArr = fi.getString().split("-");
                     String[] semYearArr2 = semYearArr[1].split("/");
                     
@@ -135,6 +140,11 @@
                     }
                 }
             }
+         //Updating DB Statements
+            getListID.setString(1, lecturerID);
+            getListID.setString(2, subject);
+            //To Do -- Finish up DB SQL stuff
+         
          }
          out.println("</body>");
          out.println("</html>");
@@ -145,5 +155,5 @@
       // Failed to upload file
    }
    
-   response.sendRedirect("./integrated_subjectFile.jsp?semYear="+formData[2]+"&class="+formData[0] + "-"+ formData[1]+"&success="+ fileUploadSuccess);
+   response.sendRedirect("./integrated_subjectFile.jsp?semYear="+oriSemYear+"&class="+oriSubject + "-"+ oriSection+"&success="+ fileUploadSuccess);
 %>
