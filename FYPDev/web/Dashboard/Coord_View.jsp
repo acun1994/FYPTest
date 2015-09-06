@@ -10,6 +10,9 @@
     try {
          getCourseEntryID = connection.prepareStatement("select * from courseentry where semYear=?");
          getCoordinating = connection.prepareStatement("select * from coordinatorlist where coordinatorID=? and semYear=?");
+         
+         getCoordinating.setString(1, userid);
+
 %>
 <%@include file="..\getDate.jsp" %>
 <%    

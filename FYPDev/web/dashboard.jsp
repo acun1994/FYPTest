@@ -25,13 +25,12 @@
                 String userid = session.getAttribute("userid").toString();
                 int usertype = Integer.parseInt(session.getAttribute("usertype").toString());
 
-                PreparedStatement getCoordinating = connection.prepareStatement("select * from coordinatorlist where coordinatorID=? and semYear=?");
+                PreparedStatement getCoordinating = connection.prepareStatement("");
                 PreparedStatement getTeaching = connection.prepareStatement("select * from lectlist where lecturerid=? and courseEntryID=?");
                 PreparedStatement getSubjectName = connection.prepareStatement("select * from subject where subjectid=?");
                 PreparedStatement getUserInfo = connection.prepareStatement("select * from userinfo where userid=?");
                 PreparedStatement getCourseEntryID = connection.prepareStatement("");
 
-                getCoordinating.setString(1, userid);
                 getTeaching.setString(1, userid);
                 getUserInfo.setString(1, userid);
                 
