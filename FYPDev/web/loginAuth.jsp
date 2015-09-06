@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file="passwordEncryption.jsp" %>
 <!DOCTYPE html>
 <html>
     <body>
@@ -16,12 +17,12 @@
             try{
                 String username = request.getParameter("login_username");
                 String password = request.getParameter("login_password");
-                
+                String hashedPassword = hashPassword(password);
                 
                 PreparedStatement theStatement = null;
                 theStatement = connection.prepareStatement("SELECT * from userinfo where userName=? AND password=?");
                 theStatement.setString(1,username);
-                theStatement.setString(2,password);
+                theStatement.setString(2,hashedPassword);
                 
                 ResultSet theResult = theStatement.executeQuery();
                 

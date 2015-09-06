@@ -9,9 +9,10 @@
 <%//Listing all coordinating subject for the semYear
     try {
          getCourseEntryID = connection.prepareStatement("select * from courseentry where semYear=?");
+         getCoordinating = connection.prepareStatement("select * from coordinatorlist where coordinatorID=? and semYear=?");
 %>
 <%@include file="..\getDate.jsp" %>
-<%
+<%    
     ResultSet courseEntryID = getCourseEntryID.executeQuery();
     ResultSet Coordinating = getCoordinating.executeQuery();
 
