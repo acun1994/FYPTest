@@ -11,7 +11,7 @@
         ResultSet userInfo = getUserInfo.executeQuery();
         
          getCourseEntryID = connection.prepareStatement("select * from courseentry where semYear=? and courseID like ?");
-         getCoordinating = connection.prepareStatement("select * from coodinatorlist where semYear=? and courseEntryID=?");
+         getCoordinating = connection.prepareStatement("select * from coordinatorlist where semYear=? and courseEntryID=?");
 %>
 <%@include file="..\getDate.jsp" %> 
 <%
@@ -37,7 +37,10 @@
         <label> <%= courseEntryID.getString("courseID")%></label>
         <% 
             getCoordinating.setString(2,courseEntryID.getString("courseEntryID")); 
+            ResultSet coordinating = getCoordinating.executeQuery();
             
+            getSubjectName.setString(1,coordinating.getString("subjectid"));
+            ResultSet subjectName = getSubjectName.executeQuery();
         %>
         <table>
             <tr>
@@ -46,9 +49,22 @@
                 <th>Status</th>
                 <th>View</th>
             </tr>
+        <%
+            while(coordinating.next())
+            {
+        %>
             <tr>
-
+                <td><%= coordinating.getString("subjectid") %></td>
+                <td>
+        <%          if(subjectName.next()){
+                        out.println(subjectName.getString("subjectName"));
+                    }
+        %>
+                </td>
+                <td></td>
+                <td></td>
             </tr>
+        <%  }  %>
         </table>
 <%      }
 
