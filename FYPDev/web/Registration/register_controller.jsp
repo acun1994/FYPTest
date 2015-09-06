@@ -10,27 +10,31 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <%@include file="../resources.jsp" %>
-        <script src="../resources/js/gen_validatorv4.js" type="text/javascript"></script>
+        
     </head>
     <body>
        
-        <form id="reg_form" action="Registration/registerDB.jsp" method="post">
+        <form id="regForm" action="Registration/registerDB.jsp" method="post">
             <table>
                 <tr>
                     <td>User ID :</td>
-                    <td><input id="reg_userID" name="reg_userID" type="text"> </td>
+                    <td><input id="regUserID" name="regUserID" type="text"> </td>
+                    <td><div id="regForm_regUserID_errorloc"></div></td>
                 </tr>
                 <tr>
                     <td>Username :</td>
-                    <td><input id="reg_username" name="reg_username" type="text"> </td>
+                    <td><input id="regUsername" name="regUsername" type="text"> </td>
+                    <td><div id="regForm_regUsername_errorloc"></div></td>
                 </tr>
                 <tr>
                     <td>Password :</td>
-                    <td><input id="reg_password1" name="reg_password1" type="password"> </td>
+                    <td><input id="regPassword1" name="regPassword1" type="password"> </td>
+                    <td><div id="regForm_regPassword1_errorloc"></div></td>
                 </tr>
                 <tr>
                     <td>Re-enter Password :</td>
-                    <td><input id="reg_password2" name="reg_password2" type="password"> </td>
+                    <td><input id="regPassword2" name="regPassword2" type="password"> </td>
+                    <td><div id="regForm_regPassword2_errorloc"></div></td>
                 </tr>
                 <tr>
                     <td>User Type :</td>
@@ -44,11 +48,13 @@
                 </tr>
                 <tr>
                     <td>Department :</td>
-                    <td><input type="text" id="reg_jabatan" name="reg_jabatan"></td>
+                    <td><input type="text" id="regJabatan" name="regJabatan"></td>
+                    <td><div id="regForm_regJabatan_errorloc"></div></td>
                 </tr>
                 <tr>
                     <td>Name :</td>
-                    <td><input type="text" id="reg_name" name="reg_name"></td>
+                    <td><input type="text" id="regName" name="regName"></td>
+                    <td><div id="regForm_regName_errorloc"></div></td>
                 </tr>
                 <tr>
                     <td colspan="2" align="center"><button type="submit">Register</button></td>
@@ -56,25 +62,28 @@
             </table>
         </form>
         <script type="text/javascript">
-            var validator = new Validator("reg_form");
+            var validator = new Validator("regForm");
             
-            validator.addValidation("reg_username","req","Username is required");
-            validator.addValidation("reg_username","alphanumeric","Username should contain alphanumeric(A-Z,0-9) characters only");
+            validator.addValidation("regUserID","req","User ID is required");
+            validator.addValidation("regUserID","alphanumeric","User ID should contain alphanumeric(A-Z,0-9) characters only");
             
-            validator.addValidation("reg_password1","req","Passsword is required");
-            validator.addValidation("reg_password1","maxlen = 18","Password should be within 6 to 18 character");
-            validator.addValidation("reg_password1","minlen = 6","Password should be within 6 to 18 character");
-            validator.addValidation("reg_password1","alphanumeric","Password should contain alphanumeric(A-Z,0-9) characters only");
+            validator.addValidation("regUsername","req","Username is required");
+            validator.addValidation("regUsername","alphanumeric","Username should contain alphanumeric(A-Z,0-9) characters only");
+            
+            validator.addValidation("regPassword1","req","Passsword is required");
+            validator.addValidation("regPassword1","maxlen = 18","Password should be within 6 to 18 character");
+            validator.addValidation("regPassword1","minlen = 6","Password should be within 6 to 18 character");
+            validator.addValidation("regPassword1","alphanumeric","Password should contain alphanumeric(A-Z,0-9) characters only");
 
-            validator.addValidation("reg_password2","eqelmnt=reg_password1","The entered password does not match");
+            validator.addValidation("regPassword2","eqelmnt=reg_password1","The entered password does not match");
     
-            validator.addValidation("reg_jabatan","req","Department is required");
-            validator.addValidation("reg_jabatan","alphabetic","Department should contain alphbetical(A-Z) characters only");
+            validator.addValidation("regJabatan","req","Department is required");
+            validator.addValidation("regJabatan","alphabetic","Department should contain alphbetical(A-Z) characters only");
             
-            validator.addValidation("reg_name","req","Name is required");
-            validator.addValidation("reg_name","alphabetic","Name should contain alphbetical(A-Z) characters only");
+            validator.addValidation("regName","req","Name is required");
+            validator.addValidation("regName","alphabetic","Name should contain alphbetical(A-Z) characters only");
             
+            validator.EnableOnPageErrorDisplay();
         </script>
-        
     </body>
 </html>
