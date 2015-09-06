@@ -378,20 +378,23 @@ componentHandler.register({
             </table>
         </form>
         <script type="text/javascript">
-            var validator = new Validator("reg_form");
+            var validator = new Validator("regForm");
             
-            validator.addValidation("reg_username","req","Username is required");
-            validator.addValidation("reg_username","alphanumeric","Username should contain alphanumeric(A-Z,0-9) characters only");
+            validator.addValidation("regUserID","req","User ID is required");
+            validator.addValidation("regUserID","alphanumeric","User ID should contain alphanumeric(A-Z,0-9) characters only");
             
-            validator.addValidation("reg_password1","req","Passsword is required");
-            validator.addValidation("reg_password1","maxlen = 18","Password should be within 6 to 18 character");
-            validator.addValidation("reg_password1","minlen = 6","Password should be within 6 to 18 character");
-            validator.addValidation("reg_password1","alphanumeric","Password should contain alphanumeric(A-Z,0-9) characters only");
+            validator.addValidation("regUsername","req","Username is required");
+            validator.addValidation("regUsername","alphanumeric","Username should contain alphanumeric(A-Z,0-9) characters only");
+            
+            validator.addValidation("regPassword1","req","Passsword is required");
+            validator.addValidation("regPassword1","maxlen = 18","Password should be within 6 to 18 character");
+            validator.addValidation("regPassword1","minlen = 6","Password should be within 6 to 18 character");
+            validator.addValidation("regPassword1","alphanumeric","Password should contain alphanumeric(A-Z,0-9) characters only");
 
-            validator.addValidation("reg_password2","eqelmnt=reg_password1","The entered password does not match");
+            validator.addValidation("regPassword2","eqelmnt=reg_password1","The entered password does not match");
     
-            validator.addValidation("reg_jabatan","req","Department is required");
-            validator.addValidation("reg_jabatan","alphabetic","Department should contain alphbetical(A-Z) characters only");
+            validator.addValidation("regJabatan","req","Department is required");
+            validator.addValidation("regJabatan","alphabetic","Department should contain alphbetical(A-Z) characters only");
             
             validator.addValidation("reg_name","req","Name is required");
             validator.addValidation("reg_name","alphabetic","Name should contain alphbetical(A-Z) characters only");

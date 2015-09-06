@@ -26,5 +26,6 @@
         
         <!--style-->
         <link href="resources/css/style.css" rel="stylesheet" type="text/css"/>
+        <script src="resources/js/gen_validatorv4.js" type="text/javascript"></script>
 </head>  
         

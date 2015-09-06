@@ -17,12 +17,12 @@
     </head>
     <body>
         <% 
-            String userid = request.getParameter("reg_userID");
-            String username = request.getParameter("reg_username");
-            String password = request.getParameter("reg_password2");
-            int usertype = Integer.parseInt(request.getParameter("reg_usertype"));
-            String jabatan = request.getParameter("reg_jabatan");
-            String name = request.getParameter("reg_name");
+            String userid = request.getParameter("regUserID");
+            String username = request.getParameter("regUsername");
+            String password = request.getParameter("regPassword2");
+            int usertype = Integer.parseInt(request.getParameter("regUsertype"));
+            String jabatan = request.getParameter("regJabatan");
+            String name = request.getParameter("regName");
                     
             String hashedPassword = hashPassword(password);
            
