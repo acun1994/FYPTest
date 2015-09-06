@@ -80,8 +80,11 @@
                     if (request.getParameter("subject")!= null && !request.getParameter("subject").equals("")){
                         subject = request.getParameter("subject");
                     }
-                    else{
+                    else if (request.getParameter("class") == null) {
                         response.sendRedirect("./");
+                    }
+                    else{
+                        subject = request.getParameter("class").split("-")[0];
                     }
                 }
             }
@@ -147,7 +150,7 @@
                 <form class="form text-center" action="./integrated_subjectFile.jsp" method="POST">
                     <% // So that form remembers lectID %>
                     <input hidden name="lecturerID" value= <%= quote(lecturerID) %> >
-                    <select class="form-control text-center" name = "semYear" onchange="this.form.submit()">
+                    <select <% if (isAdmin) {%> disabled <% }%>class="form-control text-center" name = "semYear" onchange="this.form.submit()">
                     <option disabled <% if (curSemYear == ""){ %>selected<% } %>>-- Semester --</option>
                     <% while (semYearRS.next()) {
                         %>
