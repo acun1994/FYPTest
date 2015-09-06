@@ -43,7 +43,7 @@
                 <td>
                 <form>
                     <%-- Select for Course selection --%>
-                    <select id="course" onchange="showSem(this.value,document.getElementById('yearValue').valueOf())"><%-- options are from database --%>
+                    <select id="course" onchange="showSem(this.value,document.getElementById('year').value)"><%-- options are from database --%>
                         <option value="#">Please Select Year First</option>
                     </select>
                 </form>
@@ -122,10 +122,8 @@
                         <th class="text-center">Status</th>
                         <th class="text-center">View</th>
                         </tr>
-                        <tr>   
                 <%
-                         while(subjectID.next())
-                         { 
+                         while(subjectID.next()){ 
                              //Prepared statement for subject name & coordinator name
                              PreparedStatement getSubjectName = connection.prepareStatement("select subjectname from subject where subjectid=?");
                              PreparedStatement getCoordinatorName = connection.prepareStatement("select * from userinfo where userid=?");
@@ -138,6 +136,7 @@
                              ResultSet subjectName = getSubjectName.executeQuery();
                              ResultSet coordinatorName = getCoordinatorName.executeQuery();
                 %>
+                           <tr>   
                            <%-- Row Number Table Column --%>
                            <td class="text-center" style="padding:10px"> <%= i %> </td>
                            
@@ -173,7 +172,8 @@
                                    <button class="glyphicon glyphicon-search btn btn-submit"  type="submit" >
                                             </button>
                                </form>
-                           </td>         
+                           </td>
+                           </tr>
                 <%
                          i++;
                          }//endWhile 
@@ -181,6 +181,6 @@
                 %>
                   
 
-                </tr>
+                
             </table>
         </div>

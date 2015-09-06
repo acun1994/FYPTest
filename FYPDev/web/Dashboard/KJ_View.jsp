@@ -33,15 +33,11 @@
 <br><br>
 <% while (courseEntryID.next())
         {
+        getCoordinating.setString(2,courseEntryID.getString("courseEntryID"));
+        ResultSet Coordinating = getCoordinating.executeQuery();
 %>
         <label> <%= courseEntryID.getString("courseID")%></label>
-        <% 
-            getCoordinating.setString(2,courseEntryID.getString("courseEntryID")); 
-            ResultSet coordinating = getCoordinating.executeQuery();
-            
-            getSubjectName.setString(1,coordinating.getString("subjectid"));
-            ResultSet subjectName = getSubjectName.executeQuery();
-        %>
+        
         <table>
             <tr>
                 <th>Subject ID</th>
@@ -50,21 +46,25 @@
                 <th>View</th>
             </tr>
         <%
-            while(coordinating.next())
+            while(Coordinating.next())
             {
+                getSubjectName.setString(1,Coordinating.getString("subjectID"));
+                ResultSet subjectName = getSubjectName.executeQuery();
         %>
             <tr>
-                <td><%= coordinating.getString("subjectid") %></td>
+                <td><%= Coordinating.getString("subjectID") %></td>
                 <td>
-        <%          if(subjectName.next()){
-                        out.println(subjectName.getString("subjectName"));
-                    }
-        %>
+                    <% if(subjectName.next()){
+                        out.println(subjectName.getString("subjectName"));}
+                    %>
                 </td>
-                <td></td>
-                <td></td>
+                <td><%= Coordinating.getString("status")%></td>
+                <td>
+                    
+                </td>
             </tr>
-        <%  }  %>
+        <%  }
+        %>
         </table>
 <%      }
 

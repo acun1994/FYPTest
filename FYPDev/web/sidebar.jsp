@@ -37,6 +37,7 @@
                 <li><button class="mdl-button mdl-js-button"><a href="presetCourseView.jsp">Introduce New Course</a></button></li>
             </ul>
         </li>
+        <li><button id="btnnavbar" class="mdl-button mdl-js-button"><a href="Lecturer Selection.jsp">Assign Lecturer</a></button></li>
         <%            case 2:%>
         <li><button id="btnnavbar" class="mdl-button mdl-js-button"><a href="courseview.jsp">Course View</a></button></li>
                 <% if(type > 1){%>

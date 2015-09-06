@@ -13,11 +13,8 @@
 <%@ include file="dbCon.jsp"%>
 
 <% 
-    //String course =request.getParameter("course");
-    //String year =request.getParameter("year");
-
-    String year = "14/15";
-    String course = "1SCSJ";
+    String course =request.getParameter("course");
+    String year =request.getParameter("year");
 
     PreparedStatement getCourse = connection.prepareStatement("select * from courseEntry where courseID like ? and semYear like ?");
         getCourse.setString(1, course);
