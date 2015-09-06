@@ -50,8 +50,8 @@
 
     <body>
         <%        
-            String lecturerID ="";
-            String lecturerName;
+            String lecturerID = "";
+            String lecturerName = "";
             ResultSet fileListRS = null;
             String section = "";
             String subject = "";
@@ -75,28 +75,26 @@
                     if (request.getParameter("subject")!= null && !request.getParameter("subject").equals("")){
                         subject = request.getParameter("subject");
                     }
+                    else{
+                        response.sendRedirect("./");
+                    }
                 }
             }
             //Error Case
             else{
-                response.sendRedirect("/");
+                response.sendRedirect("./");
             }
-            
-            if (lecturerID.equals("")){
-                %><div class="alert alert-warning">No request found</div><%
-            }
-            else{
-            
-            String getLectNameSQL = "SELECT userName FROM userinfo WHERE userID = ?";
-                PreparedStatement getLectName = connection.prepareStatement(getLectNameSQL);
-                    getLectName.setString(1, lecturerID);
-                ResultSet lectNameRS = getLectName.executeQuery();
-                    lectNameRS.next();
-                lecturerName = lectNameRS.getString("userName");
             
             String getClassesSQL = "";
             PreparedStatement getClasses = null;
                 if (!isAdmin) {
+                    String getLectNameSQL = "SELECT userName FROM userinfo WHERE userID = ?";
+                        PreparedStatement getLectName = connection.prepareStatement(getLectNameSQL);
+                            getLectName.setString(1, lecturerID);
+                        ResultSet lectNameRS = getLectName.executeQuery();
+                            lectNameRS.next();
+                        lecturerName = lectNameRS.getString("userName");
+
                     getClassesSQL = "SELECT DISTINCT listID, subjectID, sectionNo FROM lectlist JOIN courseentry ON lectlist.courseEntryID=courseentry.courseEntryID WHERE lecturerID = ? AND semYear = ?";
                     getClasses = connection.prepareStatement(getClassesSQL);
                     getClasses.setString(1, lecturerID);
@@ -104,6 +102,7 @@
                 }
                 else{
                     getClassesSQL = "SELECT DISTINCT listID, subjectID, sectionNo FROM lectlist JOIN courseentry ON lectlist.courseEntryID=courseentry.courseEntryID WHERE subjectID = ? AND semYear = ?";
+                    getClasses = connection.prepareStatement(getClassesSQL);
                     getClasses.setString(1, subject);
                     getClasses.setString(2, curSemYear);
                 }
@@ -132,15 +131,17 @@
             }
         %>
         
+        <% if (!isAdmin) {%>
         <div class="text-center">
             <label> Lecturer :  </label> <%= lecturerID %> - <%= lecturerName %> <br/>
         </div>
+        <% } %>
         
         <div class="row">
             <div class="col-sm-2 col-sm-offset-4">
                 <form class="form text-center" action="./integrated_subjectFile.jsp" method="POST">
                     <% // So that form remembers lectID %>
-                    <input hidden name="lecturerID" value=<%= quote(lecturerID) %>></input>
+                    <input hidden name="lecturerID" value= <%= quote(lecturerID) %> >
                     <select class="form-control text-center" name = "semYear" onchange="this.form.submit()">
                     <option disabled <% if (curSemYear == ""){ %>selected<% } %>>-- Semester --</option>
                     <% while (semYearRS.next()) {
@@ -169,7 +170,7 @@
         <div class="col-sm-12">&nbsp;</div><%-- Force an offset --%>
 
         <div class="row">
-            <div class="col-sm-5 col-sm-offset-1">
+            <div class=" <% if (!isAdmin) {%> col-sm-5 col-sm-offset-1 <%} else {%> col-sm-6 col-sm-offset-3 <%} ;%> ">
                 <% if (fileListRS!=null && fileListRS.next()){ fileListRS.beforeFirst(); %>
                     <table class="table-bordered table text-center">
                         <thead>
@@ -199,6 +200,7 @@
                 <%} %>
             </div>
 
+            <% if (!isAdmin) { %>
             <div class="text-center col-sm-5">
 
                 <% if (request.getParameter("success")!=null){ %>
@@ -224,7 +226,7 @@
                     <input class = "btn btn-success" type="submit" value="Upload File(s)" />
                 </form>
             </div>
+            <% } %>
         </div>
-        <% } %>
     </body>
 </html>

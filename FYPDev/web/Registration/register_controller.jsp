@@ -315,7 +315,7 @@ componentHandler.register({
                 <tr>
                     <td>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" type="text" id="regUserID" name="regUserID">
+                        <input class="mdl-textfield__input" type="text" id="reg_userID" name="reg_userID">
                         <label class="mdl-textfield__label" for="sample1">UserID</label>
                         </div>
                     </td>
@@ -323,57 +323,57 @@ componentHandler.register({
                 <tr>
                     <td>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" id="regUsername" name="regUsername" type="text">
-                            <label class="mdl-textfield__label" for="regUsername">Username</label>
+                            <input class="mdl-textfield__input" id="reg_username" name="reg_username" type="text">
+                            <label class="mdl-textfield__label" for="reg_username">Username</label>
                         </div>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfiled--floating-label">
-                            <input class="mdl-textfield__input" id="regPassword1" name="regPassword1" type="password">
-                            <label class="mdl-textfield__label" for="regPassword1">Password</label>
+                            <input class="mdl-textfield__input" id="reg_password1" name="reg_password1" type="password">
+                            <label class="mdl-textfield__label" for="reg_password1">Password</label>
                         </div>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" id="regPassword2" name="regPassword2" type="password">
-                            <label class="mdl-textfield__label" for="regPassword2">Re-enter Password</label>
+                            <input class="mdl-textfield__input" id="reg_password2" name="reg_password2" type="password">
+                            <label class="mdl-textfield__label" for="reg_password2">Re-enter Password</label>
                         </div>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <div class="mdl-select mdl-js-select mdl-select--floating-label">
-                            <select class="mdl-select__input" id="regUsertype" name="regUsertype">
+                            <select class="mdl-select__input" id="reg_usertype" name="reg_usertype">
                                 <option value="1">Admin</option>
                                 <option value="2">Pentadbir/Ketua Jabatan</option>
                                 <option value="3">Pensyarah</option>
                             </select>
-                            <label class="mdl-select__label" for="regUsertype">User Type</label>
+                            <label class="mdl-select__label" for="reg_usertype">User Type</label>
                         </div>
                     </td>
                 </tr>
                 <tr>
                             <td>
                                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                    <input class="mdl-textfield__input" type="text" id="regJabatan" name="regJabatan">
-                                    <label class="mdl-textfield__label" for="regJabatan">Department</label>
+                                    <input class="mdl-textfield__input" type="text" id="reg_jabatan" name="reg_jabatan">
+                                    <label class="mdl-textfield__label" for="reg_jabatan">Department</label>
                                 </div>
                             </td>
                 </tr>
                 <tr>
                             <td>
                                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                    <input class="mdl-textfield__input" type="text" id="regName" name="regName">
-                                    <label class="mdl-textfield__label" for="regName">Name</label>
+                                    <input class="mdl-textfield__input" type="text" id="reg_name" name="reg_name">
+                                    <label class="mdl-textfield__label" for="reg_name">Name</label>
                                 </div>
                             </td>
                 </tr>
                 <tr>
-                    <td colspan="2" align="center"><button class="mdl-button mdl-js-button mdl-js-ripple-effect" type="submit">Register</button></td>
+                    <td colspan="2" align="center"><button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color--blue" type="submit">Register</button></td>
                 </tr>
             </table>
         </form>
@@ -391,13 +391,13 @@ componentHandler.register({
             validator.addValidation("regPassword1","minlen = 6","Password should be within 6 to 18 character");
             validator.addValidation("regPassword1","alphanumeric","Password should contain alphanumeric(A-Z,0-9) characters only");
 
-            validator.addValidation("regPassword2","eqelmnt=regPassword1","The entered password does not match");
+            validator.addValidation("regPassword2","eqelmnt=reg_password1","The entered password does not match");
     
             validator.addValidation("regJabatan","req","Department is required");
             validator.addValidation("regJabatan","alphabetic","Department should contain alphbetical(A-Z) characters only");
             
-            validator.addValidation("regName","req","Name is required");
-            validator.addValidation("regName","alphabetic","Name should contain alphbetical(A-Z) characters only");
+            validator.addValidation("reg_name","req","Name is required");
+            validator.addValidation("reg_name","alphabetic","Name should contain alphbetical(A-Z) characters only");
             </script>
     </body>
 </html>
