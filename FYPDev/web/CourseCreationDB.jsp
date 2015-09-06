@@ -24,21 +24,17 @@
                 sID = request.getParameterValues("subjectID");
                 Section = request.getParameterValues("section");
                 
-                String[] valueHolder = null;
-                String subNameHolder = null;
-                String subIDHolder = null;
                 String sM = request.getParameter("semester");
                 String cID = request.getParameter("COURSEID");
                 String courseYear = request.getParameter("CourseYear");
                 String semesterYear = sM + "-" + courseYear;
-                //String userID = (String)session.getAttribute("userid");
                 int i = 0,q = 0;
   
                 Statement st = connection.createStatement();
                 String query = null;
                 
                 
-                String checkDuplicate = "SELECT courseID,semYear FROM courseentry WHERE courseID='"+cID+"' AND semYear='"+semesterYear+"' ";
+                String checkDuplicate = "SELECT courseID,semYear FROM courseentry WHERE courseID='"+cID+"' AND semYear='"+semesterYear+"'";
                 ResultSet duplicateProof = st.executeQuery(checkDuplicate);
                 
                 if(duplicateProof.next()){
@@ -46,12 +42,16 @@
                 }
                 
                 if(q==0){
-                    query = "INSERT INTO courseentry(courseID,semYear) VALUES('"+cID+"','"+semesterYear+"')";
-                    st.executeUpdate(query);
+                    st.executeUpdate("INSERT INTO courseentry(courseID,semYear) VALUES('"+cID+"','"+semesterYear+"')");
                 }
-               
+                
+                ResultSet courseEntryID_RS = st.executeQuery("SELECT courseEntryID FROM courseentry WHERE courseID='"+cID+"' AND semYear='"+semesterYear+"'");
+                courseEntryID_RS.next();     //Get courseEntryID for this course addition
+                String courseEntryID = courseEntryID_RS.getString(1);
+                
                 for(String listSubject : sID){
-                   query = "INSERT INTO coordinatorlist(subjectID,sectionCount,semYear) VALUES('"+listSubject+"','"+Section[i]+"','"+semesterYear+"')";
+                   query = "INSERT INTO coordinatorlist(subjectID,sectionCount,semYear,courseEntryID) "
+                           + "VALUES('"+listSubject+"','"+Section[i]+"','"+semesterYear+"','"+courseEntryID+"')";
                    st.execute(query); 
                    i++;  
                 }

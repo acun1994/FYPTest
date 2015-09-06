@@ -29,17 +29,14 @@ CREATE TABLE `coordinatorlist` (
   `sectionCount` varchar(45) NOT NULL,
   `coordinatorID` varchar(45) DEFAULT NULL,
   `status` varchar(45) NOT NULL DEFAULT 'Incomplete',
-  `courseEntryID` int(11) NOT NULL,
   PRIMARY KEY (`listID`),
   UNIQUE KEY `listID_UNIQUE` (`listID`),
   KEY `coorList_subID_idx` (`subjectID`),
   KEY `coorList_coorID_idx` (`coordinatorID`),
   KEY `coorList_entryID` (`semYear`),
-  KEY `coorList_courseEntryID_idx` (`courseEntryID`),
   CONSTRAINT `coorList_coorID` FOREIGN KEY (`coordinatorID`) REFERENCES `userinfo` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `coorList_courseEntryID` FOREIGN KEY (`courseEntryID`) REFERENCES `courseentry` (`courseEntryID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `coorList_subID` FOREIGN KEY (`subjectID`) REFERENCES `subject` (`subjectID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -48,7 +45,7 @@ CREATE TABLE `coordinatorlist` (
 
 LOCK TABLES `coordinatorlist` WRITE;
 /*!40000 ALTER TABLE `coordinatorlist` DISABLE KEYS */;
-INSERT INTO `coordinatorlist` VALUES (1,'1-13/14','SCSD1513','2',NULL,'PENDING',19),(2,'1-13/14','SCSI1013','3',NULL,'Incomplete',19),(3,'1-13/14','SCSJ1013','2',NULL,'Incomplete',19),(4,'1-13/14','SCSR1013','3',NULL,'Incomplete',19),(5,'1-13/14','UHAS1162','2',NULL,'Incomplete',19),(6,'1-13/14','UHAS1172','3',NULL,'Incomplete',19),(7,'1-13/14','ULAB1122','2',NULL,'Incomplete',19);
+INSERT INTO `coordinatorlist` VALUES (9,'1-13/14','SCSD1513','4','ID06','Incomplete'),(10,'1-13/14','SCSI1013','4',NULL,'Incomplete'),(11,'1-13/14','SCSJ1013','4',NULL,'Incomplete'),(12,'1-13/14','SCSR1013','4',NULL,'Incomplete'),(13,'1-13/14','UHAS1162','4',NULL,'Incomplete'),(14,'1-13/14','ULAB1122','4',NULL,'Incomplete'),(16,'2-12/13','SCSI1113','4',NULL,'Incomplete'),(17,'2-12/13','SCSJ1023','4',NULL,'Incomplete'),(18,'2-12/13','SCSR1213','4',NULL,'Incomplete'),(19,'2-12/13','SCSV1223','4',NULL,'Incomplete'),(20,'2-12/13','SQB1143','4',NULL,'Incomplete'),(21,'2-12/13','UICI1012','4',NULL,'Incomplete'),(22,'2-12/13','UKQXxxx1','2',NULL,'Incomplete'),(23,'2-12/13','ULAM2112','2',NULL,'Incomplete');
 /*!40000 ALTER TABLE `coordinatorlist` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -91,7 +88,7 @@ CREATE TABLE `courseentry` (
   UNIQUE KEY `courseentry` (`courseID`,`semYear`),
   KEY `courseEntry_courseID_idx` (`courseID`),
   CONSTRAINT `courseEntry_courseID` FOREIGN KEY (`courseID`) REFERENCES `course` (`courseID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -100,7 +97,7 @@ CREATE TABLE `courseentry` (
 
 LOCK TABLES `courseentry` WRITE;
 /*!40000 ALTER TABLE `courseentry` DISABLE KEYS */;
-INSERT INTO `courseentry` VALUES (19,'1SCSB','1-13/14');
+INSERT INTO `courseentry` VALUES (15,'1SCSB','1-13/14'),(17,'1SCSB','2-12/13'),(5,'1SCSJ','1-13/14'),(1,'1SCSJ','1-14/15'),(7,'1SCSJ','1-15/16'),(2,'1SCSV','1-14/15'),(11,'1SCSV','2-14/15'),(3,'2SCSJ','1-14/15'),(4,'2SCSV','1-14/15'),(16,'4SCSJ','1-15/16');
 /*!40000 ALTER TABLE `courseentry` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -156,7 +153,7 @@ CREATE TABLE `lectlist` (
   CONSTRAINT `lectList_courseID` FOREIGN KEY (`courseEntryID`) REFERENCES `courseentry` (`courseEntryID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `lectList_lectID` FOREIGN KEY (`lecturerID`) REFERENCES `userinfo` (`userID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `lectList_subID` FOREIGN KEY (`subjectID`) REFERENCES `subject` (`subjectID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -165,7 +162,7 @@ CREATE TABLE `lectlist` (
 
 LOCK TABLES `lectlist` WRITE;
 /*!40000 ALTER TABLE `lectlist` DISABLE KEYS */;
-INSERT INTO `lectlist` VALUES (24,19,'ID02','SCSD1513','1','Pending'),(25,19,'ID03','SCSD1513','2','Pending');
+INSERT INTO `lectlist` VALUES (2,15,'ID02','SCSD1513','1','Pending'),(3,15,'ID03','SCSD1513','2','Pending'),(4,15,'ID04','SCSD1513','3','Pending'),(5,15,'ID01','SCSD1513','0','Pending'),(6,15,'ID02','SCSD1513','1','Pending');
 /*!40000 ALTER TABLE `lectlist` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -288,4 +285,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-09-06 16:37:10
+-- Dump completed on 2015-08-28  2:58:45

@@ -90,12 +90,16 @@
                 String courseID = request.getParameter("COURSEID");
                 String semester = request.getParameter("semester");
                 String year = request.getParameter("courseYear");
-                ResultSet rs = st.executeQuery("SELECT subjectID FROM presetsubjects WHERE courseID='"+courseID+"' AND semester='"+semester+"'");
+                ResultSet rs = st.executeQuery("SELECT presetsubjects.subjectID, subject.subjectName "+
+                                               "FROM presetsubjects "+
+                                               "INNER JOIN subject "+
+                                               "ON presetsubjects.subjectID=subject.subjectID "+
+                                               "WHERE presetsubjects.courseID='"+courseID+"' AND presetsubjects.semester='"+semester+"'");
             %>
             <form name="courseCreationForm" method="POST" action="CourseCreationDB.jsp">
                 <div class='row'>
                     <div class='col-lg-offset-4'>
-                        <table style="margin-top:30px" class="table-responsive"> 
+                        <table style="margin-top:30px" class="table-responsive table-bordered"> 
                             <thead>
                                 <tr>
                                     <th>SUBJECT</th>
@@ -105,15 +109,14 @@
                             <%while(rs.next()){%>
                             <tr>
                                 <td>
-                                    <input autocomplete="off" type="text" name="subjectID" placeholder="Enter subject ID" value="<%=rs.getString("subjectID")%>" readonly></td>
+                                    <%=rs.getString(1)+"  -  "+rs.getString(2)%>
+                                    <input type="hidden" name="subjectID" value="<%=rs.getString(1)%>"></td>
                                     <td align='center'><input type="number" name="section" min="1" max="5">
                                 </td>
                             </tr>
                             <%}%>
-                            <tr>
-                                <td colspan="2" align='center' style="padding-top:10px"><input type='submit' value='SUBMIT' class='btn btn-success'/></td>
-                            </tr>
                         </table>
+                        <input type='submit' value='SUBMIT' class='btn btn-success col-lg-offset-4'/>
                         <!-- PASS VALUE TO CourseCreationDB.jsp-->
                         <input type='hidden' value='<%=courseID%>' name='COURSEID'>
                         <input type='hidden' value='<%=semester%>' name='semester'>
