@@ -29,6 +29,7 @@
     String oriSubject = "";
     String oriSemYear = "";
     String oriSection = "";
+    String fileName = "";
     int subSectionID = 0;
     int fileUploadSuccess = 0;
     
@@ -39,6 +40,11 @@
             + "lectlist.courseEntryID = courseentry.courseEntryID WHERE "
             + "lecturerID = ? AND subjectID = ? AND sectionNo = ? AND semYear = ? ";
         PreparedStatement getListID = connection.prepareStatement(getListIDSQL);
+        
+    String insertFileListSQL
+            = "INSERT INTO subjectfile (sub_sectionID, fileType, fileName, fileLocation)"
+            + "VALUES (?, ?, ?, ?)";
+        PreparedStatement insertFileList = connection.prepareStatement(insertFileListSQL);
 
     // Verify the content type
     String contentType = request.getContentType();
@@ -67,8 +73,7 @@
             if ( !fi.isFormField () )	
             {
             // Get the uploaded file parameters
-
-                String fileName;
+                
                 int version = 1;
                 String curFilePath;
                 
@@ -142,9 +147,16 @@
             }
          //Updating DB Statements
             getListID.setString(1, lecturerID);
-            getListID.setString(2, subject);
-            //To Do -- Finish up DB SQL stuff
-         
+            getListID.setString(2, oriSubject);
+            getListID.setString(3, oriSection);
+            getListID.setString(4, oriSemYear);
+            subSectionID = (getListID.executeQuery()).getInt(1);
+            
+            insertFileList.setInt(1, subSectionID);
+            insertFileList.setString(2, fileType);
+            insertFileList.setString(3, fileName);
+            insertFileList.setString(4, dir);
+            insertFileList.execute();
          }
          out.println("</body>");
          out.println("</html>");
