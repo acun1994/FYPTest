@@ -56,6 +56,7 @@
             String section = "";
             String subject = "";
             String curSemYear = "";
+            boolean isAdmin = false;
             
             String getSemYearSQL = "SELECT DISTINCT semYear from courseentry ORDER BY courseEntryID DESC";
             PreparedStatement getSemYear = connection.prepareStatement(getSemYearSQL);
@@ -66,13 +67,19 @@
             }
                         
             if (session.getAttribute("userid")!=null){
-                if (checkAccess(session, 4)){
+                if (checkAccess(session, 4) || checkAccess(session, 3)){
                     lecturerID = (session.getAttribute("userid")).toString();
                 }
+                else{
+                    isAdmin = true;
+                    if (request.getParameter("subject")!= null && !request.getParameter("subject").equals("")){
+                        subject = request.getParameter("subject");
+                    }
+                }
             }
-            //Prep case for other level of access
-            else if (request.getParameter("lecturerID")!= null && !request.getParameter("lecturerID").equals("")){
-                lecturerID = request.getParameter("lecturerID");
+            //Error Case
+            else{
+                response.sendRedirect("/");
             }
             
             if (lecturerID.equals("")){
@@ -87,10 +94,20 @@
                     lectNameRS.next();
                 lecturerName = lectNameRS.getString("userName");
             
-            String getClassesSQL = "SELECT DISTINCT listID, subjectID, sectionNo FROM lectlist JOIN courseentry ON lectlist.courseEntryID=courseentry.courseEntryID WHERE lecturerID = ? AND semYear = ?";
-                PreparedStatement getClasses = connection.prepareStatement(getClassesSQL);
+            String getClassesSQL = "";
+            PreparedStatement getClasses = null;
+                if (!isAdmin) {
+                    getClassesSQL = "SELECT DISTINCT listID, subjectID, sectionNo FROM lectlist JOIN courseentry ON lectlist.courseEntryID=courseentry.courseEntryID WHERE lecturerID = ? AND semYear = ?";
+                    getClasses = connection.prepareStatement(getClassesSQL);
                     getClasses.setString(1, lecturerID);
                     getClasses.setString(2, curSemYear);
+                }
+                else{
+                    getClassesSQL = "SELECT DISTINCT listID, subjectID, sectionNo FROM lectlist JOIN courseentry ON lectlist.courseEntryID=courseentry.courseEntryID WHERE subjectID = ? AND semYear = ?";
+                    getClasses.setString(1, subject);
+                    getClasses.setString(2, curSemYear);
+                }
+                
                 ResultSet classListRS = getClasses.executeQuery();
            
             if (request.getParameter("class")!=null && !request.getParameter("class").equals("")){
@@ -163,7 +180,7 @@
                                 <td style="padding-top:16px" ><%= fileListRS.getString("fileType") %></td>
                                 <td style="padding-top:16px" ><%= fileListRS.getString("fileName") %></td>
                                 <td style="padding-top:16px" ><%= fileListRS.getString("status") %></td>
-                                <td><a href="#" class="btn btn-success">View</a> &nbsp;
+                                <td>
                                     <a href="#" class="btn btn-success">Download</a> &nbsp;
                                     <a href="#" class="btn btn-danger">Delete</a> &nbsp;
                                 </td>
