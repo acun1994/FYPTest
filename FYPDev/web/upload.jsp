@@ -9,7 +9,6 @@
 <%@ include file="dbCon.jsp"%>
 <%@ include file="checkLogin.jsp"%>
 
-
 <%
    File file ;
    
@@ -42,7 +41,7 @@
         PreparedStatement getListID = connection.prepareStatement(getListIDSQL);
         
     String insertFileListSQL
-            = "INSERT INTO subjectfile (sub_sectionID, fileType, fileName, fileLocation)"
+            = "INSERT INTO subjectfile (sub_sectionID, fileType, fileName, fileLocation) "
             + "VALUES (?, ?, ?, ?)";
         PreparedStatement insertFileList = connection.prepareStatement(insertFileListSQL);
 
@@ -70,57 +69,20 @@
          while ( i.hasNext () ) 
          {
             FileItem fi = (FileItem)i.next();
-            if ( !fi.isFormField () )	
+            if ( fi.isFormField () )	//Getting file particulars
             {
-            // Get the uploaded file parameters
-                
-                int version = 1;
-                String curFilePath;
-                
-                do{
-                    fileName = fi.getName();
-         
-                // Write the file
-                if( fileName.lastIndexOf("\\") >= 0 ){
-                    curFilePath= dir + 
-                    fileName.substring( fileName.lastIndexOf("\\")) ;
-                }else{
-                    curFilePath= dir + 
-                    fileName.substring(fileName.lastIndexOf("\\")+1) ;
-                }
-                
-                if (version>1){
-                    curFilePath = curFilePath.substring(0, curFilePath.lastIndexOf(".")) 
-                            + " v" + version 
-                            + curFilePath.substring(curFilePath.lastIndexOf("."));
-                }
-                file = new File(curFilePath);
-                version++;
-                }while (file.exists());
-                
-                fi.write( file ) ;
-                fileUploadSuccess++;
-                
-                //Update file changelog
-                
-                try{
-                    
-                }
-                catch (Exception ex){
-                    out.println("File failed to upload");
-                    out.println(ex);
-                }
-            }
-            else {
                 String fieldName = fi.getFieldName();
-                if(fieldName.equals("lecturerID")){
+                if(fieldName.equals("lectID")){
                     lecturerID = fi.getString();
+                    getListID.setString(1, lecturerID);
                 }
                 else if (fieldName.equals("subject")){
                     oriSubject = subject = fi.getString();
+                    getListID.setString(2, oriSubject);
                 }
                 else if (fieldName.equals("section")){
                     oriSection = fi.getString();
+                    getListID.setString(3, oriSection);
                     section = "Section ";
                     if (Integer.parseInt(fi.getString())<10)
                         section+= "0";
@@ -128,6 +90,11 @@
                 }
                 else if (fieldName.equals("semYear")){
                     oriSemYear = fi.getString();
+                    getListID.setString(4, oriSemYear);
+                    ResultSet tempRS = getListID.executeQuery();
+                    tempRS.next();
+                    subSectionID = tempRS.getInt(1);
+                    
                     String[] semYearArr = fi.getString().split("-");
                     String[] semYearArr2 = semYearArr[1].split("/");
                     
@@ -144,28 +111,47 @@
                         folder.mkdirs();
                     }
                 }
-            }
-         //Updating DB Statements
-            getListID.setString(1, lecturerID);
-            getListID.setString(2, oriSubject);
-            getListID.setString(3, oriSection);
-            getListID.setString(4, oriSemYear);
-            subSectionID = (getListID.executeQuery()).getInt(1);
             
-            insertFileList.setInt(1, subSectionID);
-            insertFileList.setString(2, fileType);
-            insertFileList.setString(3, fileName);
-            insertFileList.setString(4, dir);
-            insertFileList.execute();
+            }
+            else {//Process file
+
+                String curFilePath;
+                fileName = fi.getName();
+                
+                // Write the file
+                if( fileName.lastIndexOf("\\") >= 0 ){
+                    curFilePath= dir + 
+                    fileName.substring( fileName.lastIndexOf("\\")) ;
+                }else{
+                    curFilePath= dir + 
+                    fileName.substring(fileName.lastIndexOf("\\")+1) ;
+                }
+                
+                insertFileList.setInt(1, subSectionID);
+                insertFileList.setString(2, fileType);
+                insertFileList.setString(3, fileName);
+                insertFileList.setString(4, curFilePath.split("downloadFiles")[1].substring(1));
+                
+                file = new File(curFilePath);
+                
+                fi.write(file) ;
+                fileUploadSuccess++;
+                
+                insertFileList.execute();
+
+            }
          }
          out.println("</body>");
          out.println("</html>");
+         
       }catch(Exception ex) {
          System.out.println(ex);
       }
    }else{
+      System.out.println("Error");
       // Failed to upload file
    }
    
-   response.sendRedirect("./integrated_subjectFile.jsp?semYear="+oriSemYear+"&class="+oriSubject + "-"+ oriSection+"&success="+ fileUploadSuccess);
+    response.sendRedirect("./integrated_subjectFile.jsp?semYear="+oriSemYear+"&class="+oriSubject + "-"+ oriSection+"&success="+ fileUploadSuccess);
+   
 %>
