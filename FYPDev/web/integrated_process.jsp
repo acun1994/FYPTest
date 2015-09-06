@@ -35,12 +35,14 @@
                 execStatement = connection.prepareStatement(rejectSQL);
             }
             else if (task.equals("delete")){
-                execStatement = connection.prepareStatement(approveSQL);
+                execStatement = connection.prepareStatement(deleteSQL);
                 
             }
             execStatement.setInt(1, fileID);       
             execStatement.execute();
             }
+        
+            response.sendRedirect("./integrated_subjectFile.jsp?semYear="+request.getParameter("semYear")+"&class="+request.getParameter("class"));
         %>
             
             

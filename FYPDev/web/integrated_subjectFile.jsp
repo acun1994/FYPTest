@@ -131,7 +131,7 @@
                 classListRS.beforeFirst();
                 
                 if (classID!=0){
-                String fileListSQL = "SELECT fileID, fileType, fileName, status FROM subjectfile WHERE sub_sectionID = ? ORDER BY fileType";
+                String fileListSQL = "SELECT fileID, fileLocation, fileType, fileName, status FROM subjectfile WHERE sub_sectionID = ? ORDER BY fileType";
                     PreparedStatement fileList = connection.prepareStatement(fileListSQL);
                         fileList.setInt(1, classID);
                     fileListRS = fileList.executeQuery();
@@ -196,29 +196,36 @@
                                     <%= fileListRS.getString("status") %></div>
                                 </td>
                                 <td>
-                                    <form action="./integrated_download.jsp" method ="POST">
+                                    <form action="./integrated_download.jsp" method ="POST" target="_blank">
                                         <input type="text" hidden name="fileID" value="<%=fileListRS.getInt("fileID")%>">
-                                        <input type="text" hidden name="task" value="download">
-                                        <input type="submit" target="_blank" class="btn btn-default"> Download </input>
+                                        <input type="text" hidden name="fileLocation" value="<%=fileListRS.getString("fileLocation")%>">
+                                        <input type="submit" class="btn btn-default" value="Download"> </input>
                                     </form>
                                     <% if (isAdmin){ %>
                                     <form action="./integrated_process.jsp" method ="POST">
                                         <input type="text" hidden name="fileID" value="<%=fileListRS.getInt("fileID")%>">
                                         <input type="text" hidden name="task" value="approve">
-                                        <input type="submit" target="_blank" class="btn btn-success"> Approve </input>
+                                        <input type="text" hidden name="semYear" value="<%=curSemYear%>">
+                                        <input type="text" hidden name="class" value="<%=subject+"-"+section%>">
+                                        <input type="submit" class="btn btn-success" value="Approve"></input>
                                     </form>
                                     <form action="./integrated_process.jsp" method ="POST">
                                         <input type="text" hidden name="fileID" value="<%=fileListRS.getInt("fileID")%>">
                                         <input type="text" hidden name="task" value="reject">
-                                        <input type="submit" target="_blank" class="btn btn-danger"> Reject </input>
+                                        <input type="text" hidden name="semYear" value="<%=curSemYear%>">
+                                        <input type="text" hidden name="class" value="<%=subject+"-"+section%>">
+                                        <input type="submit" class="btn btn-danger" value="Reject"></input>
                                     </form>
                                     <% } else { %>
                                     <form action="./integrated_process.jsp" method ="POST">
                                         <input type="text" hidden name="fileID" value="<%=fileListRS.getInt("fileID")%>">
                                         <input type="text" hidden name="task" value="delete">
-                                        <input type="submit" target="_blank" class="btn btn-danger"> Delete </input>
+                                        <input type="text" hidden name="semYear" value="<%=curSemYear%>">
+                                        <input type="text" hidden name="class" value="<%=subject+"-"+section%>">
+                                        <input type="submit" class="btn btn-danger" value="Delete"></input>
                                     </form>
                                     <% } %>
+                                    </div>
                                 </td>
                             </tr>
                         <% } %>
