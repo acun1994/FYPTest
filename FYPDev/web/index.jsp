@@ -18,14 +18,14 @@ and open the template in the editor.
         </script>
         <style>
             #container{
-                margin-top:30px;
+                margin-top:-15px;
                 width:1305px;
                 align:center;
             }
             #contain{
                 float:left;
                 width: 900px;
-                height: 555px;
+                height: 560px;
                 border: 3px solid #00ffcc;
             } 
             #login{
@@ -33,17 +33,6 @@ and open the template in the editor.
                 width: 400px;
                 height: 300px;
                 border: 3px solid #00ffcc;
-            } 
-            #center{
-                position:relative;
-                top: 50%;
-                left: 50%;
-                width:30em;
-                height:15em;
-                margin-top: -9em; /*set to a negative number 1/2 of your height*/
-                margin-left: -15em; /*set to a negative number 1/2 of your width*/
-                border: 1px solid #ccc;
-                background-color: #f3f3f3;
             }
             #log-in-button{
                 align:right;
@@ -52,13 +41,12 @@ and open the template in the editor.
         </style>
    </head>
     <body class="mdl-card-actions" align="center">
-        <%@include file="resources/image/slider.jsp"%>
         <%@include file="navbar_session.jsp" %>
         <div id="container">
             <div id="contain">
                 <div class="well" align="center">Contains</div>
             </div>
-            <div id="login">
+            <div id="login"">
                 <div class="well" align="center">Log In</div>
                 <form align="center" class="form-group" method="post" autocomplete="off" name="Login_Info" action="loginAuth.jsp">
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">

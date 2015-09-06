@@ -28,7 +28,12 @@
             }
         }//End While
 %>
-<li class="dropdown"><button id="btnnavbar" class="mdl-button mdl-js-button mdl-color-text--white dropdown-toggle" data-toggle="dropdown"><a>Sem Year<span class="caret"></span></a></button>
+<li class="dropdown">
+    <button id="btnnavbar" class="mdl-button mdl-js-button mdl-color-text--white dropdown-toggle" data-toggle="dropdown">
+        <a>Sem Year
+            <span class="caret"></span>
+        </a>
+    </button>
 <ul class="dropdown-menu">
 <form action="dashboard.jsp" method="get">
     <%for (int i = 0; i < KJyear.size(); i++) {%>
