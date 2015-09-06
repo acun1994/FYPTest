@@ -153,7 +153,7 @@ CREATE TABLE `lectlist` (
   CONSTRAINT `lectList_courseID` FOREIGN KEY (`courseEntryID`) REFERENCES `courseentry` (`courseEntryID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `lectList_lectID` FOREIGN KEY (`lecturerID`) REFERENCES `userinfo` (`userID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `lectList_subID` FOREIGN KEY (`subjectID`) REFERENCES `subject` (`subjectID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -162,7 +162,7 @@ CREATE TABLE `lectlist` (
 
 LOCK TABLES `lectlist` WRITE;
 /*!40000 ALTER TABLE `lectlist` DISABLE KEYS */;
-INSERT INTO `lectlist` VALUES (2,15,'ID02','SCSD1513','1','Pending'),(3,15,'ID03','SCSD1513','2','Pending'),(4,15,'ID04','SCSD1513','3','Pending'),(5,15,'ID01','SCSD1513','0','Pending'),(6,15,'ID02','SCSD1513','1','Pending');
+INSERT INTO `lectlist` VALUES (2,15,'ID02','SCSD1513','1','Pending'),(3,15,'ID03','SCSD1513','2','Pending'),(4,15,'ID04','SCSD1513','3','Pending'),(5,15,'ID01','SCSD1513','0','Pending'),(6,15,'ID02','SCSD1513','1','Pending'),(7,17,'ID09','SCSD1513','1','Pending');
 /*!40000 ALTER TABLE `lectlist` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -231,11 +231,11 @@ CREATE TABLE `subjectfile` (
   `fileType` varchar(45) NOT NULL,
   `fileName` varchar(45) NOT NULL,
   `status` varchar(45) NOT NULL DEFAULT 'Pending',
-  `fileLocation` varchar(100) NOT NULL,
+  `fileLocation` varchar(255) NOT NULL,
   PRIMARY KEY (`fileID`),
   KEY `subjectFile_subID_idx` (`sub_sectionID`),
   CONSTRAINT `subjectFile_subID` FOREIGN KEY (`sub_sectionID`) REFERENCES `lectlist` (`listID`) ON DELETE SET NULL ON UPDATE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -244,7 +244,6 @@ CREATE TABLE `subjectfile` (
 
 LOCK TABLES `subjectfile` WRITE;
 /*!40000 ALTER TABLE `subjectfile` DISABLE KEYS */;
-INSERT INTO `subjectfile` VALUES (1,NULL,'Notes','a.pdf','Pending',''),(2,NULL,'Notes','b.pdf','Pending',''),(3,NULL,'Notes','c.pdf','Pending',''),(4,NULL,'Notes','d.pdf','Pending',''),(5,NULL,'Student Work','work1.doc','Pending',''),(6,NULL,'Student Work','work2.doc','Pending',''),(7,NULL,'Student Work','work3.doc','Pending',''),(8,NULL,'Student Work','work4.doc','Pending','');
 /*!40000 ALTER TABLE `subjectfile` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -285,4 +284,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-08-28  2:58:45
+-- Dump completed on 2015-09-07  0:01:52

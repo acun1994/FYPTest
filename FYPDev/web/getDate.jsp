@@ -15,20 +15,20 @@
             
                 String setYear = Integer.toString(yearNow).substring(2,4);
 
-                if(monthComp > now.get(Calendar.JANUARY))
+                if(monthComp < now.get(Calendar.JANUARY))
                 {
                     setYear =  Integer.toString(yearNow - 1).substring(2, 4) +  "/"  + setYear;
 
                     if(monthComp > now.get(Calendar.JUNE))
                     {
-                        semYear = "2-" + setYear;
+                        semYear = "3-" + setYear;
                         
                         getCourseEntryID.setString(1,semYear);
                         getCoordinating.setString(2,semYear);
                     }
                     else
                     {
-                        semYear = "3-" + setYear;
+                        semYear = "2-" + setYear;
                     
                         getCourseEntryID.setString(1,semYear);
                         getCoordinating.setString(2,semYear);
