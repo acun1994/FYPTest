@@ -131,7 +131,7 @@
                 classListRS.beforeFirst();
                 
                 if (classID!=0){
-                String fileListSQL = "SELECT fileType, fileName, status FROM subjectfile WHERE sub_sectionID = ? ORDER BY fileType";
+                String fileListSQL = "SELECT fileID, fileType, fileName, status FROM subjectfile WHERE sub_sectionID = ? ORDER BY fileType";
                     PreparedStatement fileList = connection.prepareStatement(fileListSQL);
                         fileList.setInt(1, classID);
                     fileListRS = fileList.executeQuery();
@@ -196,12 +196,28 @@
                                     <%= fileListRS.getString("status") %></div>
                                 </td>
                                 <td>
-                                    <a href="#" class="btn btn-default">Download</a> &nbsp;
+                                    <form action="./integrated_download.jsp" method ="POST">
+                                        <input type="text" hidden name="fileID" value="<%=fileListRS.getInt("fileID")%>">
+                                        <input type="text" hidden name="task" value="download">
+                                        <input type="submit" target="_blank" class="btn btn-default"> Download </input>
+                                    </form>
                                     <% if (isAdmin){ %>
-                                    <a href="#" class="btn btn-success">Approve</a> &nbsp;
-                                    <a href="#" class="btn btn-danger">Reject</a> &nbsp;
+                                    <form action="./integrated_process.jsp" method ="POST">
+                                        <input type="text" hidden name="fileID" value="<%=fileListRS.getInt("fileID")%>">
+                                        <input type="text" hidden name="task" value="approve">
+                                        <input type="submit" target="_blank" class="btn btn-success"> Approve </input>
+                                    </form>
+                                    <form action="./integrated_process.jsp" method ="POST">
+                                        <input type="text" hidden name="fileID" value="<%=fileListRS.getInt("fileID")%>">
+                                        <input type="text" hidden name="task" value="reject">
+                                        <input type="submit" target="_blank" class="btn btn-danger"> Reject </input>
+                                    </form>
                                     <% } else { %>
-                                    <a href="#" class="btn btn-danger">Delete</a> &nbsp;
+                                    <form action="./integrated_process.jsp" method ="POST">
+                                        <input type="text" hidden name="fileID" value="<%=fileListRS.getInt("fileID")%>">
+                                        <input type="text" hidden name="task" value="delete">
+                                        <input type="submit" target="_blank" class="btn btn-danger"> Delete </input>
+                                    </form>
                                     <% } %>
                                 </td>
                             </tr>
