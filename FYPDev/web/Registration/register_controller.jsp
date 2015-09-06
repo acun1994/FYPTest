@@ -310,7 +310,7 @@ componentHandler.register({
     </style>
     </head>
     <body>
-       <form id="reg_form" action="Registration/registerDB.jsp" method="post">
+       <form id="regForm" action="Registration/registerDB.jsp" method="post">
             <table>
                 <tr>
                     <td>
@@ -373,7 +373,7 @@ componentHandler.register({
                             </td>
                 </tr>
                 <tr>
-                    <td colspan="2" align="center"><button class="mdl-button mdl-js-button mdl-js-ripple-effect" type="submit">Register</button></td>
+                    <td colspan="2" align="center"><button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color--blue" type="submit">Register</button></td>
                 </tr>
             </table>
         </form>
