@@ -64,9 +64,11 @@
             {
                 try{
                     count = 0;
-                    for (int i = 0 ; i < lectValue.length ; i++) {
+                    for (int i = 1 ; i <= lectValue.length ; i++) {
                         st.execute("INSERT INTO lectlist(subjectID,sectionNo,lecturerID,courseEntryID) "
-                                 + "VALUES('"+subjectID+"','"+count+"','"+lecturerID[count]+"','"+courseEntryID+"')");
+                                 + "VALUES('"+subjectID+"','"+(count+1)+"','"+lecturerID[count]+"','"+courseEntryID+"')");
+                        
+                        st.execute("UPDATE coordinatorlist SET status='PENDING' WHERE semYear='"+semYear+"' AND subjectID='"+subjectID+"'");
                         count++;
                     }
                     response.sendRedirect("Lecturer Selection.jsp?insert=true"); 

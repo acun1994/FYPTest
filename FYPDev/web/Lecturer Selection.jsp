@@ -94,11 +94,17 @@
                         <option value=''>Please select a subject</option>
                         <%
                             try{
-                                String subjectID = "",subjectDD = "";
+                                String subjectID = "",subjectDD = "",courseEntryID="";
+                                String courseID = request.getParameter("courseID");
+                                String semesterYear = request.getParameter("semesterYear");
+                                ResultSet courseEntryID_RS = st.executeQuery("SELECT courseEntryID FROM courseentry WHERE courseID='"+courseID+"' AND semYear = '"+semesterYear+"'");
+                                courseEntryID_RS.next();
+                                courseEntryID = courseEntryID_RS.getString(1);
                                 dropdownRS = st.executeQuery("SELECT coordinatorlist.subjectID, subject.subjectName "+
                                                              "FROM coordinatorlist "+
                                                              "INNER JOIN subject "+
-                                                             "ON coordinatorlist.subjectID=subject.subjectID");
+                                                             "ON coordinatorlist.subjectID=subject.subjectID "+
+                                                             "WHERE coordinatorlist.courseEntryID='"+courseEntryID+"' AND status='Incomplete'");
                                 subjectID = request.getParameter("subjectID");
                                 while(dropdownRS.next()){ subjectDD = dropdownRS.getString(1); %>
                                 <option <%if(dropdownRS.getString(1).equals(subjectID)){%>selected<%}%> value="<%=subjectDD%>"><%=subjectDD + " - " + dropdownRS.getString(2) %></option>
@@ -142,7 +148,7 @@
                         <td><label>Assign Lecturer</label></td>
                         <td><label>Assign Section</label></td>
                     </tr>
-                    <%for(count = 0 ; count < sectionCount ; count++){;%>
+                    <%for(count = 1 ; count <= sectionCount ; count++){;%>
                     <tr>
                         <td><input autocomplete='off' type="text" name="lecturerID" placeholder="Enter lecturer ID here" list="userInfoData" class="form-control" /></td>
                         <td style="padding-left: 40px"><%=count+1%>
